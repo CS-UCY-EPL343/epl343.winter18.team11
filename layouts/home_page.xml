@@ -1,0 +1,73 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="c.tests.winter2018.HomePage">
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout  android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/home" />
+        </LinearLayout>
+        <LinearLayout  android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:text="About Us"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+
+
+                android:textStyle="bold|italic" />
+
+        </LinearLayout>
+
+        <LinearLayout  android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+
+                android:text="test"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="italic"
+                tools:layout_editor_absoluteX="125dp"
+                tools:layout_editor_absoluteY="200dp">
+
+            </TextView>
+        </LinearLayout>
+
+
+
+    </TableLayout>
+
+</ScrollView>
