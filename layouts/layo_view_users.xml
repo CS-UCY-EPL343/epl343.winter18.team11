@@ -22,6 +22,7 @@
         android:id="@+id/test3"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/test2"
         android:layout_alignBottom="@+id/test2"
         android:layout_toEndOf="@+id/test2"
         android:layout_toRightOf="@+id/test2"
@@ -29,25 +30,13 @@
 
     <TextView
         android:id="@+id/test4"
-        android:layout_width="75dp"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/test3"
         android:layout_alignBottom="@+id/test3"
         android:layout_toEndOf="@+id/test3"
         android:layout_toRightOf="@+id/test3"
         android:text="" />
-
-    <ImageButton
-        android:id="@+id/edit_employee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/test4"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:text=""
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
-
 
 
 </RelativeLayout>
