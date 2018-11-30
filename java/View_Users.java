@@ -1,12 +1,12 @@
-package c.tests.winter2018;
-/**
- * This class is responsible for the employee status page.  It displays all the company's employees,
- * some of their details and their status (if they are online, offline, on a break or on a leave).
+package c.tests.Team11;
+/** This class gives the chance to the admin
+ * to see all the users that have created
+ * an account from the application. And see them
+ * personal information
  */
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,10 +40,10 @@ public class View_Users extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.view_users,
+        final View rootView = inflater.inflate(c.tests.Team11.R.layout.view_users,
                 container, false);
 
-        UserList = (ListView) rootView.findViewById(R.id.EmployeeList);
+        UserList = (ListView) rootView.findViewById(c.tests.Team11.R.id.EmployeeList);
         UserList.invalidateViews();
         context = container.getContext();
 
@@ -57,36 +56,11 @@ public class View_Users extends Fragment {
         doInBackground();
 
 
-        mAdapter = new Custom_Adapter_View_Users(context, R.layout.layo_view_users, li, manager);
+        mAdapter = new Custom_Adapter_View_Users(context, c.tests.Team11.R.layout.layo_view_users, li);
 
         UserList.setAdapter(mAdapter);
-        getActivity().setTitle("View Employees");
+        getActivity().setTitle("View Users");
 
-
-
-        //ImageButton searchButton = getActivity().findViewById(R.id.search);
-
-        //searchButton.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View v) {
-                //search_textview = (TextView) getActivity().findViewById(R.id.search_text);
-                //String search_string = search_textview.getText().toString();
-                //if (search_textview == null || search_string == null) return;
-
-             /*   LinkedList<Listnode_View_Users> search = new LinkedList<Listnode_View_Users>();
-
-                /*for (Listnode_View_Users l : li)
-                    if ( l.Name.toLowerCase().contains(search_string.toLowerCase())
-                            || l.Surname.toLowerCase().contains(search_string.toLowerCase()) || l.ID.toLowerCase().contains(search_string.toLowerCase()))
-                        search.add(l);
-
-
-                mAdapter = new Custom_Adapter_View_Users(context, R.layout.layo_view_users, search, manager);
-                UserList.setAdapter(mAdapter);
-
-
-            }
-        });*/
 
 
 
