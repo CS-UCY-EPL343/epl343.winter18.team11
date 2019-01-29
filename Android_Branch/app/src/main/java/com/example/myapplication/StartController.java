@@ -11,6 +11,8 @@ public class StartController extends Application {
 
     private static StartController mInstance ;
     private RequestQueue mRequestQueue;
+    public static final String TAG = "StartController";
+
     public static StartController getmInstance() {
         return mInstance;
     }
@@ -27,13 +29,13 @@ public class StartController extends Application {
     }
 
     public <String> void addToRequestQueue(Request<String> req) {
-        req.setTag("StartController");
+        req.setTag(TAG);
         createRequestQueue().add(req);
     }
 
-    public void cancelRequests(Object tag) {
+    protected void onStop () {
         if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(tag);
+            mRequestQueue.cancelAll(TAG);
         }
     }
     @Override
