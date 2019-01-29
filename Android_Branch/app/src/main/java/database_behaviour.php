@@ -10,7 +10,7 @@ class database_behaviour {
         $this->conn = $db->connect();
     }
     /*Save the user*/
-    public function storeUser($name, $email, $password) {
+    public function saveUser($name, $email, $password) {
         /*Generate a unique ID*/
         $uniqueID = printf("uniqid(): %s\r\n", uniqid());
         $hash = $this->hashSSHA($password);
@@ -34,7 +34,7 @@ class database_behaviour {
         }
     }
     /*Find the user*/
-    public function findUserPassword($email, $password) {
+    public function findUserWithPassword($email, $password) {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         if ($stmt->execute()) {
