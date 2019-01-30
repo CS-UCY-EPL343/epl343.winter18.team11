@@ -1,23 +1,79 @@
 package com.example.myapplication;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import java.util.HashMap;
 
-public class Home extends AppCompatActivity {
-    private static final String LOG_TAG =
-            Home.class.getSimpleName();
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.myapplication.LoginActivity;
+import com.example.myapplication.R;
+import com.example.myapplication.SessionManager;
+import com.example.myapplication.SqlManager;
+
+public class Home extends Activity {
+
+    private TextView txtName;
+    private TextView txtEmail;
+    private Button btnLogout;
+
+    private SqlManager db;
+    private SessionManager session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        txtName = (TextView) findViewById(R.id.name);
+        txtEmail = (TextView) findViewById(R.id.email);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+
+        // SqLite database handler
+        db = new SqlManager(getApplicationContext());
+
+        // session manager
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
+
+        // Fetching user details from sqlite
+        HashMap<String, String> user = db.getUserDetails();
+
+        String name = user.get("name");
+        String email = user.get("email");
+
+        // Displaying the user details on the screen
+        txtName.setText(name);
+        txtEmail.setText(email);
+
+        // Logout button click event
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                logoutUser();
+            }
+        });
     }
 
-    public void launchSecondActivity(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        Log.d(LOG_TAG, "Button clicked!");
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     * */
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(Home.this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 }

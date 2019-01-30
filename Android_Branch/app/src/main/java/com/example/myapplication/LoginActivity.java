@@ -49,7 +49,7 @@ public class LoginActivity extends Activity {
         pDialog.setCancelable(false);
 
         // SQLite database handler
-        db = new SQLiteHandler(getApplicationContext());
+        db = new SqlManager(getApplicationContext());
 
         // Session manager
         session = new SessionManager(getApplicationContext());
@@ -107,7 +107,7 @@ public class LoginActivity extends Activity {
         showDialog();
 
         StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.URL_LOGIN, new Response.Listener<String>() {
+                NetworkConfigure.URL_LOGIN, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
