@@ -28,7 +28,7 @@ public class StartController extends Application {
         return mRequestQueue;
     }
 
-    public <String> void addToRequestQueue(Request<String> req) {
+    public <String> void addToRequestQueue(Request<String> req, java.lang.String tag_string_req) {
         req.setTag(TAG);
         createRequestQueue().add(req);
     }
