@@ -18,6 +18,8 @@ public class SqlManager extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
+    private static final String KEY_MOBILE = "mobile";
+    private static final String KEY_ADDRESS = "address";
     private static final String KEY_UID = "uid";
     private static final String KEY_CREATED_AT = "created_at";
 
@@ -34,7 +36,7 @@ public class SqlManager extends SQLiteOpenHelper {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
-                + KEY_CREATED_AT + " TEXT" + ")";
+                + KEY_CREATED_AT + " TEXT" + KEY_ADDRESS +"TEXT" + KEY_MOBILE+"TEXT"+")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
         Log.d(TAG, "Database tables created");
@@ -47,12 +49,14 @@ public class SqlManager extends SQLiteOpenHelper {
     }
 
 
-    public void addUser(String name, String email, String uid, String created_at) {
+    public void addUser(String name, String email, String uid, String created_at,String address, String mobile) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, name); // Name
-        values.put(KEY_EMAIL, email); // Email
-        values.put(KEY_UID, uid); // Email
+        values.put(KEY_NAME, name);
+        values.put(KEY_EMAIL, email);
+        values.put(KEY_MOBILE, mobile);
+        values.put(KEY_ADDRESS, address);
+        values.put(KEY_UID, uid);
         values.put(KEY_CREATED_AT, created_at);
 
         long id = db.insert(TABLE_USER, null, values);
