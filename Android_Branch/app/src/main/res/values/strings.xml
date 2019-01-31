@@ -30,6 +30,10 @@
     <string name="action_settings">Settings</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
-    <string name="title_activity_item">ItemActivity</string>
-    <string name = "items">Cus</string>
+    <string name="shop_name">Shop</string>
+    <string-array name="shop">
+        <item>Ekklisiastika</item>
+        <item>Pilina</item>
+        <item>Aggeia</item>
+    </string-array>
 </resources>
