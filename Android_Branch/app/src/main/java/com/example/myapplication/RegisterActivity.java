@@ -14,12 +14,6 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.myapplication.LoginActivity;
-import com.example.myapplication.NetworkConfigure;
-import com.example.myapplication.SessionManager;
-import com.example.myapplication.SqlManager;
-import com.example.myapplication.StartController;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

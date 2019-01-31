@@ -27,19 +27,22 @@ public class DummyContent {
 
     static {
         // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+      //  for (int i = 1; i <= COUNT; i++) {
+      //      addItem(createDummyItem(i));
+      //  }
+        addItem(new DummyItem("1", "potteryShape1",
+                "https://www.ebookfrenzy.com","15"));
+
     }
 
     private static void addItem(DummyItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
-
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
+//we will modify the creation of dummy item later
+   // private static DummyItem createDummyItem(int position) {
+    //    return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+    //}
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
@@ -59,7 +62,7 @@ public class DummyContent {
         public String price;
         public String url;
 
-        public DummyItem(String id, String content, String details) {
+        public DummyItem(String id, String pottery, String price,String url) {
             this.id = id;
             this.pottery = pottery;
             this.price = price;
@@ -69,7 +72,7 @@ public class DummyContent {
 
         @Override
         public String toString() {
-            return content;
+            return pottery;
         }
     }
 }

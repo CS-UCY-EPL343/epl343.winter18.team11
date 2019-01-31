@@ -83,11 +83,7 @@ public class Navigation extends AppCompatActivity
 
         if (id == R.id.nav_account) {
             /*Lanch account */
-            Intent intent = new Intent(
-                    Account_Activity.this,
-                    Navigation.class);
-            startActivity(intent);
-            finish();
+
         } else if (id == R.id.nav_contact) {
 
         } else if (id == R.id.nav_time) {

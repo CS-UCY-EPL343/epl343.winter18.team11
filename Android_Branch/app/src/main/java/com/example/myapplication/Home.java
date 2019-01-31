@@ -9,11 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.myapplication.LoginActivity;
-import com.example.myapplication.R;
-import com.example.myapplication.SessionManager;
-import com.example.myapplication.SqlManager;
-
 public class Home extends Activity {
 
     private TextView txtName;
