@@ -48,7 +48,7 @@ public class Home extends Activity {
         txtEmail.setText(email);
 
 
-        btnMenu.setOnClickListener(new View.OnClickListener() {
+       btnMenu.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
@@ -73,8 +73,8 @@ public class Home extends Activity {
         db.deleteUsers();
 
         // Launching the login activity
-        Intent intent = new Intent(Home.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+     //   Intent intent = new Intent(Home.this, LoginActivity.class);
+       // startActivity(intent);
+      //  finish();
     }
 }
