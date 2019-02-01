@@ -83,7 +83,7 @@
         <!-- Login Button -->
 
         <EditText
-            android:id="@+id/password2"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"

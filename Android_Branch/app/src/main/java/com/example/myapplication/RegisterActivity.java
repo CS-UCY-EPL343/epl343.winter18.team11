@@ -126,6 +126,9 @@ public class RegisterActivity extends Activity {
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
                         String email = user.getString("email");
+                        String address = user.getString("address");
+                        String mobile = user.getString("mobile");
+
                         String created_at = user
                                 .getString("created_at");
 
