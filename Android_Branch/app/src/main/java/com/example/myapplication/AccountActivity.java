@@ -15,9 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.HashMap;
+/*For the account activity we will have to first
+   1.Get a database connection
+   2.View username password and any orders that happened to that name before
+   
+ */
 
-public class Navigation extends AppCompatActivity
+public class AccountActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private SqlManager db;
     TextView name;
@@ -26,7 +30,7 @@ public class Navigation extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
+        setContentView(R.layout.activity_account);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         db = new SqlManager(getApplicationContext());
         setSupportActionBar(toolbar);
@@ -66,8 +70,8 @@ public class Navigation extends AppCompatActivity
 //        HashMap<String, String> user = db.getUserDetails();
         email = (TextView) findViewById(R.id.emailNav);
         name = (TextView) findViewById(R.id.nameNav);
-       //String nameStr = user.get("name");
-       // String emailStr = user.get("email");
+        //String nameStr = user.get("name");
+        // String emailStr = user.get("email");
         /*To be changed with user details */
         name.setText("s");
         email.setText("s");
@@ -96,7 +100,7 @@ public class Navigation extends AppCompatActivity
 
         if (id == R.id.nav_account) {
             Intent i = new Intent(getApplicationContext(),
-                   AccountActivity.class);
+                    AccountActivity.class);
             startActivity(i);
             finish();
 
