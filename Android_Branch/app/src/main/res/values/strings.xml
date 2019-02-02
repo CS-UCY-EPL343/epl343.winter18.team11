@@ -32,8 +32,13 @@
     <string name="title_item_detail">Item Detail</string>
     <string name="shop_name">Shop</string>
     <string-array name="shop">
-        <item>Ekklisiastika</item>
-        <item>Pilina</item>
-        <item>Aggeia</item>
+        <item name="Ekklisiastika">
+            <item name="Agio Diskopotiro">
+                <item name = "price">$10</item>
+            </item>
+        </item>
+        <item name="Pilina"></item>
+
     </string-array>
+    <string name="title_activity_items">ItemsActivity</string>
 </resources>

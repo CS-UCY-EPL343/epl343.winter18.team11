@@ -15,8 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.HashMap;
-
 public class Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private SqlManager db;
@@ -105,7 +103,7 @@ public class Navigation extends AppCompatActivity
         } else if (id == R.id.nav_time) {
 
         } else if (id == R.id.nav_shop) {
-            Intent i = new Intent(getApplicationContext(),ItemActivity.class);
+            Intent i = new Intent(getApplicationContext(), CategoryActivity.class);
             startActivity(i);
             finish();
         } else if (id == R.id.nav_share) {

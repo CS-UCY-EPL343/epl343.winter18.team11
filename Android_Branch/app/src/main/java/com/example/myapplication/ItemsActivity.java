@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class OneItemActivity extends AppCompatActivity {
+public class ItemsActivity extends AppCompatActivity {
 
     TextView titleList;
     Toolbar mToolbar;
@@ -28,9 +28,9 @@ public class OneItemActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
             mToolbar.setTitle(bundle.getString("ItemName"));
-           /*This must be automated*/
+            /*This must be automated*/
             if(mToolbar.getTitle().toString().equalsIgnoreCase("Ekklisiastika")){
-                flag.setImageDrawable(ContextCompat.getDrawable(OneItemActivity.this,R.drawable.ekklisiastika));
+                flag.setImageDrawable(ContextCompat.getDrawable(ItemsActivity.this,R.drawable.ekklisiastika));
                 priceText.setText(bundle.getString("price"));
                 titleList.setText("Αγιον Δισκοποτηρον");
             }
