@@ -105,8 +105,11 @@ public class Navigation extends AppCompatActivity
         } else if (id == R.id.nav_time) {
 
         } else if (id == R.id.nav_shop) {
-
+            Intent i = new Intent(getApplicationContext(),ItemActivity.class);
+            startActivity(i);
+            finish();
         } else if (id == R.id.nav_share) {
+
 
         } else if (id == R.id.nav_send) {
 

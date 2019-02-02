@@ -18,7 +18,7 @@ import android.widget.TextView;
 /*For the account activity we will have to first
    1.Get a database connection
    2.View username password and any orders that happened to that name before
-   
+
  */
 
 public class AccountActivity extends AppCompatActivity
@@ -34,14 +34,7 @@ public class AccountActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         db = new SqlManager(getApplicationContext());
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -105,6 +98,7 @@ public class AccountActivity extends AppCompatActivity
             finish();
 
         } else if (id == R.id.nav_contact) {
+
 
         } else if (id == R.id.nav_time) {
 
