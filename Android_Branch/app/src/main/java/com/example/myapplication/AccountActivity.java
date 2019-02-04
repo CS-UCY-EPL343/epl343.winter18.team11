@@ -2,116 +2,86 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.HashMap;
 
 /*For the account activity we will have to first
    1.Get a database connection
-   2.View username password and any orders that happened to that name before
+   2.View username password ,any orders that happened to that name before
 
  */
 
-public class AccountActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class AccountActivity extends Navigation
+       {
     private SqlManager db;
     TextView name;
     TextView email;
-
+    TextView address;
+    Button btnLogout;
+    private SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         db = new SqlManager(getApplicationContext());
+
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
         navigationView.setNavigationItemSelectedListener(this);
+        updateAccountScreen();
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutUser();
+            }
+        });
     }
+    public void updateAccountScreen(){
+        /*Get the database connection*/
+        db = new SqlManager(getApplicationContext());
+        String nameStr;
+        String emailStr;
+        String addressStr;
+        // session manager
+        session = new SessionManager(getApplicationContext());
 
-    @Override
-    public void onBackPressed() {
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-//        HashMap<String, String> user = db.getUserDetails();
-        email = (TextView) findViewById(R.id.emailNav);
-        name = (TextView) findViewById(R.id.nameNav);
-        //String nameStr = user.get("name");
-        // String emailStr = user.get("email");
-        /*To be changed with user details */
-        name.setText("s");
-        email.setText("s");
-        getMenuInflater().inflate(R.menu.navigation, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
+        if (!session.isLoggedIn()) {
+           // logoutUser();
         }
 
-        return super.onOptionsItemSelected(item);
+        // Fetching user details from sqlite
+        HashMap<String, String> user = db.getUserDetails();
+       // String name = user.get("name");
+      //  String email = user.get("email");
+        name = (TextView)findViewById(R.id.usernameAccount);
+        email= (TextView) findViewById(R.id.emailAccount);
+        address  = (TextView) findViewById(R.id.addressAccount);
+        name.setText("Stefanos Ioannou");
+
     }
+           private void logoutUser() {
+               session.setLogin(false);
+               db.deleteUsers();
+               //Launching the login activity
+               Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
+               startActivity(intent);
+               finish();
+           }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.nav_account) {
-            Intent i = new Intent(getApplicationContext(),
-                    AccountActivity.class);
-            startActivity(i);
-            finish();
-
-        } else if (id == R.id.nav_contact) {
-
-
-        } else if (id == R.id.nav_time) {
-
-        } else if (id == R.id.nav_shop) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

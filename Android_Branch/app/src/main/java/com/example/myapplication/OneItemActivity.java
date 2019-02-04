@@ -10,6 +10,13 @@ import android.widget.TextView;
 
 public class OneItemActivity extends AppCompatActivity {
 
+    /*Each Item must be stored inside an xml file and
+    be retrieved each time.
+     */
+
+
+
+
     TextView titleList;
     Toolbar mToolbar;
     ImageView flag;
@@ -32,6 +39,8 @@ public class OneItemActivity extends AppCompatActivity {
             if(mToolbar.getTitle().toString().equalsIgnoreCase("Ekklisiastika")){
                 flag.setImageDrawable(ContextCompat.getDrawable(OneItemActivity.this,R.drawable.ekklisiastika));
                 priceText.setText(bundle.getString("price"));
+
+
                 titleList.setText("Αγιον Δισκοποτηρον");
             }
         }

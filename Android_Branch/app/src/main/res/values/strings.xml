@@ -32,13 +32,19 @@
     <string name="title_item_detail">Item Detail</string>
     <string name="shop_name">Shop</string>
     <string-array name="shop">
-        <item name="Ekklisiastika">
-            <item name="Agio Diskopotiro">
-                <item name = "price">$10</item>
-            </item>
-        </item>
-        <item name="Pilina"></item>
+        <item>Ekklisiastika</item>
+        <item>Pilina</item>
+        <item>Aggeia</item>
+        </string-array>
+    <string-array name = "Ekklisiastika">
+            <item>Agio Diskopotiro</item>
+    </string-array>
+    <string-array name="AgioDiskopotiro">
+        <item>Αυτο το δισκοπότηρο έγινε δια της αγάπης του Κυρίου.</item>
+        <item>10</item>
 
     </string-array>
+
+
     <string name="title_activity_items">ItemsActivity</string>
 </resources>
