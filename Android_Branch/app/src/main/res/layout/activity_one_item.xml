@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/descriptionText"
         android:layout_width="262dp"
         android:layout_height="156dp"
         android:layout_marginStart="49dp"
@@ -61,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ekklisiastika" />
+        app:srcCompat="@drawable/agio_diskopotiro" />
 
     <TextView
         android:id="@+id/priceList"

@@ -16,16 +16,18 @@ public class ItemsActivity extends Navigation {
     Toolbar toolbar;
     ListView listView;
     private SqlManager db;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.shop_name));
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
         db = new SqlManager(getApplicationContext());
+        /*Navigation Settings*/
+
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -35,22 +37,31 @@ public class ItemsActivity extends Navigation {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Get the current category from the intent and put it on the toolbar
+        Bundle bundle = getIntent().getExtras();
+        String items[] = new String[20];
+        listView = (ListView) findViewById(R.id.listView);
 
-
-
-        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(ItemsActivity.this,android.R.layout.simple_list_item_1,
-                getResources().getStringArray(R.array.Ekklisiastika));
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            /*Each category has items */
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ItemsActivity.this, OneItemActivity.class);
-                intent.putExtra("ItemName",listView.getItemAtPosition(position).toString());
-                startActivity(intent);
+        if (bundle != null) {
+            switch (bundle.getString("CategoryName")) {
+                case "Ekklisiastika":
+                    items = getResources().getStringArray(R.array.Ekklisiastika);
+                    toolbar.setTitle("Ekklisiastika");
             }
-        });
-        listView.setAdapter(mAdapter);
+            //Set the array adapter
+            ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(ItemsActivity.this, android.R.layout.simple_list_item_1, items);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                /*Each category has items */
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(ItemsActivity.this, OneItemActivity.class);
+                    intent.putExtra("ItemName", listView.getItemAtPosition(position).toString());
+                    startActivity(intent);
+                }
+            });
+            listView.setAdapter(mAdapter);
+        }
     }
 }
+

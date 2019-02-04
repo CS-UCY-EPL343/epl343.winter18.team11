@@ -37,19 +37,18 @@ public class CategoryActivity extends Navigation {
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-
-
-        //Find in the listView
+        //Find in the listView and view all the items in the string
         listView = (ListView)findViewById(R.id.listView);
+
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(CategoryActivity.this,android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.shop));
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             /*Each category has items */
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(CategoryActivity.this, ItemsActivity.class);
-                intent.putExtra("ItemName",listView.getItemAtPosition(position).toString());
+                intent.putExtra("CategoryName",listView.getItemAtPosition(position).toString());
                 startActivity(intent);
             }
         });
