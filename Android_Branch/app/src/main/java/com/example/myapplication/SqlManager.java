@@ -1,20 +1,21 @@
 package com.example.myapplication;
 
-import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 import java.util.HashMap;
 
 public class SqlManager extends SQLiteOpenHelper {
 
     private static final String TAG = SQLiteOpenHelper.class.getSimpleName();
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "android_api";
+    private static final String DATABASE_NAME = "android";
     private static final String TABLE_USER = "user";
+    private static final String TABLE_ORDER = "orders";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
@@ -22,6 +23,11 @@ public class SqlManager extends SQLiteOpenHelper {
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_UID = "uid";
     private static final String KEY_CREATED_AT = "created_at";
+
+    private static final String KEY_PRODUCT_ID= "product_id";
+    private static final String KEY_PRODUCT_QUANTITY= "product_quantity";
+
+
 
     public SqlManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,20 +41,23 @@ public class SqlManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
-                + KEY_CREATED_AT + " TEXT" + KEY_ADDRESS +"TEXT" + KEY_MOBILE+"TEXT"+")";
-        db.execSQL(CREATE_LOGIN_TABLE);
+                + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + "TEXT,"
+                + KEY_CREATED_AT + " TEXT," + KEY_ADDRESS +"TEXT," + KEY_MOBILE+"TEXT"+")";
 
-        Log.d(TAG, "Database tables created");
+        String CREATE_ORDER_TABLE = "CREATE TABLE " +  TABLE_ORDER + "("+ KEY_PRODUCT_ID +
+                "TEXT," + KEY_PRODUCT_QUANTITY + "TEXT )";
+        db.execSQL(CREATE_LOGIN_TABLE);
+        db.execSQL(CREATE_ORDER_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDER);
         onCreate(db);
     }
 
-
+    /*Add Users*/
     public void addUser(String name, String email, String uid, String created_at,String address, String mobile) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -58,10 +67,22 @@ public class SqlManager extends SQLiteOpenHelper {
         values.put(KEY_ADDRESS, address);
         values.put(KEY_UID, uid);
         values.put(KEY_CREATED_AT, created_at);
+        values.put(KEY_ADDRESS, address);
 
         long id = db.insert(TABLE_USER, null, values);
         db.close();
         Log.d(TAG, "New user inserted into sqlite: " + id);
+    }
+
+    /*For adding orders*/
+    public void addOrder(String product_id , int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRODUCT_ID, product_id);
+        values.put(KEY_PRODUCT_QUANTITY, quantity);
+        long id = db.insert(TABLE_ORDER, null, values);
+        db.close();
+        Log.d(TAG, "Order inserted into sqlite: " + id);
     }
 
     public HashMap<String, String> getUserDetails() {

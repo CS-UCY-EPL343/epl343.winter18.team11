@@ -44,15 +44,15 @@ public class RegisterActivity extends Activity {
         inputAddress= (EditText)findViewById(R.id.address);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
-
         // Progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
-
         // Session manager
+        /*Set that the user is logged in */
         session = new SessionManager(getApplicationContext());
 
-        // SQLite database handler
+        /* SQLite database handler*/
+        /*On this we will handle the user inside the array*/
         db = new SqlManager(getApplicationContext());
 
         // Check if user is already logged in or not
@@ -63,7 +63,6 @@ public class RegisterActivity extends Activity {
             startActivity(intent);
             finish();
         }
-
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -72,8 +71,8 @@ public class RegisterActivity extends Activity {
                 String password = inputPassword.getText().toString().trim();
                 String address = inputAddress.getText().toString().trim();
                 String mobile =  inputMobile.getText().toString().trim();
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(name, email, password, address,mobile);
+                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()&& !address.isEmpty()&& !mobile.isEmpty() ) {
+                    registerUser(name, email, password, address, mobile);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -82,7 +81,7 @@ public class RegisterActivity extends Activity {
             }
         });
 
-        // Link to Login Screen
+        /*Link to Login Screen*/
         btnLinkToLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -94,7 +93,6 @@ public class RegisterActivity extends Activity {
         });
 
     }
-
     /**
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
@@ -121,18 +119,14 @@ public class RegisterActivity extends Activity {
                     if (!error) {
                         // User successfully stored in MySQL
                         // Now store the user in sqlite
-                        String uid = jObj.getString("uid");
-
                         JSONObject user = jObj.getJSONObject("user");
+                        String uid = jObj.getString("uid");
                         String name = user.getString("name");
                         String email = user.getString("email");
                         String address = user.getString("address");
                         String mobile = user.getString("mobile");
-
-                        String created_at = user
-                                .getString("created_at");
-
-                        // Inserting row in users table
+                        String created_at = user.getString("created_at");
+                        /* Inserting row in users table*/
                         db.addUser(name, email, uid, created_at,address,mobile);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();

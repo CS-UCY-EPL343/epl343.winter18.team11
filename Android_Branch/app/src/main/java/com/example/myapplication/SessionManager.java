@@ -14,11 +14,13 @@ public class SessionManager {
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
 
     public SessionManager(Context context) {
+        /*Always for getting a setting a preference we must call the editor access class*/
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, 0);
         editor = pref.edit();
     }
     public void setLogin(boolean isLoggedIn) {
+        /*Insert into the preferences that the user is logged in */
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
         editor.commit();
         Log.d(TAG, "User Login Modifieded");

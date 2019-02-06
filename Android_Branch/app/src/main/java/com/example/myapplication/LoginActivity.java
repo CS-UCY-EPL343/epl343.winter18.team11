@@ -76,7 +76,7 @@ public class LoginActivity extends Activity {
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
-                            "Please enter the credentials!", Toast.LENGTH_LONG)
+                            "Please enter username and password!", Toast.LENGTH_LONG)
                             .show();
                 }
             }
@@ -103,17 +103,17 @@ public class LoginActivity extends Activity {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
-        pDialog.setMessage("Logging in ...");
+        pDialog.setMessage("Logging in.Please Wait");
         showDialog();
 
+        /*Send the request*/
         StringRequest strReq = new StringRequest(Method.POST,
                 NetworkConfigure.URL_LOGIN, new Response.Listener<String>() {
-
+        /*Capture the request*/
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Login Response: " + response.toString());
                 hideDialog();
-
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
@@ -123,10 +123,8 @@ public class LoginActivity extends Activity {
                         // user successfully logged in
                         // Create login session
                         session.setLogin(true);
-
-                        // Now store the user in SQLite
+                        /*Now get the strings from the user*/
                         String uid = jObj.getString("uid");
-
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
                         String email = user.getString("email");
@@ -136,9 +134,8 @@ public class LoginActivity extends Activity {
                         String created_at = user
                                 .getString("created_at");
 
-                        // Inserting row in users table
+                        // Inserting row in users table on android SQL
                         db.addUser(name, email, uid, created_at,address,mobile);
-
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
                                 AccountActivity.class);

@@ -72,7 +72,6 @@ public class AccountActivity extends Navigation
         name = (TextView)findViewById(R.id.usernameAccount);
         email= (TextView) findViewById(R.id.emailAccount);
         address  = (TextView) findViewById(R.id.addressAccount);
-        name.setText("Stefanos Ioannou");
 
     }
            private void logoutUser() {
