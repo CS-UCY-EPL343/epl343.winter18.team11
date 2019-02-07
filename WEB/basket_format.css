@@ -1,0 +1,169 @@
+@import "compass/css3";
+.head {
+    padding: 40px;
+    text-align: left;
+    background: white;
+    
+  }
+  
+              .header {
+    padding: 10px;
+    text-align: left;
+    background:brown;
+    
+  }
+  
+  .header1 {
+    padding: 35px;
+    text-align: left;
+    background:beige;
+    color: brown;
+  }
+  
+  img {
+    display: block;
+    margin-left: auto;
+    
+  }
+  
+  
+  /* .product_image { 
+      float: left; 
+      width: 20%; 
+      }
+  
+      #im1{
+          margin-right: auto; 
+      }
+  .product_details { 
+      float: left; 
+      width: 20%; 
+      }
+  .product_price {
+       float: left; 
+       width: 20%; 
+       }
+  .product_quantity {
+       float: left;
+        width: 20%; 
+        }
+  .product_removal {
+       float: left; 
+       width: 20%; 
+       }
+  .product_total {
+       float: left; 
+       width: 20%; 
+       text-align: center; 
+       } */
+       .remove_product {
+        border: 0;
+        padding: 4px 8px;
+        background-color: #c66;
+        color: #fff;
+        
+        font-size: 12px;
+        border-radius: 3px;
+      }
+      
+      .remove_product:hover {
+        background-color: #a44;
+      }
+      .product .product_price:before, .product .product_total:before {
+        content: '$';
+      }
+      .group:before,
+      .group:after {
+        content: '';
+        display: table;
+      } 
+.group:after {
+    clear: both;
+}
+.group {
+    zoom: 1;
+}
+
+
+.product {
+  display: flex;
+  align-items: center; 
+  width: 100%;
+  height: 200px;
+}
+
+.totals .totals-item {
+  float: right;
+  clear: both;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.totals .totals-value {
+  float: right;
+  width: 10%;
+  text-align: left;
+}
+
+.checkout {
+  float: right;
+  border: 0;
+  margin-top: 20px;
+  padding: 6px 25px;
+  background-color: #6b6;
+  color: #fff;
+  font-size: 25px;
+  border-radius: 3px;
+}
+
+.checkout:hover {
+  background-color: #494;
+}
+.product .product-price:before, .product .product-line-price:before, .totals-value:before {
+  content: '$';
+}
+
+
+
+.row{
+  padding-left: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+body {
+  font-family: Arial;
+  font-size: 17px;
+  padding: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  /* display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+ */
+/* #goto {
+  background:white;
+
+} */
+
+
+   
+      
+      
+      
+    
