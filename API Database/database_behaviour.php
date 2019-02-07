@@ -6,36 +6,52 @@ class database_behaviour {
 
   function __construct() {
         require_once 'database_conf.php';
-        $db = new Db_Connect();
-        $this->conn = $db->connect();
+        $db = new database_conf();
+        $this->conn = $db->getConnection();
     }
+
     /*Save the user*/
-    public function saveUser($name, $email, $password) {
+    public function saveUser($name, $email, $password,$address,$mobile) {
         /*Generate a unique ID*/
-        $uniqueID = printf("uniqid(): %s\r\n", uniqid());
+        $exit = true;
+        while ($exit){
+          $random = rand(1, 100000);
+          $stmt = $this->conn->prepare("SELECT * FROM Users WHERE UserID = ?");
+          $stmt->bind_param("s", $random);
+          $stmt->execute();
+          $stmt->store_result();
+
+          if ($stmt->num_rows == 0) {
+              $exit = false;
+        }
+          $stmt->close();
+        }
+        $uniqueID = $random;
         $hash = $this->hashSSHA($password);
         $encrypted_password = $hash["encrypted"];
         $salt = $hash["salt"];
-        $stmt = $this->conn->prepare("INSERT INTO users(unique_id, name,email, encrypted_password, salt, created_at) VALUES(?, ?, ?, ?, ?, NOW())");
-        $stmt->bind_param("sssss", $uniqueID, $name, $email, $encrypted_password, $salt);
-
+        $stmt = $this->conn->prepare("INSERT INTO Users(UserID,Name,Email,Encrypted_password, Salt,Address,Mobile,Created) VALUES(?, ?, ?, ?, ?, ?, ?,NOW())");
+        $stmt->bind_param("sssssss", $uniqueID, $name, $email, $encrypted_password, $salt,$address,$mobile);
         $result = $stmt->execute();
+
         $stmt->close();
 
         if ($result) {
-            $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+            $stmt = $this->conn->prepare("SELECT * FROM Users WHERE Email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
             $user = $stmt->get_result()->fetch_assoc();
             $stmt->close();
             return $user;
         } else {
-            return "User not Found";
+            return false;
         }
     }
-    /*Find the user*/
+
+
+    /*Find the user to log him inside */
     public function findUserWithPassword($email, $password) {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM Users WHERE email = ?");
         $stmt->bind_param("s", $email);
         if ($stmt->execute()) {
         /*Execute Statement*/
@@ -49,12 +65,13 @@ class database_behaviour {
                 return $user;
             }
         } else {
-            return "User not found";
+            return false;
         }
     }
 
+/*Find the user */
     public function findUser($email) {
-        $stmt = $this->conn->prepare("SELECT email from users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT email from Users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
@@ -63,7 +80,7 @@ class database_behaviour {
             return true;
         } else {
             $stmt->close();
-            return "User not found";
+            return false;
         }
     }
 
@@ -83,6 +100,4 @@ class database_behaviour {
         return $hash;
     }
 }
-
 ?>
-
