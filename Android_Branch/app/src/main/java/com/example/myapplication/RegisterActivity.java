@@ -126,7 +126,7 @@ public class RegisterActivity extends Activity {
                         String mobile = user.getString("mobile");
                         String created_at = user.getString("created_at");
                         /* Inserting row in users table*/
-                        db.addUser(name, email, uid, created_at,address,mobile);
+                        db.addUser(name, email,created_at,address,mobile);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
@@ -147,7 +147,6 @@ public class RegisterActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
 

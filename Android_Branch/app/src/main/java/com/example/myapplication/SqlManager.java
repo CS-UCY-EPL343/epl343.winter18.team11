@@ -23,31 +23,29 @@ public class SqlManager extends SQLiteOpenHelper {
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_UID = "uid";
     private static final String KEY_CREATED_AT = "created_at";
-
     private static final String KEY_PRODUCT_ID= "product_id";
     private static final String KEY_PRODUCT_QUANTITY= "product_quantity";
-
-
-
+String out;
     public SqlManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public SqlManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + "TEXT,"
-                + KEY_CREATED_AT + " TEXT," + KEY_ADDRESS +"TEXT," + KEY_MOBILE+"TEXT"+")";
+                + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
+                + KEY_CREATED_AT + " TEXT," + KEY_ADDRESS +" TEXT," + KEY_MOBILE+" TEXT"+")";
+
+
 
         String CREATE_ORDER_TABLE = "CREATE TABLE " +  TABLE_ORDER + "("+ KEY_PRODUCT_ID +
                 "TEXT," + KEY_PRODUCT_QUANTITY + "TEXT )";
+        Log.wtf("TagError",CREATE_LOGIN_TABLE);
         db.execSQL(CREATE_LOGIN_TABLE);
         db.execSQL(CREATE_ORDER_TABLE);
+
     }
 
     @Override
@@ -58,16 +56,15 @@ public class SqlManager extends SQLiteOpenHelper {
     }
 
     /*Add Users*/
-    public void addUser(String name, String email, String uid, String created_at,String address, String mobile) {
+    public void addUser(String name, String email, String created_at,String address, String mobile) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_EMAIL, email);
         values.put(KEY_MOBILE, mobile);
-        values.put(KEY_ADDRESS, address);
-        values.put(KEY_UID, uid);
         values.put(KEY_CREATED_AT, created_at);
         values.put(KEY_ADDRESS, address);
+
 
         long id = db.insert(TABLE_USER, null, values);
         db.close();
@@ -94,8 +91,8 @@ public class SqlManager extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             user.put("name", cursor.getString(1));
             user.put("email", cursor.getString(2));
-            user.put("uid", cursor.getString(3));
-            user.put("created_at", cursor.getString(4));
+            user.put("address", cursor.getString(5));
+            user.put("mobile", cursor.getString(6));
         }
         cursor.close();
         db.close();

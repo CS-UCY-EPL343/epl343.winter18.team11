@@ -9,20 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
-
 
 public class LoginActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
@@ -38,22 +32,17 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
-
         // Progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
-
         // SQLite database handler
         db = new SqlManager(getApplicationContext());
-
         // Session manager
         session = new SessionManager(getApplicationContext());
-
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
@@ -61,7 +50,6 @@ public class LoginActivity extends Activity {
             startActivity(intent);
             finish();
         }
-
         // Login button Click Event
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
@@ -82,7 +70,6 @@ public class LoginActivity extends Activity {
             }
 
         });
-
         // Link to RegisterActivity Screen
         btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
@@ -93,9 +80,7 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
-
     }
-
     /**
      * function to verify login details in mysql db
      * */
@@ -124,18 +109,16 @@ public class LoginActivity extends Activity {
                         // Create login session
                         session.setLogin(true);
                         /*Now get the strings from the user*/
-                        String uid = jObj.getString("uid");
                         JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        String address = user.getString("address");
-                        String mobile = user.getString("mobile");
-
-                        String created_at = user
-                                .getString("created_at");
+                        String uid = jObj.getString("UserID");
+                        String name = user.getString("Name");
+                        String email = user.getString("Email");
+                        String address = user.getString("Address");
+                        String mobile = user.getString("Mobile");
+                        String created_at = user.getString("Created");
 
                         // Inserting row in users table on android SQL
-                        db.addUser(name, email, uid, created_at,address,mobile);
+                        db.addUser(name, email, created_at,address,mobile);
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
                                 AccountActivity.class);

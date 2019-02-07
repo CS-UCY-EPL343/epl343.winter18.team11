@@ -33,9 +33,9 @@
             android:id="@+id/textView11"
             android:layout_width="117dp"
             android:layout_height="29dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="196dp"
-            android:layout_marginRight="196dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginEnd="180dp"
+            android:layout_marginRight="180dp"
             android:text="Email"
             android:textAllCaps="true"
             android:textStyle="bold"
@@ -46,9 +46,9 @@
             android:id="@+id/textView14"
             android:layout_width="117dp"
             android:layout_height="29dp"
-            android:layout_marginTop="237dp"
-            android:layout_marginEnd="196dp"
-            android:layout_marginRight="196dp"
+            android:layout_marginTop="232dp"
+            android:layout_marginEnd="180dp"
+            android:layout_marginRight="180dp"
             android:text="Orders"
             android:textAllCaps="true"
             android:textStyle="bold"
@@ -59,9 +59,15 @@
             android:id="@+id/usernameAccount"
             android:layout_width="171dp"
             android:layout_height="29dp"
-            android:layout_marginTop="89dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="88dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/addressAccount"
+            android:layout_width="171dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="188dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,39 +75,12 @@
             android:id="@+id/textView12"
             android:layout_width="117dp"
             android:layout_height="29dp"
-            android:layout_marginTop="189dp"
-            android:layout_marginEnd="196dp"
-            android:layout_marginRight="196dp"
+            android:layout_marginTop="188dp"
+            android:layout_marginEnd="180dp"
+            android:layout_marginRight="180dp"
             android:text="Address"
             android:textAllCaps="true"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <HorizontalScrollView
-            android:layout_width="169dp"
-            android:layout_height="203dp"
-            android:layout_marginTop="236dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.519">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </HorizontalScrollView>
-
-        <TextView
-            android:id="@+id/addressAccount"
-            android:layout_width="171dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="189dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,9 +88,9 @@
             android:id="@+id/textView10"
             android:layout_width="117dp"
             android:layout_height="29dp"
-            android:layout_marginTop="89dp"
-            android:layout_marginEnd="196dp"
-            android:layout_marginRight="196dp"
+            android:layout_marginTop="88dp"
+            android:layout_marginEnd="180dp"
+            android:layout_marginRight="180dp"
             android:text="UserName"
             android:textAllCaps="true"
             android:textStyle="bold"
@@ -122,9 +101,15 @@
             android:id="@+id/emailAccount"
             android:layout_width="171dp"
             android:layout_height="29dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="140dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/emailAccount2"
+            android:layout_width="171dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="232dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>

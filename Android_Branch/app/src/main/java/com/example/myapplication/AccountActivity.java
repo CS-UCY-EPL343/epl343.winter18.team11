@@ -15,25 +15,26 @@ import java.util.HashMap;
 /*For the account activity we will have to first
    1.Get a database connection
    2.View username password ,any orders that happened to that name before
-
  */
 
-public class AccountActivity extends Navigation
-       {
+public class AccountActivity extends Navigation {
+
     private SqlManager db;
-    TextView name;
-    TextView email;
-    TextView address;
+    TextView nameView;
+    TextView emailView;
+    TextView addressView;
     Button btnLogout;
     private SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        session = new SessionManager(getApplicationContext());
         db = new SqlManager(getApplicationContext());
 
+        updateAccountScreen();
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -42,7 +43,7 @@ public class AccountActivity extends Navigation
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        updateAccountScreen();
+
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -54,24 +55,28 @@ public class AccountActivity extends Navigation
     }
     public void updateAccountScreen(){
         /*Get the database connection*/
-        db = new SqlManager(getApplicationContext());
         String nameStr;
         String emailStr;
         String addressStr;
         // session manager
-        session = new SessionManager(getApplicationContext());
 
         if (!session.isLoggedIn()) {
-           // logoutUser();
+            logoutUser();
         }
 
         // Fetching user details from sqlite
         HashMap<String, String> user = db.getUserDetails();
-       // String name = user.get("name");
-      //  String email = user.get("email");
-        name = (TextView)findViewById(R.id.usernameAccount);
-        email= (TextView) findViewById(R.id.emailAccount);
-        address  = (TextView) findViewById(R.id.addressAccount);
+        String name = user.get("name");
+        String email = user.get("email");
+        String address = user.get("address");
+        String mobile = user.get("mobile");
+        nameView = (TextView)findViewById(R.id.usernameAccount);
+        emailView = (TextView) findViewById(R.id.emailAccount);
+        addressView  = (TextView) findViewById(R.id.addressAccount);
+        addressView.setText(address);
+        nameView.setText(name);
+        emailView.setText(email);
+        mobileView.setText(email);
 
     }
            private void logoutUser() {
