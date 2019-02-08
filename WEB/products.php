@@ -29,7 +29,7 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                   <ul class="navbar-nav">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Homepage</a>
+                      <a class="nav-link" href="home.php">Homepage</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">Our Workshop</a>
@@ -63,7 +63,7 @@
                                       
                                                                 <div class="col-md-3 mx-auto">
                                                                     
-                                                                <a href="products.php"> <img src="product_1.jpg" style="width:100%"></a>
+                                                                <a href="products_ovenware.php"> <img src="product_1.jpg" style="width:100%"></a>
                                                                     <div class="label-items">
                                                                     <p> Ovenware Pots </p>
                                                                   </div>      
