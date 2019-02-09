@@ -1,24 +1,35 @@
 @import "compass/css3";
+.logo h1 {
+  font-size: 85px;
+  font-style: italic;
+  text-align: left;
+  padding-bottom: 50%;
+  font-family: cursive;
+}
+.jumbotron {
+  background-image : url("emira-pottery.jpg");
+  height: 350px;
+  background-size: cover;
+   
+}
+
+.jumbotron {
+  background-color: beige;
+}
+
 .head {
     padding: 40px;
     text-align: left;
-    background: white;
     
   }
-  
-              .header {
-    padding: 10px;
-    text-align: left;
-    background:brown;
-    
-  }
+
   
   .header1 {
-    padding: 35px;
+    padding: 5px;
     text-align: left;
-    background:beige;
-    color: brown;
-  }
+    background:black;
+    color: beige
+    }
   
   img {
     display: block;
@@ -27,35 +38,7 @@
   }
   
   
-  /* .product_image { 
-      float: left; 
-      width: 20%; 
-      }
-  
-      #im1{
-          margin-right: auto; 
-      }
-  .product_details { 
-      float: left; 
-      width: 20%; 
-      }
-  .product_price {
-       float: left; 
-       width: 20%; 
-       }
-  .product_quantity {
-       float: left;
-        width: 20%; 
-        }
-  .product_removal {
-       float: left; 
-       width: 20%; 
-       }
-  .product_total {
-       float: left; 
-       width: 20%; 
-       text-align: center; 
-       } */
+ 
        .remove_product {
         border: 0;
         padding: 4px 8px;
@@ -129,41 +112,37 @@
   padding-left: 50px;
 }
 
-
-
-
-
-
-
-
-
-
-
-/* 
-
-body {
-  font-family: Arial;
-  font-size: 17px;
-  padding: 8px;
+.totals .totals-item {
+  float: left;
+  clear: both;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.totals .totals-item label {
+  float: left;
+  clear: both;
+  width: 79%;
+  text-align: right;
+}
+.totals .totals-item .totals-value {
+  float: right;
+  width: 21%;
+  text-align: center;
+}
+.totals .totals-item-total {
+  font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
 }
 
-* {
-  box-sizing: border-box;
-}
 
-.row {
-  display: -ms-flexbox; /* IE10 */
-  /* display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
- */
-/* #goto {
-  background:white;
 
-} */
+
+
+
+
 
 
    
       
       
       
-    
+  
