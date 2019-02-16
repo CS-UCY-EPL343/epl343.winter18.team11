@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SqlManager extends SQLiteOpenHelper {
@@ -99,7 +100,7 @@ Add product into mysql lite locally
 
         long id = db.insert(TABLE_PRODUCTS, null, values);
         db.close();
-        Log.d(TAG, "New product inserted into sqlite: " + id);
+        Log.d(TAG, "New product inserted into sqlite: Succesufully " + id);
     }
 
     /*For adding orders*/
@@ -121,6 +122,7 @@ Add product into mysql lite locally
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
+        /*To do change curson*/
         if (cursor.getCount() > 0) {
             product.put("product_id", cursor.getString(1));
             product.put("product_name", cursor.getString(2));
@@ -132,6 +134,25 @@ Add product into mysql lite locally
         Log.d(TAG, "Fetching user from Sqlite: " + product.toString());
 
         return product;
+    }
+
+    public ArrayList<String> getCategories(){
+    ArrayList<String> categories = new ArrayList<String>();
+
+        String selectQuery = "SELECT "+KEY_PRODUCT_CAT+" FROM " + TABLE_PRODUCTS ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.getCount()>0){
+            while(!cursor.isNull(1)) {
+                categories.add(cursor.getString(1));
+                cursor.moveToNext();
+            }
+        }
+
+        return categories;
+
+
     }
 
 /*Get user details on a hashmap*

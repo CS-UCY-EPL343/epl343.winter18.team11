@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -151,15 +152,13 @@ public class CategoryActivity extends Navigation {
             }
 
         };
-        
-        HashMap<String, String> product = db.getProductDetails();
-        String name = product.get("name");
-        String email = product.get("email");
-        String address = product.get("address");
-        String mobile = product.get("mobile");
+        /*Create a HashMap that will get the categories
+         */
+        ArrayList<String> categories= db.getCategories();
+
 
         this.mAdapter = new ArrayAdapter<String>(CategoryActivity.this,android.R.layout.simple_list_item_1,
-                getResources().getStringArray(R.array.shop));
+                categories);
 
         // Adding request to request queue
         StartController.getmInstance().addToRequestQueue(strReq, tag_string_req);
