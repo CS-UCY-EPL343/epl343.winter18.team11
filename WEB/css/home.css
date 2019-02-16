@@ -1,0 +1,148 @@
+.logo h1 {
+    font-size: 125px;
+    font-style: italic;
+    text-align: left;
+    padding-bottom: 50%;
+    font-family: cursive;
+}
+.home-content p{
+    text-align: justify;
+}
+
+a:link {
+
+    text-decoration:none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+a:visited {
+    color: black;
+  }
+h5 {
+    margin-top: 15%;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.home-content h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 25px;
+}
+.jumbotron {
+    background-image : url("emira-pottery.jpg");
+    height: 700px;
+    background-size: cover;
+     
+}
+
+.footer {
+    background-color: beige;
+      
+}
+
+.fakeimg {
+height: 200px;
+background: grey;
+}
+
+.login-buttons {
+    float: right;
+}
+
+.products h1 {
+    font-size: 125px;
+    font-family: cursive;
+    font-style: italic;
+    text-align: left;
+    padding-bottom: 50%
+  }
+  .jumbotron {
+      background-color: beige;
+  }
+  .footer-products {
+      font-size: 20px;
+      padding-top: 50px;
+  }
+  .working-hours {
+      font-size: 20px;
+  }
+
+  .products-content {
+      padding-top: 70px;
+      padding-bottom: 70px;
+      padding-left: 400px;
+      padding-right: 400px; 
+      text-align: justify;
+     
+
+  }
+
+.label-items {
+    font-size: 20px;
+    font-family: cursive;
+    text-align: center;
+ 
+}
+
+
+.products_gallery .jumbotron{
+    background-image: none;
+    background-color: antiquewhite;
+    height: 300px;
+   
+}
+
+.logo-productsgallery h1{
+    font-size: 100px;
+    font-style:italic;
+    font-family: cursive;
+   
+}
+
+
+
+/* BUY NOW*/
+
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.5s ease;
+  }
+  
+  .container_1:hover .overlay {
+    display: block;
+    background: rgba(0, 0, 0, .3);
+  }
+
+  
+  .button {
+    position: absolute;
+    top: 100px;
+    width: 270px;
+    left:0;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .5s ease;
+  }
+  
+  .button a {
+
+    width: 50px;
+    padding: 12px 48px;
+    text-align: center;
+    color:white;
+    border: solid 2px white;
+    z-index: 1;
+  }
+  
+  .container_1:hover .button {
+    opacity: 1;
+  }
+  
+  
