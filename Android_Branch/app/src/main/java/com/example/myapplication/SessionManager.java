@@ -34,7 +34,6 @@ public class SessionManager {
         Log.d(TAG, "Products are shown");
     }
 
-
     public boolean areProducts(){
         return pref.getBoolean(KEY_ARE_PRODUCTS, false);
     }

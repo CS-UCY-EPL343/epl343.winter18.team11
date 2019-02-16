@@ -17,6 +17,8 @@ public class SqlManager extends SQLiteOpenHelper {
     private static final String TABLE_USER = "user";
     private static final String TABLE_ORDER = "orders";
     private static final String TABLE_PRODUCTS = "products";
+
+    /*Keys for Users*/
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
@@ -24,11 +26,12 @@ public class SqlManager extends SQLiteOpenHelper {
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_UID = "uid";
     private static final String KEY_CREATED_AT = "created_at";
+
+    /*Keys for products*/
     private static final String KEY_PRODUCT_ID= "product_id";
     private static final String KEY_PRODUCT_NAME= "product_name";
     private static final String KEY_PRODUCT_CAT= "product_category";
     private static final String KEY_PRODUCT_PRICE= "product_price";
-
     private static final String KEY_PRODUCT_QUANTITY= "product_quantity";
 
     public SqlManager(Context context) {
@@ -43,19 +46,14 @@ public class SqlManager extends SQLiteOpenHelper {
                 + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
                 + KEY_CREATED_AT + " TEXT," + KEY_ADDRESS +" TEXT," + KEY_MOBILE+" TEXT"+")";
 
-
-
         String CREATE_ORDER_TABLE = "CREATE TABLE " +  TABLE_ORDER + "("+ KEY_PRODUCT_ID +
                 "TEXT," + KEY_PRODUCT_QUANTITY + "TEXT )";
         Log.wtf("TagError",CREATE_LOGIN_TABLE);
 
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +  TABLE_PRODUCTS + "("+ KEY_PRODUCT_ID +
-                "TEXT," + KEY_PRODUCT_NAME + "TEXT"+  KEY_PRODUCT_NAME + "TEXT"+ KEY_PRODUCT_CAT + "TEXT"+
+                "TEXT," +  KEY_PRODUCT_NAME + "TEXT"+ KEY_PRODUCT_CAT + "TEXT"+
                 KEY_PRODUCT_PRICE+" )";
         Log.wtf("TagProducts",CREATE_PRODUCTS_TABLE);
-        db.execSQL(CREATE_LOGIN_TABLE);
-
-
 
 
         db.execSQL(CREATE_LOGIN_TABLE);
@@ -69,9 +67,11 @@ public class SqlManager extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDER);
+        /*To DO */
         onCreate(db);
     }
-
+    /*Add the user into local SQL LITE
+     */
     public void addUser(String name, String email, String created_at,String address, String mobile) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -81,10 +81,25 @@ public class SqlManager extends SQLiteOpenHelper {
         values.put(KEY_CREATED_AT, created_at);
         values.put(KEY_ADDRESS, address);
 
-
         long id = db.insert(TABLE_USER, null, values);
         db.close();
         Log.d(TAG, "New user inserted into sqlite: " + id);
+    }
+/*
+Add product into mysql lite locally
+ */
+    public void addProduct(String product_id, String product_name, String product_price,String product_category) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_PRODUCT_ID, product_id);
+        values.put(KEY_PRODUCT_NAME, product_name);
+        values.put(KEY_PRODUCT_PRICE, product_price);
+        values.put(KEY_PRODUCT_CAT, product_category);
+
+        long id = db.insert(TABLE_PRODUCTS, null, values);
+        db.close();
+        Log.d(TAG, "New product inserted into sqlite: " + id);
     }
 
     /*For adding orders*/
@@ -98,9 +113,8 @@ public class SqlManager extends SQLiteOpenHelper {
         Log.d(TAG, "Order inserted into sqlite: " + id);
     }
 
-
-
-
+/*Get product details on a hashmap
+ */
     public HashMap<String, String> getProductDetails() {
         HashMap<String, String> product = new HashMap<String, String>();
         String selectQuery = "SELECT  * FROM " + TABLE_PRODUCTS;
@@ -120,9 +134,8 @@ public class SqlManager extends SQLiteOpenHelper {
         return product;
     }
 
-
-
-
+/*Get user details on a hashmap*
+ */
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
         String selectQuery = "SELECT  * FROM " + TABLE_USER;

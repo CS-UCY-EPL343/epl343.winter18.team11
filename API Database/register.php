@@ -8,7 +8,6 @@ $response = array("error" => FALSE);
 
 
 if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])) {
-  $response[" here"] = "dd";
 
     // receiving the post params
     $name = $_POST['name'];
@@ -16,7 +15,6 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     $password = $_POST['password'];
     $address = $_POST['address'];
     $mobile = $_POST['mobile'];
-$response["g"] = "dd";
 
     // check if user is already existed with the same email
     if ($db->findUser($email)) {
@@ -30,13 +28,12 @@ $response["g"] = "dd";
         if ($user) {
             // user stored successfully
             $response["error"] = FALSE;
-            $response["uid"] = $user["unique_id"];
-            $response["user"]["name"] = $user["name"];
-            $response["user"]["email"] = $user["email"];
-            $response["user"]["created_at"] = $user["created_at"];
-            $response["user"]["updated_at"] = $user["updated_at"];
-            $response["user"]["address"] = $user["address"];
-            $response["user"]["mobile"] = $user["mobile"];
+            $response["uid"] = $user["UserID"];
+            $response["user"]["name"] = $user["Name"];
+            $response["user"]["email"] = $user["Email"];
+            $response["user"]["created_at"] = $user["Created"];
+            $response["user"]["address"] = $user["Address"];
+            $response["user"]["mobile"] = $user["Mobile"];
 
             echo json_encode($response);
         } else {

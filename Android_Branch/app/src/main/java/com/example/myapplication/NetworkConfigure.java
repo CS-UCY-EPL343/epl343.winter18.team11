@@ -12,7 +12,6 @@ public class NetworkConfigure {
         */
         public static String URL_PRODUCTS= "http://www.cs.ucy.ac.cy/~sioann12/android/products.php";
 
-
 }
 
 

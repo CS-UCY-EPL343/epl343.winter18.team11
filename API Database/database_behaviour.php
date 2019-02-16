@@ -51,15 +51,15 @@ class database_behaviour {
 
     /*Find the user to log him inside */
     public function findUserWithPassword($email, $password) {
-        $stmt = $this->conn->prepare("SELECT * FROM Users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM Users WHERE Email = ?");
         $stmt->bind_param("s", $email);
         if ($stmt->execute()) {
         /*Execute Statement*/
             $user = $stmt->get_result()->fetch_assoc();
             $stmt->close();
             /*Check the password with salt on server side*/
-            $salt = $user['salt'];
-            $encrypted_password = $user['encrypted_password'];
+            $salt = $user['Salt'];
+            $encrypted_password = $user['Encrypted_password'];
             $hash = $this->checkhashSSHA($salt, $password);
             if ($encrypted_password == $hash) {
                 return $user;
@@ -71,7 +71,7 @@ class database_behaviour {
 
 /*Find the user */
     public function findUser($email) {
-        $stmt = $this->conn->prepare("SELECT email from Users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT email from Users WHERE Email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
@@ -83,6 +83,27 @@ class database_behaviour {
             return false;
         }
     }
+
+/*Get the products by searching inside the database*/
+  public function getProducts(){
+    $stmt = $this->conn->prepare("SELECT * FROM Product ORDER BY Product_Name ASC");
+  //  $stmt->execute();
+$product = array();
+    //$stmt->store_result();
+    if($stmt->execute()){
+      $result = $stmt->get_result();
+      while ($row = $result->fetch_array(MYSQLI_NUM)){
+        array_push($product,$row);
+      }
+        $stmt->close();
+      return $product;
+    }
+    else {
+      $stmt->close();
+      return false;
+    }
+}
+
 
 /*Ready function for hashing and ssha*/
 

@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +29,7 @@ import java.util.Map;
 public class CategoryActivity extends Navigation {
     private ProgressDialog pDialog;
     private SessionManager session;
-    private ArrayAdapter<String> mAdapter = null;
+     ArrayAdapter<String> mAdapter = null;
 
     Toolbar toolbar;
     ListView listView;
@@ -74,11 +75,8 @@ public class CategoryActivity extends Navigation {
         * 1. On creation of this instance we must update the local database of Android
         *
         * */
-
-
-
-
         getProductsSql(mAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             /*Each category has items */
@@ -90,11 +88,6 @@ public class CategoryActivity extends Navigation {
         });
         listView.setAdapter(mAdapter);
 
-
-
-
-
-
     }
 
     /**
@@ -104,45 +97,38 @@ public class CategoryActivity extends Navigation {
      *
      */
     private void getProductsSql(ArrayAdapter<String> mAdapter) {
+        Log.wtf("Jason Object","s");
         // Tag used to cancel the request
         String tag_string_req = "products";
-
         pDialog.setMessage("Fetching Products");
         showDialog();
-
         /*Send the request*/
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 NetworkConfigure.URL_PRODUCTS, new Response.Listener<String>() {
             /*Capture the request*/
-            @Override
+           @Override
             public void onResponse(String response) {
                 Log.d("PRO", "Product`s Response: " + response.toString());
                 hideDialog();
                 try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
+                    JSONArray products = new JSONArray(response);
+                    Log.wtf("Jason Object", response.toString());
 
-                    if (!error) {
-
-                        session.setProduct(true);
-                        JSONObject product = jObj.getJSONObject("product");
+            /*After fetching from the non local Sql
+            add them to the local.
+            * */    session.setProduct(true);
+                    for (int i = 0; i < products.length(); i++) {
+                        JSONObject product = products.getJSONObject(i);
                         String product_name = product.getString("product_name");
                         String product_id = product.getString("product_id");
                         String product_price = product.getString("product_price");
                         String product_category = product.getString("product_category");
-                        mAdapter = new ArrayAdapter<String>(CategoryActivity.this,android.R.layout.simple_list_item_1,
-                                getResources().getStringArray(R.array.shop));
-                    } else {
 
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                        db.addProduct(product_id, product_name, product_price, product_category);
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e1) {
+                    e1.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
 
@@ -157,7 +143,7 @@ public class CategoryActivity extends Navigation {
 
             @Override
             protected Map<String, String> getParams() {
-                // Posting parameters to login url
+                // Posting parameters to products url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("products","xml");
 
@@ -165,6 +151,15 @@ public class CategoryActivity extends Navigation {
             }
 
         };
+        
+        HashMap<String, String> product = db.getProductDetails();
+        String name = product.get("name");
+        String email = product.get("email");
+        String address = product.get("address");
+        String mobile = product.get("mobile");
+
+        this.mAdapter = new ArrayAdapter<String>(CategoryActivity.this,android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.shop));
 
         // Adding request to request queue
         StartController.getmInstance().addToRequestQueue(strReq, tag_string_req);
