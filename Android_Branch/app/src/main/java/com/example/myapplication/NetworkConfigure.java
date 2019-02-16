@@ -2,10 +2,17 @@ package com.example.myapplication;
 
 
 public class NetworkConfigure {
-     // Server user login url
+        /*SERVER REGISTER URL
+         */
         public static String URL_LOGIN ="http://www.cs.ucy.ac.cy/~sioann12/android/login.php";
-        // Server user register url
+        /* SERVER LOGIN URL
+         */
         public static String URL_REGISTER = "http://www.cs.ucy.ac.cy/~sioann12/android/register.php";
-    }
+        /*SERVER PRODUCTS URL
+        */
+        public static String URL_PRODUCTS= "http://www.cs.ucy.ac.cy/~sioann12/android/products.php";
+
+
+}
 
 

@@ -102,6 +102,10 @@ public class Navigation extends AppCompatActivity
         } else if (id == R.id.nav_contact) {
 
         } else if (id == R.id.nav_time) {
+                Intent i = new Intent(getApplicationContext(),
+                       MeetingActivity.class);
+                startActivity(i);
+                finish();
 
         } else if (id == R.id.nav_shop) {
             Intent i = new Intent(getApplicationContext(), CategoryActivity.class);

@@ -12,6 +12,7 @@ public class SessionManager {
     Context _context;
     private static final String PREF_NAME = "AndroidHiveLogin";
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
+    private static final String KEY_ARE_PRODUCTS= "areProducts";
 
     public SessionManager(Context context) {
         /*Always for getting a setting a preference we must call the editor access class*/
@@ -25,6 +26,19 @@ public class SessionManager {
         editor.commit();
         Log.d(TAG, "User Login Modifieded");
     }
+
+    public void setProduct(boolean areProductsShown) {
+        /*Insert into the preferences that products are shown*/
+        editor.putBoolean(KEY_ARE_PRODUCTS, areProductsShown);
+        editor.commit();
+        Log.d(TAG, "Products are shown");
+    }
+
+
+    public boolean areProducts(){
+        return pref.getBoolean(KEY_ARE_PRODUCTS, false);
+    }
+
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }

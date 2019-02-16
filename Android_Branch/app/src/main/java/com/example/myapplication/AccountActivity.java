@@ -23,6 +23,7 @@ public class AccountActivity extends Navigation {
     TextView nameView;
     TextView emailView;
     TextView addressView;
+    TextView mobileView;
     Button btnLogout;
     private SessionManager session;
     @Override
@@ -54,11 +55,6 @@ public class AccountActivity extends Navigation {
         });
     }
     public void updateAccountScreen(){
-        /*Get the database connection*/
-        String nameStr;
-        String emailStr;
-        String addressStr;
-        // session manager
 
         if (!session.isLoggedIn()) {
             logoutUser();
@@ -73,10 +69,11 @@ public class AccountActivity extends Navigation {
         nameView = (TextView)findViewById(R.id.usernameAccount);
         emailView = (TextView) findViewById(R.id.emailAccount);
         addressView  = (TextView) findViewById(R.id.addressAccount);
+        mobileView = (TextView)findViewById(R.id.mobileAccount);
         addressView.setText(address);
         nameView.setText(name);
         emailView.setText(email);
-        mobileView.setText(email);
+        mobileView.setText(mobile);
 
     }
            private void logoutUser() {

@@ -16,6 +16,7 @@ public class SqlManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "android";
     private static final String TABLE_USER = "user";
     private static final String TABLE_ORDER = "orders";
+    private static final String TABLE_PRODUCTS = "products";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
@@ -24,8 +25,12 @@ public class SqlManager extends SQLiteOpenHelper {
     private static final String KEY_UID = "uid";
     private static final String KEY_CREATED_AT = "created_at";
     private static final String KEY_PRODUCT_ID= "product_id";
+    private static final String KEY_PRODUCT_NAME= "product_name";
+    private static final String KEY_PRODUCT_CAT= "product_category";
+    private static final String KEY_PRODUCT_PRICE= "product_price";
+
     private static final String KEY_PRODUCT_QUANTITY= "product_quantity";
-String out;
+
     public SqlManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -43,9 +48,21 @@ String out;
         String CREATE_ORDER_TABLE = "CREATE TABLE " +  TABLE_ORDER + "("+ KEY_PRODUCT_ID +
                 "TEXT," + KEY_PRODUCT_QUANTITY + "TEXT )";
         Log.wtf("TagError",CREATE_LOGIN_TABLE);
+
+        String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +  TABLE_PRODUCTS + "("+ KEY_PRODUCT_ID +
+                "TEXT," + KEY_PRODUCT_NAME + "TEXT"+  KEY_PRODUCT_NAME + "TEXT"+ KEY_PRODUCT_CAT + "TEXT"+
+                KEY_PRODUCT_PRICE+" )";
+        Log.wtf("TagProducts",CREATE_PRODUCTS_TABLE);
         db.execSQL(CREATE_LOGIN_TABLE);
+
+
+
+
+        db.execSQL(CREATE_LOGIN_TABLE);
+
         db.execSQL(CREATE_ORDER_TABLE);
 
+        db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
     @Override
@@ -55,7 +72,6 @@ String out;
         onCreate(db);
     }
 
-    /*Add Users*/
     public void addUser(String name, String email, String created_at,String address, String mobile) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -81,6 +97,31 @@ String out;
         db.close();
         Log.d(TAG, "Order inserted into sqlite: " + id);
     }
+
+
+
+
+    public HashMap<String, String> getProductDetails() {
+        HashMap<String, String> product = new HashMap<String, String>();
+        String selectQuery = "SELECT  * FROM " + TABLE_PRODUCTS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            product.put("product_id", cursor.getString(1));
+            product.put("product_name", cursor.getString(2));
+            product.put("product_price", cursor.getString(5));
+            product.put("product_category", cursor.getString(6));
+        }
+        cursor.close();
+        db.close();
+        Log.d(TAG, "Fetching user from Sqlite: " + product.toString());
+
+        return product;
+    }
+
+
+
 
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
