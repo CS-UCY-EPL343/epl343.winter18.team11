@@ -6,8 +6,8 @@ $db = new database_behaviour();
 $response = array("error" => FALSE);
 
 if(isset($_POST['products'])){
-      $product =  $db->getProducts();
-      echo json_encode($product);
+        $db->getProducts();
+
 
 }else {
     $response["error"] = TRUE;

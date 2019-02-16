@@ -87,16 +87,24 @@ class database_behaviour {
 /*Get the products by searching inside the database*/
   public function getProducts(){
     $stmt = $this->conn->prepare("SELECT * FROM Product ORDER BY Product_Name ASC");
-  //  $stmt->execute();
-$product = array();
-    //$stmt->store_result();
+    $product = array();
+
     if($stmt->execute()){
+
       $result = $stmt->get_result();
-      while ($row = $result->fetch_array(MYSQLI_NUM)){
-        array_push($product,$row);
+      $response = array("error" => FALSE);
+
+      $i = 0;
+      while ($row = $result->fetch_array()){
+                $response["products".$i]["product_name"] = $row["Product_Name"];
+                $response["products".$i]["product_price"] = $row["Product_Price"];
+                $response["products".$i]["product_category"] = $row["Product_Category"];
+                $response["products".$i]["product_id"] = $row["Product_ID"];
+                $i++;
       }
-        $stmt->close();
-      return $product;
+      $stmt->close();
+      echo json_encode($response);
+
     }
     else {
       $stmt->close();

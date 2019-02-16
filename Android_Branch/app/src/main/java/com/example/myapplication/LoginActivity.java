@@ -157,9 +157,7 @@ public class LoginActivity extends Activity {
 
                 return params;
             }
-
         };
-
         // Adding request to request queue
         StartController.getmInstance().addToRequestQueue(strReq, tag_string_req);
     }

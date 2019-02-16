@@ -50,6 +50,7 @@ public class AccountActivity extends Navigation {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //db.deleteTables();
                 logoutUser();
             }
         });
@@ -75,10 +76,11 @@ public class AccountActivity extends Navigation {
         emailView.setText(email);
         mobileView.setText(mobile);
 
+
     }
            private void logoutUser() {
                session.setLogin(false);
-               db.deleteUsers();
+               db.deleteTables();
                //Launching the login activity
                Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
                startActivity(intent);

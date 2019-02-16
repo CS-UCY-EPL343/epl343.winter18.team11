@@ -48,12 +48,13 @@ public class SqlManager extends SQLiteOpenHelper {
                 + KEY_CREATED_AT + " TEXT," + KEY_ADDRESS +" TEXT," + KEY_MOBILE+" TEXT"+")";
 
         String CREATE_ORDER_TABLE = "CREATE TABLE " +  TABLE_ORDER + "("+ KEY_PRODUCT_ID +
-                "TEXT," + KEY_PRODUCT_QUANTITY + "TEXT )";
+                " TEXT," + KEY_PRODUCT_QUANTITY + " TEXT )";
         Log.wtf("TagError",CREATE_LOGIN_TABLE);
 
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +  TABLE_PRODUCTS + "("+ KEY_PRODUCT_ID +
-                "TEXT," +  KEY_PRODUCT_NAME + "TEXT"+ KEY_PRODUCT_CAT + "TEXT"+
-                KEY_PRODUCT_PRICE+" )";
+                " TEXT," +  KEY_PRODUCT_NAME + " TEXT,"+ KEY_PRODUCT_CAT + " TEXT,"+
+                KEY_PRODUCT_PRICE+" TEXT"+ " )";
+
         Log.wtf("TagProducts",CREATE_PRODUCTS_TABLE);
 
 
@@ -89,11 +90,11 @@ public class SqlManager extends SQLiteOpenHelper {
 /*
 Add product into mysql lite locally
  */
-    public void addProduct(String product_id, String product_name, String product_price,String product_category) {
+    public void addProduct(String product_name, String product_price,String product_category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_PRODUCT_ID, product_id);
+
         values.put(KEY_PRODUCT_NAME, product_name);
         values.put(KEY_PRODUCT_PRICE, product_price);
         values.put(KEY_PRODUCT_CAT, product_category);
@@ -122,6 +123,7 @@ Add product into mysql lite locally
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
+
         /*To do change curson*/
         if (cursor.getCount() > 0) {
             product.put("product_id", cursor.getString(1));
@@ -136,17 +138,20 @@ Add product into mysql lite locally
         return product;
     }
 
-    public ArrayList<String> getCategories(){
-    ArrayList<String> categories = new ArrayList<String>();
 
+
+/*Get the current categories from the local database
+* */
+        public ArrayList<String> getCategories(){
+
+            ArrayList<String> categories = new ArrayList<String>();
         String selectQuery = "SELECT "+KEY_PRODUCT_CAT+" FROM " + TABLE_PRODUCTS ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.getCount()>0){
-            while(!cursor.isNull(1)) {
-                categories.add(cursor.getString(1));
-                cursor.moveToNext();
+            while(cursor.moveToNext()) {
+                categories.add(cursor.getString(0));
             }
         }
 
@@ -176,9 +181,12 @@ Add product into mysql lite locally
         return user;
     }
 
-    public void deleteUsers() {
+    public void deleteTables() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_USER, null, null);
+       db.delete(TABLE_USER, null, null);
+        db.delete(TABLE_ORDER, null, null);
+        db.delete(TABLE_PRODUCTS, null, null);
+
         db.close();
         Log.d(TAG, "Deleted all user info from sqlite");
     }

@@ -19,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -112,21 +111,25 @@ public class CategoryActivity extends Navigation {
                 Log.d("PRO", "Product`s Response: " + response.toString());
                 hideDialog();
                 try {
-                    JSONArray products = new JSONArray(response);
+                    JSONObject products = new JSONObject(response);
                     Log.wtf("Jason Object", response.toString());
 
             /*After fetching from the non local Sql
             add them to the local.
             * */    session.setProduct(true);
+                    HashMap<String,String> pair = new HashMap<String,String>();
                     for (int i = 0; i < products.length(); i++) {
-                        JSONObject product = products.getJSONObject(i);
-                        String product_name = product.getString("product_name");
-                        String product_id = product.getString("product_id");
-                        String product_price = product.getString("product_price");
-                        String product_category = product.getString("product_category");
-
-                        db.addProduct(product_id, product_name, product_price, product_category);
+                        JSONObject obj = new JSONObject();
+                        obj = products.getJSONObject("products"+String.valueOf(i));
+                    //    for (int j = 0; j < products.getJSONArray(i).length(); j++) {
+                        String product_name = obj.getString("product_name");
+                        String product_price = obj.getString("product_price");
+                        String product_category = obj.getString("product_category");
+                        Log.wtf("Products", product_name + product_price + product_category);
+                            db.addProduct(product_name, product_price, product_category);
+                        //}
                     }
+
                     } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
