@@ -124,7 +124,7 @@ Add product into mysql lite locally
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
 
-        /*To do change curson*/
+        /*To do change cursor*/
         if (cursor.getCount() > 0) {
             product.put("product_id", cursor.getString(1));
             product.put("product_name", cursor.getString(2));

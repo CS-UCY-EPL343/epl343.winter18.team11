@@ -86,10 +86,9 @@ public class CategoryActivity extends Navigation {
                 startActivity(intent);
             }
         });
+        listView.setAdapter(null);
         listView.setAdapter(mAdapter);
-
     }
-
     /**
      * Fetch the products from the local sql th
      * @param mAdapter : The local mAdapter to bridge the view with
@@ -120,17 +119,17 @@ public class CategoryActivity extends Navigation {
                     HashMap<String,String> pair = new HashMap<String,String>();
                     for (int i = 0; i < products.length(); i++) {
                         JSONObject obj = new JSONObject();
+                        /*  Get the objects as defined from the API
+                            products+i from the php file.
+                         */
                         obj = products.getJSONObject("products"+String.valueOf(i));
-                    //    for (int j = 0; j < products.getJSONArray(i).length(); j++) {
                         String product_name = obj.getString("product_name");
                         String product_price = obj.getString("product_price");
                         String product_category = obj.getString("product_category");
-                        Log.wtf("Products", product_name + product_price + product_category);
-                            db.addProduct(product_name, product_price, product_category);
-                        //}
-                    }
 
-                    } catch (JSONException e1) {
+                        db.addProduct(product_name, product_price, product_category);
+                    }
+                } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
             }
@@ -149,6 +148,7 @@ public class CategoryActivity extends Navigation {
             protected Map<String, String> getParams() {
                 // Posting parameters to products url
                 Map<String, String> params = new HashMap<String, String>();
+
                 params.put("products","xml");
 
                 return params;
@@ -157,12 +157,10 @@ public class CategoryActivity extends Navigation {
         };
         /*Create a HashMap that will get the categories
          */
-        ArrayList<String> categories= db.getCategories();
-
-
+        ArrayList<String> categories = new ArrayList<String>();
+                categories = db.getCategories();
         this.mAdapter = new ArrayAdapter<String>(CategoryActivity.this,android.R.layout.simple_list_item_1,
                 categories);
-
         // Adding request to request queue
         StartController.getmInstance().addToRequestQueue(strReq, tag_string_req);
     }
@@ -176,9 +174,5 @@ public class CategoryActivity extends Navigation {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-
-
-
-
 
 }
