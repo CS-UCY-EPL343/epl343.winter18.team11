@@ -10,10 +10,6 @@ if($link===false){
 }
 
 
-
-
-    
-
 $sql="SELECT * FROM Product WHERE Product_ID=1";
 
 
@@ -23,10 +19,6 @@ if( $result1=mysqli_query($link, $sql)){
 
   }
 }
-
-
-
-
 
 
 

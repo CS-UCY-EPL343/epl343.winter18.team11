@@ -72,7 +72,7 @@
                                                               
  
                                                                 <div class="col-md-3 mx-auto">
-                                                                <a href="products.php"> <img src="product_2.jpg" style="width:100%"></a>
+                                                                <a href="products_food_drink.php"> <img src="product_2.jpg" style="width:100%"></a>
                                                                   <div class="label-items">
                                                                     <p> Food & Drink Serving  </p>
                                                                   </div> 
