@@ -7,14 +7,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="basket_format.css">
+    <link rel="stylesheet" type="text/css" href="css/basket_format.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <?php 
         function get_price(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
-            $sql="SELECT * FROM product WHERE Product_ID=1";
+            $sql="SELECT * FROM Product WHERE Product_ID=1";
             
                   if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
@@ -37,8 +37,8 @@
 
             if(isset($_POST['add'])){
               $quant = $_POST['quant'];
-              $sql="SELECT * FROM product WHERE Product_ID=1";
-              $sql1 = "UPDATE basket SET quantity=$quant WHERE Product_ID=1 ";
+              $sql="SELECT * FROM Product WHERE Product_ID=1";
+              $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=1 ";
               $result=mysqli_query($link, $sql1);
                  
             
@@ -48,8 +48,8 @@
            function calculate_total(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
     
-            $sql="SELECT price FROM product WHERE Product_ID=1"; 
-            $sql1="SELECT quantity FROM basket WHERE Product_ID=1";
+            $sql="SELECT price FROM Product WHERE Product_ID=1"; 
+            $sql1="SELECT Quantity FROM Basket WHERE Product_ID=1";
            
       
             if( $result1=mysqli_query($link, $sql)){
@@ -58,12 +58,12 @@
            }
            if($result2=mysqli_query($link, $sql1)){
                $fieldinfo=mysqli_fetch_array($result2);
-               $quantity=$fieldinfo['quantity'];
+               $quantity=$fieldinfo['Quantity'];
             
           }
             $total = $pr * $quantity;
               
-            $sql2 = "UPDATE basket SET total_price=$total WHERE Product_ID=1 ";
+            $sql2 = "UPDATE Basket SET Total_price=$total WHERE Product_ID=1 ";
             $result=mysqli_query($link, $sql2);
             echo $total;
            }
@@ -71,7 +71,7 @@
            function remove_fun(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
             if(isset($_POST['remove'])){
-            $del = "DELETE FROM basket WHERE Product_ID=1";
+            $del = "DELETE FROM Basket WHERE Product_ID=1";
             if (mysqli_query($link, $del)) {
               echo "Record deleted successfully";
             } else {
@@ -86,10 +86,10 @@
 
           function subtotal(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
-            $sub="SELECT total_price FROM basket WHERE Product_ID=1";
+            $sub="SELECT Total_price FROM Basket WHERE Product_ID=1";
             if( $result1=mysqli_query($link, $sub)){
               $fieldinfo=mysqli_fetch_array($result1);
-              $subtotal=$fieldinfo['total_price'];    
+              $subtotal=$fieldinfo['Total_price'];    
          }
             if(isset($_POST['add'])){
               echo $subtotal;
@@ -138,14 +138,17 @@ function rf(){
                   
         </div>
 
-          
-          <div class="row" style="padding-left:145px" >
+          <div class="col_margin">  
+          <div class="row">
+            
               <div class="col"></div>
               <div class="col"></div>
-              <div class="col">Price</div>
-              <div class="col">Quantity</div>
-              <div class="col">Remove</div>
-              <div class="col">Total</div>
+              
+                  <div class="col">Price</div>
+                  <div class="col">Quantity</div>
+                  <div class="col">Remove</div>
+                  <div class="col">Total</div>
+              </div>
           </div>
                 
 
@@ -160,7 +163,7 @@ function rf(){
                                           <div class="row">
                                             <div class="col">
                                               
-                                                    <img id="im1" src="product.jpg">
+                                                    <img id="im1" src="product_1.jpg">
                                                
                                             </div>
 
@@ -220,7 +223,7 @@ function rf(){
                                           <div class="row">
                                             <div class="col">
                                               
-                                                    <img id="im1" src="product.jpg">
+                                                    <img id="im1" src="product_1.jpg">
                                                
                                             </div>
 
