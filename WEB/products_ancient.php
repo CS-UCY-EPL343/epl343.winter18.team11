@@ -20,13 +20,13 @@
 <div class = "products_gallery">
 <div class="jumbotron" style="margin-bottom:0" >
     <div class="logo-productsgallery">
-      <h1 >Ancient Pots</h1>
+      <h1 >Ovenware Pots</h1>
     </div>
 </div>
 </div>
 
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                <a class="navbar-brand" href="#">Products</a>
+                <a class="navbar-brand" href="products.php">Products</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                   <span class="navbar-toggler-icon"></span>
                 </button>
