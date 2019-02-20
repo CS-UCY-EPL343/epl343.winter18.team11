@@ -14,25 +14,15 @@
     <?php 
         function get_price(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
-      //      $pr_id= "SELECT TOP 1 Product_ID FROM basket";
-      //      if($result1 = mysqli_query($link, $pr_id)){
-      //       if(mysqli_num_rows($result1) > 0){
-      //             while($row = mysqli_fetch_array($result1)){
-      //               $prr=$row['Product_ID'];
-      //               echo 
-                  
-      //             }
-      //       }
-      // }
-    
+  
          
             $sql="SELECT * FROM Product WHERE Product_ID=5";
             
                   if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                               while($row = mysqli_fetch_array($result)){
-                                $pr=$row['price'];
-                                echo $row['price'];
+                                $pr=$row['Price'];
+                                echo $row['Price'];
                               }
                         }
                   }
@@ -41,53 +31,41 @@
               
            }
           
-
            function get_quantity($id){
              
             $link = mysqli_connect("localhost", "root","","emira_pottery");
             $sql1="";
-
-            if(isset($_POST['add'])){
+        
               $quant = $_POST['quant'];
   
               switch($id){
                  case 1:
-                 if ($quant>1)
-                    $sql1 = "UPDATE basket SET quantity=$quant WHERE Product_ID=$id ";
-                    else
-                    $sql1 = "UPDATE basket SET quantity=1 WHERE Product_ID=$id ";
+               
+                    $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
+                  
                    $result=mysqli_query($link, $sql1);
                     break;
                  
                  case 2:
-                 if ($quant>1)
-                 $sql1 = "UPDATE basket SET quantity=$quant WHERE Product_ID=$id ";
-                 else
-                 $sql1 = "UPDATE basket SET quantity=1 WHERE Product_ID=$id ";
-                    
+                 $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
                    $result=mysqli_query($link, $sql1);
                     break;
                  case 3:
-                 if ($quant>1)
-                 $sql1 = "UPDATE basket SET quantity=$quant WHERE Product_ID=$id ";
-                 else
-                 $sql1 = "UPDATE basket SET quantity=1 WHERE Product_ID=$id ";
-                    
+                 $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
                    $result=mysqli_query($link, $sql1);
                     break;
                   case 4:
-                  if ($quant>1)
-                  $sql1 = "UPDATE basket SET quantity=$quant WHERE Product_ID=$id ";
-                  else
-                  $sql1 = "UPDATE basket SET quantity=1 WHERE Product_ID=$id ";
+                  $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
                     
                    $result=mysqli_query($link, $sql1);
                     break;
                   case 5:
-                  if ($quant>1)
-                  $sql1 = "UPDATE basket SET quantity=$quant WHERE Product_ID=$id ";
-                  else
-                  $sql1 = "UPDATE basket SET quantity=1 WHERE Product_ID=$id ";
+                  $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
            
                     $result=mysqli_query($link, $sql1);
                     break;
@@ -97,11 +75,8 @@
           
                 
             
-            }
+            
            }
-
-
-
            function remove_fun(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
             if(isset($_POST['remove'])){
@@ -110,14 +85,10 @@
               echo "Record deleted successfully";
             } else {
                echo "Error deleting record: " . mysqli_error($link);
-
               }
-
            }
-
            
           }
-
           function subtotal(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
             $sub="SELECT Total_price FROM Basket WHERE Product_ID=1";
@@ -128,7 +99,6 @@
             if(isset($_POST['add'])){
               echo $subtotal;
             }
-
             if(isset($_POST['remove'])){
               $subtotal=0;
               echo $subtotal;
@@ -141,7 +111,6 @@
 function rf(){
  <?PHP remove_fun(); ?>
  }
-
  function r_fun() {
     var elem = document.getElementById('product-form');
     elem.parentNode.removeChild(elem);
@@ -192,23 +161,19 @@ function rf(){
 
                           <?php 
 $link = mysqli_connect("localhost", "root","","emira_pottery");
-$sql="SELECT basket.quantity,basket.total_price,product.price,product.Product_Type,product.Product_ID FROM basket,product where product.Product_ID = basket.product_id";
+$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Product.Product_ID = Basket.Product_id";
 
 $result=mysqli_query($link,$sql);
-
-
 while ($row=mysqli_fetch_row($result)) {
-
   
-
   ?>
  
 <form method="post"  name="product-form">
                                           <div class="row">
                                             <div class="col">
-                                              
-                                                    <img id="im1" src="product_1.jpg">
-                                               
+                                              <?php
+                                                     echo "<img src=images/".$row[5]." />";
+                                               ?>
                                             </div>
 
 
@@ -234,7 +199,14 @@ while ($row=mysqli_fetch_row($result)) {
                                                 
                
                                                    <input type="number" name="quant"/>
-                                                   <button type="submit" name="add">Add</button>
+                                                   <button type="submit"  name="add">Add</button>
+                                                    <?php
+                                                        
+           
+            
+                                                                get_quantity($row[4]);
+                                                      
+                                                      ?>
                                             
                                             </div>
                                 
@@ -261,11 +233,13 @@ while ($row=mysqli_fetch_row($result)) {
                                   </form>
 <?php  
  }
- 
   
-
  ?>
 
+<?php
+
+
+        ?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
