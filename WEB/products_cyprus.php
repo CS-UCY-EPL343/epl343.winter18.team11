@@ -45,16 +45,14 @@
                 </div>  
         </nav>
 
+
 <!-- PRODUCTS --> 
-<?php $id1 = 1; 
-      $id2 = 2; 
-      $id3 = 3; 
-      $id4 = 4; 
-      $id5 = 5; 
-      $id6 = 6; 
-      $id7 = 7; 
-      $id8 = 8; 
-      $id9 = 9; 
+<?php $id21 = 21; 
+      $id22 = 22; 
+      $id23 = 23; 
+      $id24 = 24; 
+      $id25 = 25; 
+       
       
 ?>
 
@@ -64,11 +62,11 @@
                                                
                                                                          <div class="col-md-3 mx-auto">
                                                                              
-                                                                         <img src="/images/oven_1.jpg" style="width:100%">
+                                                                         <img src="/images/cyprus_1.jpg" style="width:100%">
                                                                          <div class="container_1" >
                                                                          <div class="overlay"></div>
                                                                     
-                                                                            <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id1;?>">  Buy now </a> </div>
+                                                                            <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id21;?>">  Buy now </a> </div>
                                                                            
                                                                              <div class="label-items">
                                                                                   <p> Ovenware 1 </p>
@@ -78,10 +76,10 @@
                                                                        
           
                                                                          <div class="col-md-3 mx-auto">
-                                                                         <img src="/images/oven_2.jpg" style="width:100%">
+                                                                         <img src="/images/cyprus_2.jpg" style="width:100%">
                                                                          <div class="container_1" >
                                                                          <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id2;?>">  Buy now </a> </div>
+                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id22;?>">  Buy now </a> </div>
                                                                             
                                                                              <div class="label-items">
                                                                                   <p> Ovenware 2 </p>
@@ -92,10 +90,10 @@
                                                                          <div class="col-md-3 mx-auto">
                                                                          
                                                                          
-                                                                         <img src="/images/oven_3.jpg" style="width:100%">
+                                                                         <img src="/images/cyprus_3.jpg" style="width:100%">
                                                                          <div class="container_1" >
                                                                          <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id3;?>">  Buy now </a> </div>
+                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id23;?>">  Buy now </a> </div>
                                                                             
                                                                              <div class="label-items">
                                                                                   <p> Ovenware 3 </p>
@@ -111,10 +109,10 @@
                      <div class="row">
                                                
                                                                          <div class="col-md-3 mx-auto">
-                                                                         <img src="/images/oven_4.jpg" style="width:100%">
+                                                                         <img src="/images/cyprus_4.jpg" style="width:100%">
                                                                          <div class="container_1" >
                                                                          <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id4;?>">  Buy now </a> </div>
+                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id24;?>">  Buy now </a> </div>
                                                                             
                                                                              <div class="label-items">
                                                                                   <p> Ovenware 4 </p>
@@ -123,10 +121,10 @@
                                                                          </div>
           
                                                                          <div class="col-md-3 mx-auto">
-                                                                         <img src="/images/oven_5.jpg" style="width:100%">
+                                                                         <img src="/images/cyprus_5.jpg" style="width:100%">
                                                                          <div class="container_1" >
                                                                          <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id5;?>">  Buy now </a> </div>
+                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id25;?>">  Buy now </a> </div>
                                                                             
                                                                              <div class="label-items">
                                                                                   <p> Ovenware 5 </p>
@@ -134,69 +132,20 @@
                                                                           </div>
                                                                          </div>
                                                     
-         
-                                                      
                                                                          <div class="col-md-3 mx-auto">
+                                                                        
                                                                          
-                                                                         <img src="/images/oven_6.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id6;?>">  Buy now </a> </div>
-                                                                            
-                                                                             <div class="label-items">
-                                                                                  <p> Ovenware 6 </p>
-                                                                            </div>      
-                                                                          </div>
-                                                                           </div>
+                                                                         
+                                                                         
+                                                                         </div>
+                                                      
          
          
                                                                            
                                                                         
                                                                          
                    </div>
-                   <div class="row">
-                                               
-                                               <div class="col-md-3 mx-auto">
-                                              
-                                               <img src="/images/oven_7.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id7;?>">  Buy now </a> </div>
-                                                                            
-                                                                             <div class="label-items">
-                                                                                  <p> Ovenware 7 </p>
-                                                                            </div>      
-                                                                          </div> 
-                                               </div>
-
-                                               <div class="col-md-3 mx-auto">
-                                               
-                                               <img src="/images/oven_8.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id8;?>">  Buy now </a> </div>
-                                                                            
-                                                                             <div class="label-items">
-                                                                                  <p> Ovenware 8</p>
-                                                                            </div>      
-                                                                          </div>
-                                               </div>
-
-                                               <div class="col-md-3 mx-auto">
-                                               
-                                               <img src="/images/oven_9.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id9;?>">  Buy now </a> </div>
-                                                                            
-                                                                             <div class="label-items">
-                                                                                  <p> Ovenware 9 </p>
-                                                                            </div>      
-                                                                          </div>
-                                               </div>
-                        
-                                               
-               </div>
+                  
          
                                      
          

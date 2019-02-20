@@ -16,7 +16,7 @@
 
 <body>
         <div class="jumbotron -fluid" style="margin-bottom:0" >
-        <div class="logo">
+        <div class="logo-productsgallery1">
                 <h1 >Products</h1>
         </div>
         </div>
