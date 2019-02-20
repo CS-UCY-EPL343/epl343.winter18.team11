@@ -87,17 +87,30 @@ background: grey;
 
 .products_gallery .jumbotron{
     background-image: none;
-    background-color: antiquewhite;
+    background-color: blanchedalmond;
     height: 300px;
+   
    
 }
 
 .logo-productsgallery h1{
+    font-size: 70px;
+    font-style:italic;
+    font-family: cursive;
+    text-align: center;
+   
+}
+
+.logo-productsgallery1 h1{
     font-size: 100px;
     font-style:italic;
     font-family: cursive;
+    text-align: center;
+    padding-top: 25%;
+
    
 }
+
 
 
 
