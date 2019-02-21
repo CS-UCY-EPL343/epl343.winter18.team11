@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -14,20 +15,20 @@
             android:title="Shop" />
         <item
             android:id="@+id/nav_time"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@android:drawable/ic_menu_month"
             android:title="TimeSchedule" />
         <item
             android:id="@+id/nav_contact"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@android:drawable/sym_call_incoming"
             android:title="Contact" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_map"
+                android:icon="@android:drawable/ic_menu_mapmode"
+                android:title="Map" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"

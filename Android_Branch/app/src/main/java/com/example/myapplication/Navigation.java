@@ -113,7 +113,7 @@ public class Navigation extends AppCompatActivity
             startActivity(i);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             finish();
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_map) {
 
 
         } else if (id == R.id.nav_send) {

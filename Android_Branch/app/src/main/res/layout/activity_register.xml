@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/bg_login"
+    android:background="@color/btn_login"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/emira"
+        android:src="@drawable/emira"
         tools:srcCompat="@drawable/emira" />
 
     <LinearLayout
@@ -28,19 +28,20 @@
             android:id="@+id/imageView3"
             android:layout_width="341dp"
             android:layout_height="49dp"
-            app:srcCompat="@drawable/poter1" />
+            android:padding="10dp"
+            android:src="@drawable/poter1" />
 
         <EditText
             android:id="@+id/name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
-            android:hint="@string/hint_name"
+            android:background="@color/white"
+            android:hint="Full Name"
             android:inputType="textCapWords"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/input_register"
+            android:textColor="@color/white"
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
@@ -48,12 +49,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="@color/white"
             android:hint="Mobile Phone"
             android:inputType="phone"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/input_register"
+            android:textColor="@color/white"
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
@@ -61,12 +62,12 @@
             android:layout_width="match_parent"
             android:layout_height="102dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="@color/white"
             android:hint="Home Address"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/input_register"
+            android:textColor="@color/white"
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
@@ -74,12 +75,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="@color/white"
             android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/input_register"
+            android:textColor="@color/white"
             android:textColorHint="@color/input_register_hint" />
 
         <!-- Login Button -->
@@ -89,12 +90,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="@color/white"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/input_register"
+            android:textColor="@color/white"
             android:textColorHint="@color/input_register_hint" />
 
         <Button
@@ -103,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:background="@null"
-            android:text="Ekana idi Register!"
+            android:text="Εχω κάνει ήδη εγγραφή!"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
@@ -113,10 +114,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
-            android:background="#ea4c88"
+            android:background="@color/white"
             android:baselineAligned="false"
-            android:text="@string/btn_register"
-            android:textColor="@color/white" />
+            android:text="Register"
+            android:textColor="@color/bg_login" />
 
         <!-- Link to Login Screen -->
 
