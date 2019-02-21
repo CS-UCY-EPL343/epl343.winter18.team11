@@ -7,20 +7,22 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="basket_format.css">
+    <link rel="stylesheet" type="text/css" href="css/basket_format.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <?php 
         function get_price(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
-            $sql="SELECT * FROM product WHERE Product_ID=1";
+  
+         
+            $sql="SELECT * FROM Product WHERE Product_ID=5";
             
                   if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                               while($row = mysqli_fetch_array($result)){
-                                $pr=$row['price'];
-                                echo $row['price'];
+                                $pr=$row['Price'];
+                                echo $row['Price'];
                               }
                         }
                   }
@@ -29,72 +31,74 @@
               
            }
           
-
-           function get_quantity(){
+           function get_quantity($id){
              
             $link = mysqli_connect("localhost", "root","","emira_pottery");
-          
-
-            if(isset($_POST['add'])){
+            $sql1="";
+        
               $quant = $_POST['quant'];
-              $sql="SELECT * FROM product WHERE Product_ID=1";
-              $sql1 = "UPDATE basket SET quantity=$quant WHERE Product_ID=1 ";
-              $result=mysqli_query($link, $sql1);
+  
+              switch($id){
+                 case 1:
+               
+                    $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
+                  
+                   $result=mysqli_query($link, $sql1);
+                    break;
                  
-            
-            }
-           }
-
-           function calculate_total(){
-            $link = mysqli_connect("localhost", "root","","emira_pottery");
-    
-            $sql="SELECT price FROM product WHERE Product_ID=1"; 
-            $sql1="SELECT quantity FROM basket WHERE Product_ID=1";
+                 case 2:
+                 $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
+                   $result=mysqli_query($link, $sql1);
+                    break;
+                 case 3:
+                 $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
+                   $result=mysqli_query($link, $sql1);
+                    break;
+                  case 4:
+                  $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
+                    
+                   $result=mysqli_query($link, $sql1);
+                    break;
+                  case 5:
+                  $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
+                  
            
-      
-            if( $result1=mysqli_query($link, $sql)){
-                $fieldinfo=mysqli_fetch_array($result1);
-                $pr=$fieldinfo['price'];    
-           }
-           if($result2=mysqli_query($link, $sql1)){
-               $fieldinfo=mysqli_fetch_array($result2);
-               $quantity=$fieldinfo['quantity'];
+                    $result=mysqli_query($link, $sql1);
+                    break;
+                 }
+          //  }
             
-          }
-            $total = $pr * $quantity;
-              
-            $sql2 = "UPDATE basket SET total_price=$total WHERE Product_ID=1 ";
-            $result=mysqli_query($link, $sql2);
-            echo $total;
+          
+                
+            
+            
            }
-
            function remove_fun(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
             if(isset($_POST['remove'])){
-            $del = "DELETE FROM basket WHERE Product_ID=1";
+            $del = "DELETE FROM Basket WHERE Product_ID=";
             if (mysqli_query($link, $del)) {
               echo "Record deleted successfully";
             } else {
                echo "Error deleting record: " . mysqli_error($link);
-
               }
-
            }
-
            
           }
-
           function subtotal(){
             $link = mysqli_connect("localhost", "root","","emira_pottery");
-            $sub="SELECT total_price FROM basket WHERE Product_ID=1";
+            $sub="SELECT Total_price FROM Basket WHERE Product_ID=1";
             if( $result1=mysqli_query($link, $sub)){
               $fieldinfo=mysqli_fetch_array($result1);
-              $subtotal=$fieldinfo['total_price'];    
+              $subtotal=$fieldinfo['Total_price'];    
          }
             if(isset($_POST['add'])){
               echo $subtotal;
             }
-
             if(isset($_POST['remove'])){
               $subtotal=0;
               echo $subtotal;
@@ -107,7 +111,6 @@
 function rf(){
  <?PHP remove_fun(); ?>
  }
-
  function r_fun() {
     var elem = document.getElementById('product-form');
     elem.parentNode.removeChild(elem);
@@ -138,14 +141,17 @@ function rf(){
                   
         </div>
 
-          
-          <div class="row" style="padding-left:145px" >
+          <div class="col_margin">  
+          <div class="row">
+            
               <div class="col"></div>
               <div class="col"></div>
-              <div class="col">Price</div>
-              <div class="col">Quantity</div>
-              <div class="col">Remove</div>
-              <div class="col">Total</div>
+              
+                  <div class="col">Price</div>
+                  <div class="col">Quantity</div>
+                  <div class="col">Remove</div>
+                  <div class="col">Total</div>
+              </div>
           </div>
                 
 
@@ -153,22 +159,28 @@ function rf(){
                           <br>
                         </br>
 
-                          
-                              
-                                 <form method="post"  name="product-form">
-                                          
+                          <?php 
+$link = mysqli_connect("localhost", "root","","emira_pottery");
+$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Product.Product_ID = Basket.Product_id";
+
+$result=mysqli_query($link,$sql);
+while ($row=mysqli_fetch_row($result)) {
+  
+  ?>
+ 
+<form method="post"  name="product-form">
                                           <div class="row">
                                             <div class="col">
-                                              
-                                                    <img id="im1" src="product.jpg">
-                                               
+                                              <?php
+                                                     echo "<img src=images/".$row[5]." />";
+                                               ?>
                                             </div>
 
 
 
                                             <div class="col">
                                                
-                                                  <div class="product_category">Category 10</div>
+                                                  <div class="product_category"><?php echo $row[3]; ?></div>
                                                
                                             </div>
 
@@ -176,7 +188,7 @@ function rf(){
                                             <div class="col" >
                                                
                                               <?php
-                                                   get_price();
+                                                 echo $row[2];
                                               ?>
 
                                             </div>
@@ -186,12 +198,16 @@ function rf(){
 
                                                 
                
-                                                    <input type="number" name="quant"/>
-                                                    <button type="submit" name="add">Add</button>
+                                                   <input type="number" name="quant"/>
+                                                   <button type="submit"  name="add">Add</button>
                                                     <?php
-                                                        get_quantity();
-                                                     ?>
-                                               
+                                                        
+           
+            
+                                                                get_quantity($row[4]);
+                                                      
+                                                      ?>
+                                            
                                             </div>
                                 
                                             <div class="col">
@@ -206,174 +222,25 @@ function rf(){
 
                                             <div class="col">
                                                   <?php
-                                                        calculate_total();
+                                                        echo $row[0]*$row[2];
                                                      ?>
                                             </div>
                                           </div>
                                        
+                                        
+
+
                                   </form>
-
-                                  <br> </br>
-
-                                  <form method="post"  name="product-form">
-                                          
-                                          <div class="row">
-                                            <div class="col">
-                                              
-                                                    <img id="im1" src="product.jpg">
-                                               
-                                            </div>
-
-
-
-                                            <div class="col">
-                                               
-                                                  <div class="product_category">Category 10</div>
-                                               
-                                            </div>
-
-
-                                            <div class="col" >
-                                               
-                                              <?php
-                                                   get_price();
-                                              ?>
-
-                                            </div>
-
-
-                                            <div class="col">
-
-                                                
-               
-                                                    <input type="number" name="quant"/>
-                                                    <button type="submit" name="add">Add</button>
-                                                    <?php
-                                                        get_quantity();
-                                                     ?>
-                                               
-                                            </div>
-                                
-                                            <div class="col">
-                                               
-                                            <button type="submit" name="remove" onclick="rf()">Remove</button>
-                                                     <?php
-                                                        remove_fun();
-                                                     ?>
-                                             
-                                            </div>
-
-                                            <div class="col">
-                                                  <?php
-                                                        calculate_total();
-                                                     ?>
-                                            </div>
-                                          </div>
-                                       
-                                  </form>
-
-
-                        <div class="totals">
-                          <div class="totals-item">
-                            <label>Subtotal</label>
-                                <div class="totals-value">
-                                  <?php
-                                  subtotal();
-                                  ?>
-                                </div>
-                      </div>
-</div>
-
-
-
-
-                            
-                <button class="checkout" onclick="document.getElementById('goto').style.display='block'">Checkout</button>
-
-              </div>
-              
-             
-
-            <div id="goto" class="modal">
+<?php  
+ }
   
-              <h2>Responsive Checkout Form</h2>
-              <div class="row">
-                <div class="col-75">
-                  <div class="container">
-                    <form action="/action_page.php">
-                    
-                      <div class="row">
-                        <div class="col-50">
-                          <h3>Billing Address</h3>
-                          <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                          <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-                          <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                          <input type="text" id="email" name="email" placeholder="john@example.com">
-                          <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                          <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-                          <label for="city"><i class="fa fa-institution"></i> City</label>
-                          <input type="text" id="city" name="city" placeholder="New York">
-              
-                          <div class="row">
-                            <div class="col-50">
-                              <label for="state">State</label>
-                              <input type="text" id="state" name="state" placeholder="NY">
-                            </div>
-                            <div class="col-50">
-                              <label for="zip">Zip</label>
-                              <input type="text" id="zip" name="zip" placeholder="10001">
-                            </div>
-                          </div>
-                        </div>
-              
-                        <div class="col-50">
-                          <h3>Payment</h3>
-                          <label for="fname">Accepted Cards</label>
-                          <div class="icon-container">
-                            <i class="fa fa-cc-visa" style="color:navy;"></i>
-                            <i class="fa fa-cc-amex" style="color:blue;"></i>
-                            <i class="fa fa-cc-mastercard" style="color:red;"></i>
-                            <i class="fa fa-cc-discover" style="color:orange;"></i>
-                          </div>
-                          <label for="cname">Name on Card</label>
-                          <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-                          <label for="ccnum">Credit card number</label>
-                          <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-                          <label for="expmonth">Exp Month</label>
-                          <input type="text" id="expmonth" name="expmonth" placeholder="September">
-                          <div class="row">
-                            <div class="col-50">
-                              <label for="expyear">Exp Year</label>
-                              <input type="text" id="expyear" name="expyear" placeholder="2018">
-                            </div>
-                            <div class="col-50">
-                              <label for="cvv">CVV</label>
-                              <input type="text" id="cvv" name="cvv" placeholder="352">
-                            </div>
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <label>
-                        <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-                      </label>
-                      <input type="submit" value="Continue to checkout" class="btn">
-                    </form>
-                  </div>
-                </div>
-                <div class="col-25">
-                  <div class="container">
-                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
-                    <p><a href="#">Product 1</a> <span class="price">$15</span></p>
-                    <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-                    <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-                    <p><a href="#">Product 4</a> <span class="price">$2</span></p>
-                    <hr>
-                    <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
-                  </div>
-                </div>
-              </div>
-</div>
+ ?>
+
+<?php
+
+
+        ?>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
