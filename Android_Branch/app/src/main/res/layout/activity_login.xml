@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/bg_login"
+    android:background="@color/btn_login"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/emira"
+        tools:srcCompat="@drawable/emira" />
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="386dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
+        android:paddingRight="20dp">
 
         <EditText
             android:id="@+id/email"
@@ -48,9 +58,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@color/btn_login_bg"
-            android:text="@string/btn_login"
-            android:textColor="@color/btn_login" />
+            android:background="@color/white"
+            android:text="Σύνδεση"
+            android:textColor="@color/login_text" />
 
         <!-- Link to Login Screen -->
 
@@ -59,10 +69,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
-            android:background="@null"
-            android:text="@string/btn_link_to_register"
+            android:background="@color/white"
+            android:text="Καινουργιος Πελάτης? Κάντε Εγγραφή Εδώ"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/login_text"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/btnLinkToRegisterScreen2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dip"
+            android:background="@color/btn_login_bg"
+            android:text="Περιηγηθείτε Χωρίς Εγγραφή"
+            android:textAllCaps="false"
+            android:textColor="@color/login_text"
             android:textSize="15dp" />
     </LinearLayout>
 

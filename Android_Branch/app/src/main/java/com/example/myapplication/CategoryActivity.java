@@ -125,7 +125,7 @@ public class CategoryActivity extends Navigation {
                         obj = products.getJSONObject("products"+String.valueOf(i));
                         String product_name = obj.getString("product_name");
                         String product_price = obj.getString("product_price");
-                        String product_category = obj.getString("product_category");
+                        String product_category = obj.getString("product_type");
 
                         db.addProduct(product_name, product_price, product_category);
                     }

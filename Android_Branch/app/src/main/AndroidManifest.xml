@@ -12,7 +12,11 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".MeetingActivity"></activity>
+        <activity
+            android:name=".activity_navigation_no_account"
+            android:label="@string/title_activity_navigation_no_account"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".MeetingActivity" />
         <activity
             android:name=".ItemsActivity"
             android:label="@string/title_activity_items"
@@ -26,7 +30,7 @@
         <activity
             android:name=".Navigation"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
@@ -42,7 +46,7 @@
             android:name=".RegisterActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

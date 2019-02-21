@@ -43,7 +43,7 @@ public class StartController extends Application {
         super.onCreate();
         mInstance = this;
         CategoryActivity cat = new CategoryActivity();
-        cat.getProductsSql(mAdapter);
+       // cat.getProductsSql(mAdapter);
 
     }
 }
