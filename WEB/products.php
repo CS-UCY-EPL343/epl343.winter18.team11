@@ -81,7 +81,7 @@
 
                                                                 <div class="col-md-3 mx-auto">
                                                                 
-                                                                <a href="products.php"> <img src="product_3.jpg" style="width:100%"></a>
+                                                                <a href="products_cyprus.php"> <img src="product_3.jpg" style="width:100%"></a>
                                                                     <div class="label-items">
                                                                     <p> Cyprus Souvenirs </p>
                                                                   </div> 
@@ -94,14 +94,14 @@
             <div class="row">
                                       
                                                                 <div class="col-md-3 mx-auto">
-                                                                  <a href="products.php"> <img src="product_4.jpg" style="width:100%"></a>
+                                                                  <a href="products_decorative.php"> <img src="product_4.jpg" style="width:100%"></a>
                                                                   <div class="label-items">
                                                                     <p> Decorative  </p>
                                                                   </div> 
                                                                 </div>
  
                                                                 <div class="col-md-3 mx-auto">
-                                                                <a href="products.php"> <img src="product_5.jpg" style="width:100%"></a>
+                                                                <a href="products_ancient.php"> <img src="product_5.jpg" style="width:100%"></a>
                                                                   <div class="label-items">
                                                                     <p> Ancient Pottery Replicas </p>
                                                                   </div> 
@@ -111,7 +111,7 @@
                                              
                                                                 <div class="col-md-3 mx-auto">
                                                                 
-                                                                <a href="products.php"> <img src="product_6.jpg" style="width:100%"></a>
+                                                                <a href="products_ecclesiastical.php"> <img src="product_6.jpg" style="width:100%"></a>
                                                                     <div class="label-items">
                                                                     <p> Ecclesiastical Items </p>
                                                                   </div> 
