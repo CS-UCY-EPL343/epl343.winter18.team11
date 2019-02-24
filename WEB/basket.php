@@ -12,114 +12,59 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <?php 
-        function get_price(){
+
+          
+           function get_quantity($id,$quant){
+             
             $link = mysqli_connect("localhost", "root","","emira_pottery");
-  
-         
-            $sql="SELECT * FROM Product WHERE Product_ID=5";
+          
+           
+            if(isset($_POST['add'])){
+             
+              if(isset($_POST['qty'])){
+                  $quaty=$_POST['qty'];
+                  $ids=$_POST['id'];
+                 
+                  $array = array_combine($quaty,$ids);
+            
+                  foreach($array as $q => $i){
+                    $queryy="UPDATE basket SET Quantity = $q WHERE Product_ID = $i";
+                      mysqli_query($link,$queryy);
+            
+                  }
+            
+                  $sql="SELECT price FROM product WHERE Product_ID=$i";
             
                   if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                               while($row = mysqli_fetch_array($result)){
-                                $pr=$row['Price'];
-                                echo $row['Price'];
+                                $pr=$row['price'];
                               }
-                        }
-                  }
-                 
-         
-              
-           }
-          
-           function get_quantity($id){
-             
-            $link = mysqli_connect("localhost", "root","","emira_pottery");
-            $sql1="";
-        
-              $quant = $_POST['quant'];
-  
-              switch($id){
-                 case 1:
-               
-                    $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
-                  
-                  
-                   $result=mysqli_query($link, $sql1);
-                    break;
-                 
-                 case 2:
-                 $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
-                  
-                   $result=mysqli_query($link, $sql1);
-                    break;
-                 case 3:
-                 $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
-                  
-                   $result=mysqli_query($link, $sql1);
-                    break;
-                  case 4:
-                  $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
-                  
-                    
-                   $result=mysqli_query($link, $sql1);
-                    break;
-                  case 5:
-                  $sql1 = "UPDATE Basket SET Quantity=$quant WHERE Product_ID=$id ";
-                  
-           
-                    $result=mysqli_query($link, $sql1);
-                    break;
-                 }
-          //  }
-            
-          
-                
-            
-            
-           }
-           function remove_fun(){
-            $link = mysqli_connect("localhost", "root","","emira_pottery");
-            if(isset($_POST['remove'])){
-            $del = "DELETE FROM Basket WHERE Product_ID=";
-            if (mysqli_query($link, $del)) {
-              echo "Record deleted successfully";
-            } else {
-               echo "Error deleting record: " . mysqli_error($link);
               }
+            
+            }
+                    $total=$pr*$q;
+                    $queryy1="UPDATE basket SET Total_price = $total WHERE Product_ID = $i";
+                    mysqli_query($link,$queryy1);
            }
+          }
+        }
            
-          }
-          function subtotal(){
-            $link = mysqli_connect("localhost", "root","","emira_pottery");
-            $sub="SELECT Total_price FROM Basket WHERE Product_ID=1";
-            if( $result1=mysqli_query($link, $sub)){
-              $fieldinfo=mysqli_fetch_array($result1);
-              $subtotal=$fieldinfo['Total_price'];    
-         }
-            if(isset($_POST['add'])){
-              echo $subtotal;
-            }
-            if(isset($_POST['remove'])){
-              $subtotal=0;
-              echo $subtotal;
-            }
-          }
-    ?>
+function del_fun(){
+  $link = mysqli_connect("localhost", "root","","emira_pottery");
+    if(isset($_POST['del'])){
+      $de=$_POST['del'];
+      foreach($de as $d){
+        $quer="DELETE FROM basket WHERE Product_ID=$d";
+        mysqli_query($link, $quer);
+      }
 
+    }
 
-<script>
-function rf(){
- <?PHP remove_fun(); ?>
- }
- function r_fun() {
-    var elem = document.getElementById('product-form');
-    elem.parentNode.removeChild(elem);
-    return false;
 }
-</script>
 
-
-
+         
+    ?>
 
 
   </head>
@@ -141,105 +86,117 @@ function rf(){
                   
         </div>
 
-          <div class="col_margin">  
-          <div class="row">
-            
-              <div class="col"></div>
-              <div class="col"></div>
-              
-                  <div class="col">Price</div>
-                  <div class="col">Quantity</div>
-                  <div class="col">Remove</div>
-                  <div class="col">Total</div>
-              </div>
-          </div>
-                
 
+                
+             
                     
-                          <br>
-                        </br>
+                    
 
                           <?php 
 $link = mysqli_connect("localhost", "root","","emira_pottery");
 $sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Product.Product_ID = Basket.Product_id";
 
 $result=mysqli_query($link,$sql);
-while ($row=mysqli_fetch_row($result)) {
+
+
   
   ?>
  
-<form method="post"  name="product-form">
-                                          <div class="row">
-                                            <div class="col">
-                                              <?php
-                                                     echo "<img src=images/".$row[5]." />";
-                                               ?>
-                                            </div>
+ <div class="row" style="padding-left:145px" >
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col" style="padding-right:85px">Category</div>
+              <div class="col">Price</div>
+              <div class="col"></div>
+              <div class="col">Quantity</div>
+             
+              <div class="col">Total</div>
+              <br></br>
+          </div>
+        <?php
+        session_start();
 
+        $cartcount=0;
+        $cartamount=0;
+        while ($row=mysqli_fetch_row($result)) {
+       
+          $cartcount += $row[0];
+          $linetotal = $row[2]*$row[0];
+          $cartamount += $linetotal;
+         
+         
 
-
-                                            <div class="col">
+         // echo "\n\t<td>" . "<input type=\"text\" size=3 name=\"" . $row[4] ."\" value = \"" . $row[0] . "\"></td>\n";
+         
+          $id=$row[4];
+          $qua=$row[0];
+          $pr=$row[2];
+          ?>
+          <div class="row" >
+          <div class="col">
+          <?php
+          echo "<img src=images/".$row[5]." />";
+          ?>
+          </div>
+          <div class="col" style="padding-right:150px">
                                                
-                                                  <div class="product_category"><?php echo $row[3]; ?></div>
-                                               
-                                            </div>
-
-
-                                            <div class="col" >
-                                               
-                                              <?php
-                                                 echo $row[2];
-                                              ?>
-
-                                            </div>
-
-
-                                            <div class="col">
-
-                                                
-               
-                                                   <input type="number" name="quant"/>
-                                                   <button type="submit"  name="add">Add</button>
-                                                    <?php
-                                                        
-           
-            
-                                                                get_quantity($row[4]);
-                                                      
-                                                      ?>
+                                               <?php echo $row[3]; ?>
                                             
-                                            </div>
-                                
-                                            <div class="col">
-                                               
-                                            <button type="submit" name="remove" onclick="rf()">Remove</button>
-                                                     <?php
-                                                        remove_fun();
-                                                    
-                                                     ?>
-                                             
-                                            </div>
+                                         </div>
+          <div class="col"  style="padding-right:250px">
+<?php
+          printf("$%.2f", $row[2]);
+?>
+          </div>
+        
 
-                                            <div class="col">
-                                                  <?php
-                                                        echo $row[0]*$row[2];
-                                                     ?>
-                                            </div>
-                                          </div>
-                                       
-                                        
+          <form method="post" action="test.php"  >
+              <input type="hidden" name="id[]" value="<?php echo $id ?>" />
+              
+              <input type="text" name="qty[]" size="2" value="<?php echo $qua?>" />
+        
+        
+              <button type="submit" name="add" >Add</button>
+       
+              <button type="submit" name="del[]" value="<?php echo $id?>" >Remove</button>
+        
+          </form>
+          
+         
+         <div class="col" style="padding-right:110px" >
+         <?php
+          printf("\n$%.2f", $linetotal);
+          printf("\n");
+          ?>
+          
+          </div>
+          
+          </div>
+          <br></br>
+      <?php
+get_quantity($id,$qua);
+del_fun();
 
 
-                                  </form>
-<?php  
- }
-  
+   ?>
+
+ <?php    
+          }
+      ?>
+   
+    <div class="col" style="padding-left:1200px">  
+<?php          
+         
+          printf("<b>$%.2f</b>\n", $cartamount);      
  ?>
 
-<?php
+</div>
+</div>
+      
+      <button class="checkout">Checkout</button>
 
+</div>
 
-        ?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
