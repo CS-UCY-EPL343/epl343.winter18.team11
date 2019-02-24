@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <?php 
-
           
            function get_quantity($id,$quant){
              
@@ -28,24 +27,27 @@
                   $array = array_combine($quaty,$ids);
             
                   foreach($array as $q => $i){
-                    $queryy="UPDATE basket SET Quantity = $q WHERE Product_ID = $i";
+                    $queryy="UPDATE Basket SET Quantity = $q WHERE Product_ID = $i";
                       mysqli_query($link,$queryy);
             
                   }
             
-                  $sql="SELECT price FROM product WHERE Product_ID=$i";
-            
-                  if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
-                              while($row = mysqli_fetch_array($result)){
+                  $sql="SELECT price FROM Product WHERE Product_ID=$i";
+                  $result = mysqli_query($link, $sql);
+                  $row = mysqli_fetch_array($result);
+                 // if($result = mysqli_query($link, $sql)){
+                //        if(mysqli_num_rows($result) > 0){
+                 //             while($row = mysqli_fetch_array($result)){
                                 $pr=$row['price'];
-                              }
-              }
+                  //            }
+            //  }
             
-            }
+            //}
                     $total=$pr*$q;
-                    $queryy1="UPDATE basket SET Total_price = $total WHERE Product_ID = $i";
+                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Product_ID = $i";
                     mysqli_query($link,$queryy1);
+                    header('location: basket.php');	
+               
            }
           }
         }
@@ -55,14 +57,12 @@ function del_fun(){
     if(isset($_POST['del'])){
       $de=$_POST['del'];
       foreach($de as $d){
-        $quer="DELETE FROM basket WHERE Product_ID=$d";
+        $quer="DELETE FROM Basket WHERE Product_ID=$d";
         mysqli_query($link, $quer);
+        header('location: basket.php');	
       }
-
     }
-
 }
-
          
     ?>
 
@@ -95,10 +95,7 @@ function del_fun(){
                           <?php 
 $link = mysqli_connect("localhost", "root","","emira_pottery");
 $sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Product.Product_ID = Basket.Product_id";
-
 $result=mysqli_query($link,$sql);
-
-
   
   ?>
  
@@ -115,7 +112,6 @@ $result=mysqli_query($link,$sql);
           </div>
         <?php
         session_start();
-
         $cartcount=0;
         $cartamount=0;
         while ($row=mysqli_fetch_row($result)) {
@@ -125,7 +121,6 @@ $result=mysqli_query($link,$sql);
           $cartamount += $linetotal;
          
          
-
          // echo "\n\t<td>" . "<input type=\"text\" size=3 name=\"" . $row[4] ."\" value = \"" . $row[0] . "\"></td>\n";
          
           $id=$row[4];
@@ -150,7 +145,7 @@ $result=mysqli_query($link,$sql);
           </div>
         
 
-          <form method="post" action="test.php"  >
+          <form method="post"   >
               <input type="hidden" name="id[]" value="<?php echo $id ?>" />
               
               <input type="text" name="qty[]" size="2" value="<?php echo $qua?>" />
@@ -176,8 +171,6 @@ $result=mysqli_query($link,$sql);
       <?php
 get_quantity($id,$qua);
 del_fun();
-
-
    ?>
 
  <?php    

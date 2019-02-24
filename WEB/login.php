@@ -1,41 +1,32 @@
+<?php include('functions.php') ?>
+<!DOCTYPE html>
 <html>
+<head>
+	<title>Registration system PHP and MySQL</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
-<?php
+	<div class="header">
+		<h2>Login</h2>
+	</div>
+	<form method="post" action="login.php">
 
-$link=mysqli_connect("localhost","root","","emira_pottery");
+		<?php echo display_error(); ?>
 
-
-if($link===false){
-    die("error: could not connect" .mysqli_connect_error());
-}
-
-
-if(isset($_POST['login'])) {
-
-    $myusername=$_POST['myusername'];
-    $mypassword=$_POST['mypassword'];
-
-    
-
-$sql="SELECT * FROM Customer WHERE Username='$myusername' and Password='$mypassword'";
-
-
-
-
-if($result=mysqli_query($link,$sql)){
-    if(mysqli_num_rows($result) > 0){
-        echo " logged in";
-    }
-    else{
-        echo "Wrong Username or Password" . mysqli_error($link);
-   }
-
-}
-
-
-}
-?>
+		<div class="input-group">
+			<label>Username</label>
+			<input type="text" name="username" >
+		</div>
+		<div class="input-group">
+			<label>Password</label>
+			<input type="password" name="password">
+		</div>
+		<div class="input-group">
+			<button type="submit" class="btn" name="login_btn">Login</button>
+		</div>
+		<p>
+			Not yet a member? <a href="register.php">Sign up</a>
+		</p>
+	</form>
 </body>
 </html>
-
-
