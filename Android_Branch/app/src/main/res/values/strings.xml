@@ -32,22 +32,8 @@
     <string name="title_item_detail">Item Detail</string>
     <string name="shop_name">Shop</string>
     <string name="time_name">Meetings Schedule</string>
-    <string-array name="shop">
-        <item>Ekklisiastika</item>
-        <item>Pilina</item>
-        <item>Aggeia</item>
-    </string-array>
-    <string-array name="Ekklisiastika">
-        <item>Agio Diskopotiro</item>
-    </string-array>
-    <string-array name="AgioDiskopotiro">
-        <item>Αυτο το δισκοπότηρο έγινε δια της αγάπης του Κυρίου.</item>
-        <item>10</item>
-        <item>agio_diskopotiro</item>
-
-    </string-array>
 
 
-    <string name="title_activity_items">ItemsActivity</string>
+    <string name="title_activity_items">Products of </string>
     <string name="title_activity_navigation_no_account">activity_navigation_no_account</string>
 </resources>

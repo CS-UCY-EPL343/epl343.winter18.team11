@@ -75,8 +75,6 @@ public class AccountActivity extends Navigation {
         nameView.setText(name);
         emailView.setText(email);
         mobileView.setText(mobile);
-
-
     }
            private void logoutUser() {
                session.setLogin(false);

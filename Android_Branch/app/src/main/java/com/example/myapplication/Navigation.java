@@ -109,6 +109,7 @@ public class Navigation extends AppCompatActivity
                 finish();
 
         } else if (id == R.id.nav_shop) {
+
             Intent i = new Intent(getApplicationContext(), CategoryActivity.class);
             startActivity(i);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

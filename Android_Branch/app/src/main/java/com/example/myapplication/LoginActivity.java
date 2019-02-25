@@ -105,9 +105,12 @@ public class LoginActivity extends Activity {
 
                     // Check for error node in json
                     if (!error) {
+
                         // user successfully logged in
                         // Create login session
                         session.setLogin(true);
+                        GetProducts  getProducts = new GetProducts(db);
+                        getProducts.getProductsSql();
                         /*Now get the strings from the user*/
                         JSONObject user = jObj.getJSONObject("user");
                         String uid = jObj.getString("UserID");

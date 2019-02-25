@@ -142,10 +142,24 @@ Add product into mysql lite locally
 
 /*Get the current categories from the local database
 * */
-        public ArrayList<String> getCategories(){
-
+        public ArrayList<String> getCategories() {
             ArrayList<String> categories = new ArrayList<String>();
-        String selectQuery = "SELECT "+KEY_PRODUCT_CAT+" FROM " + TABLE_PRODUCTS ;
+            String selectQuery = "SELECT " + KEY_PRODUCT_CAT + " FROM " + TABLE_PRODUCTS;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    categories.add(cursor.getString(0));
+                }
+            }
+            return categories;
+        }
+
+
+    public ArrayList<String> getItemsFromCategory(String Cat){
+
+        ArrayList<String> categories = new ArrayList<String>();
+        String selectQuery = "SELECT "+"product_name" + " FROM " + TABLE_PRODUCTS + " WHERE" + " product_category = "+"'"+ Cat+"'" ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -154,10 +168,7 @@ Add product into mysql lite locally
                 categories.add(cursor.getString(0));
             }
         }
-
         return categories;
-
-
     }
 
 /*Get user details on a hashmap*
@@ -183,7 +194,7 @@ Add product into mysql lite locally
 
     public void deleteTables() {
         SQLiteDatabase db = this.getWritableDatabase();
-       db.delete(TABLE_USER, null, null);
+        db.delete(TABLE_USER, null, null);
         db.delete(TABLE_ORDER, null, null);
         db.delete(TABLE_PRODUCTS, null, null);
 

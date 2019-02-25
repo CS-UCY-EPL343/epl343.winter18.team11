@@ -21,10 +21,12 @@ public class SessionManager {
         editor = pref.edit();
     }
     public void setLogin(boolean isLoggedIn) {
+        CategoryActivity cat = new CategoryActivity();
         /*Insert into the preferences that the user is logged in */
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
         editor.commit();
         Log.d(TAG, "User Login Modifieded");
+
     }
 
     public void setProduct(boolean areProductsShown) {
