@@ -1,3 +1,8 @@
+<?php
+    include('functions.php');
+
+  
+?>
 
 
 <!DOCTYPE html>
@@ -15,13 +20,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
  
-  <?php
-    include_once 'register.php';
-  ?>
   
-  <?php
-    include_once 'login.php';
-  ?>
+  
+  
+  
 </head>
 <body>
   
@@ -52,86 +54,61 @@
     </ul>
   </div>  
 
-  <!-- LOGIN BUTTON --> 
+
+
+
+
+
+
   <div class="login-buttons">
 
     <div class="btn-group">
-      <button type="button" class="btn btn-dark" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-      <div id="id01" class="modal">
-  
-        <form class="modal-content animate" action="login.php"  method="POST">
-          <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-          </div>
+     <form  method=post  > 
+
+
+       <!-- LOGIN BUTTON --> 
+      <button type="button" onclick="window.location.href='login.php'" name="login_btn" class="btn btn-dark" style.display='block' style="width:auto;">Login</button>
+     
+       <!-- REGISTER BUTTON --> 
+      <button type="button" onclick="window.location.href='register.php'"   class="btn btn-dark"  style="width:auto;">Register</button>
+      </form>
+
+
       
-          <div class="container">
-            <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="myusername" required>
-      
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="mypassword" required>
-              
-
-            <button type="submit" name="login">Login</button>
-            <label>
-              <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
-          </div>
-      
-          <div class="container" style="background-color:#f1f1f1">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
-          </div>
-        </form>
-      </div>
-
-  <!-- REGISTER BUTTON --> 
-      <button type="button" class="btn btn-dark" onclick="register_button()" style="width:auto;">Register</button>
-      <div id="id02" class="modal2">
-        
-      <form class="modal-content animate" action="register.php " method="POST" >
-
-          <div class="imgcontainer">
-              <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-            </div>
-          <div class="container">
-
-            <p>
-              <label for="customername"> Name: </label>
-              <input type="text" name="customer_name" id="customername">
-            </p>
-            <p>
-              <label for="email"> Email: </label>
-              <input type="text" name="email" id="email">
-            </p>
-            <p>
-              <label for="username"> Name: </label>
-              <input type="text" name="username" id="username">
-            </p>
-            <p>
-              <label for="cust_password"> Password: </label>
-              <input type="password" name="customer_psw" id="cust_password">
-            </p>
 
 
-            <label>
-              <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-            </label>
-        
-            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-        
-          </div>
 
-          <div class="container" style="background-color:#f1f1f1">
-              <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-              <button type="submit" class="signupbtn" name="signup">Sign up</button>
-          </div>
-        </form>
-      </div>
     </div>
   </div>
 
 </nav>
+
+
+
+      <?php if (isset($_SESSION['success'])) : ?>
+			<div class="error success" >
+				<h3>
+					<?php 
+						echo $_SESSION['success']; 
+						unset($_SESSION['success']);
+					?>
+				</h3>
+			</div>
+		<?php endif ?>
+
+
+  <div>
+				<?php  if (isset($_SESSION['user'])) : ?>
+					<strong><?php echo $_SESSION['user']['username']; ?></strong>
+
+					<small>
+						<i  style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+						<br>
+						<a href="home.php?logout='1'" style="color: red;">logout</a>
+					</small>
+
+				<?php endif ?>
+			</div>
 
   <!-- HOME CONTENT --> 
 

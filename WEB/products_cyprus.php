@@ -20,7 +20,7 @@
 <div class = "products_gallery">
 <div class="jumbotron" style="margin-bottom:0" >
     <div class="logo-productsgallery">
-      <h1 >Ovenware Pots</h1>
+      <h1 >Cyprus Souvenirs Pots</h1>
     </div>
 </div>
 </div>
