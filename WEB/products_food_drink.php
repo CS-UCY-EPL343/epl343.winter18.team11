@@ -39,7 +39,7 @@
                       <a class="nav-link" href="#">Our Workshop</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Contact</a>
+                      <a class="nav-link" href="conctact.php">Contact</a>
                     </li>    
                   </ul>
                 </div>  
