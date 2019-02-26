@@ -1,3 +1,13 @@
+<?php
+
+include('functions.php');
+
+if (!isLoggedIn()) {
+	header('location: ../login.php');
+}
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -7,6 +17,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/basket_format.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -35,14 +46,10 @@
                   $sql="SELECT price FROM Product WHERE Product_ID=$i";
                   $result = mysqli_query($link, $sql);
                   $row = mysqli_fetch_array($result);
-                 // if($result = mysqli_query($link, $sql)){
-                //        if(mysqli_num_rows($result) > 0){
-                 //             while($row = mysqli_fetch_array($result)){
-                                $pr=$row['price'];
-                  //            }
-            //  }
-            
-            //}
+        
+                   $pr=$row['price'];
+              
+           
                     $total=$pr*$q;
                     $queryy1="UPDATE Basket SET Total_price = $total WHERE Product_ID = $i";
                     mysqli_query($link,$queryy1);
@@ -71,8 +78,8 @@ function del_fun(){
   <body>
   
   <div class="jumbotron" style="margin-bottom:0" >
-    <div class="logo">
-      <h1 >Emira Pottery</h1>
+    <div class="logo-productsgallery">
+      <h1>Shopping Cart</h1>
     </div>
 
 </div>
@@ -80,13 +87,31 @@ function del_fun(){
 
     
         
-        <div class="header1">
-           
-                <p><font size="6">Shopping Cart </font></p>
-                  
-        </div>
+       
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">Homepage</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="products.php">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Our Workshop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="basket.php">Basket</a>
+      </li> 
 
+    </ul>
+  </div>  
 
+</nav>
                 
              
                     
@@ -111,7 +136,7 @@ $result=mysqli_query($link,$sql);
               <br></br>
           </div>
         <?php
-        session_start();
+       
         $cartcount=0;
         $cartamount=0;
         while ($row=mysqli_fetch_row($result)) {

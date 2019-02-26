@@ -49,8 +49,12 @@
         <a class="nav-link" href="#">Our Workshop</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
-      </li>    
+        <a class="nav-link" href="contact.php">Contact</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="basket.php">Basket</a>
+      </li> 
+
     </ul>
   </div>  
 
