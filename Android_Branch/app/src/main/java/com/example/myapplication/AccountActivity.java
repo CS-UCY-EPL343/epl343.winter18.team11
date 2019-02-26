@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,8 +11,18 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /*For the account activity we will have to first
    1.Get a database connection
@@ -28,6 +39,70 @@ public class AccountActivity extends Navigation {
     Button btnLogout;
     Button btnUpdate;
     private SessionManager session;
+    private ProgressDialog pDialog;
+
+    protected void update(final String mobile, final  String address, final String name, final String email,final   String cur_name,final String cur_email){
+
+            String tag_string_req = "req_update";
+            pDialog = new ProgressDialog(this);
+            pDialog.setCancelable(false);
+            pDialog.setMessage("Updating");
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    NetworkConfigure.URL_UPDATE, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    hideDialog();
+                    try {
+                        JSONObject jObj = new JSONObject(response);
+                        boolean error = jObj.getBoolean("error");
+                        if (!error) {
+                            pDialog.setMessage("You are about to log out form the System so update takes place!");
+                            logoutUser();
+
+                        } else {
+                            // Error in login. Get the error message
+                            String errorMsg = jObj.getString("error_msg");
+                            Toast.makeText(getApplicationContext(),
+                                    errorMsg, Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        // JSON error
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_LONG).show();
+                    hideDialog();
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    // Posting parameters to login url
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("email", email);
+                    params.put("address",address);
+                    params.put("mobile",mobile);
+                    params.put("name",name);
+                    params.put("cur_name",cur_email);
+                    params.put("cur_email",cur_name);
+
+                    return params;
+                }
+            };
+            // Adding request to request queue
+            StartController.getmInstance().addToRequestQueue(strReq, tag_string_req);
+        }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,26 +125,57 @@ public class AccountActivity extends Navigation {
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
 
+
         btnUpdate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                String name;
+                String email;
+                String mobile;
+                String address;
+                String email_cur;
+                String name_cur;
+
+                name = nameView.getText().toString();
+                email = emailView.getText().toString();
+                address = addressView.getText().toString();
+                mobile = mobileView.getText().toString();
+                name_cur = nameView.getText().toString();
+                email_cur = emailView.getText().toString();
+
                 nameView.setText("");
-                nameView.setInputType(InputType.TYPE_CLASS_TEXT);
                 emailView.setText("");
-                emailView.setInputType(InputType.TYPE_CLASS_TEXT);
                 mobileView.setText("");
-                mobileView.setInputType(InputType.TYPE_CLASS_TEXT);
                 addressView.setText("");
+
+                nameView.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+                emailView.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                mobileView.setInputType(InputType.TYPE_NUMBER_VARIATION_NORMAL);
                 addressView.setInputType(InputType.TYPE_CLASS_TEXT);
 
-            }
+                nameView.setText(name);
+                emailView.setText(email);
+                mobileView.setText(mobile);
+                addressView.setText(address);
 
+                if (name.compareTo(nameView.getText().toString()) != 0 ) {
+                    name = nameView.getText().toString();
+                }  if (address.compareTo(addressView.getText().toString()) != 0 ){
+                    address = addressView.getText().toString();
+                }  if (email.compareTo(emailView.getText().toString()) != 0 ){
+                    email = emailView.getText().toString();
+                }  if (mobile.compareTo(mobileView.getText().toString()) != 0 ){
+                    mobile = mobileView.getText().toString();
+                }
+
+                update(mobile,address,name,email,name_cur,email_cur);
+            }
         });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //db.deleteTables();
                 logoutUser();
             }
         });
@@ -103,5 +209,13 @@ public class AccountActivity extends Navigation {
                startActivity(intent);
                finish();
            }
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
 
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
 }

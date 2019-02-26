@@ -11,6 +11,9 @@ public class NetworkConfigure {
         /*SERVER PRODUCTS URL
         */
         public static String URL_PRODUCTS= "http://www.cs.ucy.ac.cy/~sioann12/android/products.php";
+        /*SERVER UPDATE URL
+         */
+        public static String URL_UPDATE = "http://www.cs.ucy.ac.cy/~sioann12/android/update.php";
 
 }
 
