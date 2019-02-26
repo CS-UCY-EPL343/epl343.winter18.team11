@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class AccountActivity extends Navigation {
     TextView addressView;
     TextView mobileView;
     Button btnLogout;
+    Button btnUpdate;
     private SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,23 @@ public class AccountActivity extends Navigation {
         navigationView.setNavigationItemSelectedListener(this);
 
         btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnUpdate = (Button) findViewById(R.id.btnUpdate);
+
+        btnUpdate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                nameView.setText("");
+                nameView.setInputType(InputType.TYPE_CLASS_TEXT);
+                emailView.setText("");
+                emailView.setInputType(InputType.TYPE_CLASS_TEXT);
+                mobileView.setText("");
+                mobileView.setInputType(InputType.TYPE_CLASS_TEXT);
+                addressView.setText("");
+                addressView.setInputType(InputType.TYPE_CLASS_TEXT);
+
+            }
+
+        });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
