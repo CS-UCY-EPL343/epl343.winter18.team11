@@ -1,61 +1,92 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class OneItemActivity extends AppCompatActivity {
+import com.squareup.picasso.Picasso;
+
+public class OneItemActivity extends Activity {
 
     /*Each Item must be stored inside an xml file and
     be retrieved each time.
      */
     TextView descriptionText;
     TextView titleList;
-    Toolbar mToolbar;
-    ImageView flag;
+    Toolbar toolbar;
+    ImageView imageProduct ;
     TextView priceText;
     Button addToCard;
+    private String item;
+    private SqlManager db;
+
+    /*Product Strings*/
+    String price;
+    String image_product;
+    String description;
+
+    /*On back pressed */
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_item);
         titleList = (TextView)findViewById(R.id.titlelist);
-        mToolbar = (Toolbar)findViewById(R.id.toolBar1);
-        flag =(ImageView)findViewById(R.id.productlist);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        imageProduct =(ImageView)findViewById(R.id.productImg);
         priceText = (TextView) findViewById(R.id.priceList);
         descriptionText= (TextView) findViewById(R.id.descriptionText);
         addToCard = (Button)findViewById(R.id.addtocardlist);
 
+        /*
+         * Drawer Layout
+         * */
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+
+
+
+
         //Get the name from the intent and put it on the toolbar
         Bundle bundle = getIntent().getExtras();
-        int resourceIDStringArray = getResources().getIdentifier(
-                bundle.getString("ItemName").replaceAll("\\s",""),
-                "array",
-                getPackageName()
-        );
+        db = new SqlManager(getApplicationContext());
 
-        String attributes[] = new String[20];
-//        Log.v("Tag 3" ,  bundle.getString("ItemName"));
-        attributes = getResources().getStringArray(resourceIDStringArray);
-        if(bundle!=null){
-          // mToolbar.setTitle( bundle.getString(""));
-           /*This must be automated*/
-            String imageStr = attributes[2];
-            int resourceIDImage = getResources().getIdentifier(
-                   imageStr,
-                   "drawable",
-                   getPackageName()
-           );
-            flag.setImageDrawable(OneItemActivity.this.getResources().getDrawable(resourceIDImage));
-            titleList.setText( bundle.getString("ItemName"));
-            descriptionText.setText(attributes[0]);
-            priceText.setText(attributes[1]);
+        /*Navigation Settings*/
 
-            }
+        if (bundle != null) {
+
+            item = bundle.getString("ItemName");
+            toolbar.setTitle(item);
+            setSupportActionBar(toolbar);
+            db = new SqlManager(getApplicationContext());
+            price = db.getItemPrice(item);
+            description = db.getItemDesc(item);
+            image_product= db.getItemImage(item);
+            StringBuilder priceS= new StringBuilder();
+            priceS.append(price+ " €");
+            priceText.setText(price);
+            StringBuilder descS= new StringBuilder();
+            descS.append("Description\n\n"+ description);
+            descriptionText.setText(descS);
+            Picasso.with(getApplicationContext()).load("http://i.imgur.com/DvpvklR.png").into(imageProduct);
+
         }
+        }
+
+    private void setSupportActionBar(Toolbar toolbar) {
     }
+}
 

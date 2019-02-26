@@ -32,7 +32,7 @@ public class CategoryActivity extends Navigation {
         /*Toolbar*/
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.shop_name));
-        setSupportActionBar(toolbar);
+
 /*
         Get the
          a. session

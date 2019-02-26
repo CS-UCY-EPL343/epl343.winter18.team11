@@ -34,7 +34,8 @@ public class SqlManager extends SQLiteOpenHelper {
     private static final String KEY_PRODUCT_CAT= "product_category";
     private static final String KEY_PRODUCT_PRICE= "product_price";
     private static final String KEY_PRODUCT_QUANTITY= "product_quantity";
-
+    private static final String KEY_PRODUCT_DESCRIPTION = "product_description";
+    private static final String  KEY_PRODUCT_IMAGE = "product_image";
     public SqlManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -53,7 +54,7 @@ public class SqlManager extends SQLiteOpenHelper {
 
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +  TABLE_PRODUCTS + "("+ KEY_PRODUCT_ID +
                 " TEXT," +  KEY_PRODUCT_NAME + " TEXT,"+ KEY_PRODUCT_CAT + " TEXT,"+
-                KEY_PRODUCT_PRICE+" TEXT"+ " )";
+                KEY_PRODUCT_PRICE+" TEXT,"+ KEY_PRODUCT_DESCRIPTION + " TEXT," + KEY_PRODUCT_IMAGE + " TEXT"+  " )";
 
         Log.wtf("TagProducts",CREATE_PRODUCTS_TABLE);
 
@@ -90,20 +91,20 @@ public class SqlManager extends SQLiteOpenHelper {
 /*
 Add product into mysql lite locally
  */
-    public void addProduct(String product_name, String product_price,String product_category) {
+    public void addProduct(String product_name, String product_price,String product_category,String product_desc,String product_image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
 
         values.put(KEY_PRODUCT_NAME, product_name);
         values.put(KEY_PRODUCT_PRICE, product_price);
         values.put(KEY_PRODUCT_CAT, product_category);
+        values.put(KEY_PRODUCT_DESCRIPTION, product_desc);
+        values.put(KEY_PRODUCT_IMAGE, product_image);
 
         long id = db.insert(TABLE_PRODUCTS, null, values);
         db.close();
         Log.d(TAG, "New product inserted into sqlite: Succesufully " + id);
     }
-
     /*For adding orders*/
     public void addOrder(String product_id , int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -114,7 +115,6 @@ Add product into mysql lite locally
         db.close();
         Log.d(TAG, "Order inserted into sqlite: " + id);
     }
-
 /*Get product details on a hashmap
  */
     public HashMap<String, String> getProductDetails() {
@@ -138,6 +138,40 @@ Add product into mysql lite locally
         return product;
     }
 
+    public String getItemPrice(String item){
+        String selectQuery = "SELECT "+ KEY_PRODUCT_PRICE + " FROM " + TABLE_PRODUCTS + " WHERE " +  KEY_PRODUCT_NAME+ " = "+"'"+ item+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String item_price = "0";
+        if(cursor.getCount()>0){
+            cursor.moveToNext();
+            item_price = cursor.getString(0);
+            }
+        return item_price;
+    }
+
+    public String getItemDesc(String item){
+        String selectQuery = "SELECT "+ KEY_PRODUCT_DESCRIPTION + " FROM " + TABLE_PRODUCTS + " WHERE " +  KEY_PRODUCT_NAME+ " = "+"'"+ item+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String item_desc = "0";
+        if(cursor.getCount()>0){
+            cursor.moveToNext();
+            item_desc = cursor.getString(0);
+        }
+        return item_desc;
+    }
+    public String getItemImage(String item){
+        String selectQuery = "SELECT "+ KEY_PRODUCT_IMAGE + " FROM " + TABLE_PRODUCTS + " WHERE " +  KEY_PRODUCT_NAME + " = "+"'"+ item+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String item_image= "";
+        if(cursor.getCount()>0){
+            cursor.moveToNext();
+            item_image = cursor.getString(0);
+        }
+        return item_image;
+    }
 
 
 /*Get the current categories from the local database
@@ -158,17 +192,17 @@ Add product into mysql lite locally
 
     public ArrayList<String> getItemsFromCategory(String Cat){
 
-        ArrayList<String> categories = new ArrayList<String>();
-        String selectQuery = "SELECT "+"product_name" + " FROM " + TABLE_PRODUCTS + " WHERE" + " product_category = "+"'"+ Cat+"'" ;
+        ArrayList<String> items = new ArrayList<String>();
+        String selectQuery = "SELECT "+KEY_PRODUCT_NAME + " FROM " + TABLE_PRODUCTS + " WHERE " + KEY_PRODUCT_CAT +" = "+"'"+ Cat+"'" ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.getCount()>0){
             while(cursor.moveToNext()) {
-                categories.add(cursor.getString(0));
+                items.add(cursor.getString(0));
             }
         }
-        return categories;
+        return items;
     }
 
 /*Get user details on a hashmap*
@@ -197,7 +231,6 @@ Add product into mysql lite locally
         db.delete(TABLE_USER, null, null);
         db.delete(TABLE_ORDER, null, null);
         db.delete(TABLE_PRODUCTS, null, null);
-
         db.close();
         Log.d(TAG, "Deleted all user info from sqlite");
     }

@@ -56,8 +56,10 @@ public class GetProducts extends AppCompatActivity {
                         String product_name = obj.getString("product_name");
                         String product_price = obj.getString("product_price");
                         String product_category = obj.getString("product_category");
+                        String product_desc = obj.getString("product_desc");
+                        String product_image= obj.getString("product_image");
 
-                        db.addProduct(product_name, product_price, product_category);
+                        db.addProduct(product_name, product_price, product_category,product_desc,product_image);
                     }
                 } catch (JSONException e1) {
                     e1.printStackTrace();
