@@ -1,7 +1,7 @@
 
-<html>
-<body>
+
 <?php
+
 
 $link=mysqli_connect("localhost","root","","emira_pottery");
 
@@ -202,6 +202,5 @@ $sql="";
 
 
 ?>
-</body>
-</html>
+
 
