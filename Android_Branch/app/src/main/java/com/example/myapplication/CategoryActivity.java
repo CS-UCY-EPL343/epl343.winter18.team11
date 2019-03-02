@@ -32,7 +32,6 @@ public class CategoryActivity extends Navigation {
         /*Toolbar*/
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.shop_name));
-
 /*
         Get the
          a. session
@@ -54,9 +53,8 @@ public class CategoryActivity extends Navigation {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         /*Find in the listView and view all the items in the string*/
-        listView = (ListView)findViewById(R.id.listView);
+        listView = (ListView)findViewById(R.id.listViewScroll);
 
         /*This mAdapter must have a different structure
         * 1. On creation of this instance we must update the local database of Android
@@ -64,6 +62,8 @@ public class CategoryActivity extends Navigation {
         * */
         ArrayList<String> categories = new ArrayList<String>();
         categories = db.getCategories();
+
+
         this.mAdapter = new ArrayAdapter<String>(CategoryActivity.this,android.R.layout.simple_list_item_1,
                 categories);
 
@@ -76,7 +76,6 @@ public class CategoryActivity extends Navigation {
                 startActivity(intent);
             }
         });
-        listView.setAdapter(null);
         listView.setAdapter(mAdapter);
     }
 

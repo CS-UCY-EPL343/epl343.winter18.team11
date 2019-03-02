@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,15 +23,17 @@ import com.squareup.picasso.Transformation;
 import java.util.ArrayList;
 
 public class ItemsActivity extends Navigation {
-
-    Toolbar toolbar;
-    ListView listView;
+    private Toolbar toolbar;
+    private ListView listView;
     private SqlManager db;
     private String cat;
+    private ArrayAdapter<String> mAdapter = null;
+    private SessionManager session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item);
+        setContentView(R.layout.activity_item1);
         /*Set the toolbar*/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         Bundle bundle = getIntent().getExtras();
@@ -39,10 +42,10 @@ public class ItemsActivity extends Navigation {
             cat = bundle.getString("CategoryName");
             String TitleToobar = getResources().getString(R.string.title_activity_items)+ " " +cat;
             toolbar.setTitle(TitleToobar);
+            session = new SessionManager(getApplicationContext());
+            db = new SqlManager(getApplicationContext());
 
-             db = new SqlManager(getApplicationContext());
-
-             /*Navigation Settings*/
+        /*Navigation Settings*/
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             setSupportActionBar(toolbar);
@@ -51,23 +54,29 @@ public class ItemsActivity extends Navigation {
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            //Get the current category from the intent and put it on the toolbar
-            listView = (ListView) findViewById(R.id.listView);
+        //Get the current category from the intent and put it on the toolbar
+            listView = (ListView)findViewById(R.id.listViewScroll);
                 //Set the array adapter
-                ArrayList<String> items = new ArrayList<String>();
-                items=  db.getItemsFromCategory(cat);
-                ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(ItemsActivity.this, android.R.layout.simple_list_item_1, items);
+            ArrayList<String> items = new ArrayList<String>();
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    /*Each category has items */
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(ItemsActivity.this, OneItemActivity.class);
-                        intent.putExtra("ItemName", listView.getItemAtPosition(position).toString());
-                        startActivity(intent);
-                    }
-                });
-                listView.setAdapter(mAdapter);
+            //items=  db.getItemsFromCategory(cat);
+            items.add("s");
+            items.add("s");
+            items.add("s");
+            Log.wtf("ITEMS",items.toString());
+            this.mAdapter = new ArrayAdapter<String>(ItemsActivity.this, android.R.layout.simple_list_item_1, items);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                /*Each category has items */
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(ItemsActivity.this, OneItemActivity.class);
+                    intent.putExtra("ItemName", listView.getItemAtPosition(position).toString());
+                    startActivity(intent);
+                }
+            });
+            listView.setAdapter(mAdapter);
+
         }
     }
 
