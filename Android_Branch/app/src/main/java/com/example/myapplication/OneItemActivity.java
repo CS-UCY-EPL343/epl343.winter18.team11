@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,15 +17,15 @@ public class OneItemActivity extends Activity {
     /*Each Item must be stored inside an xml file and
     be retrieved each time.
      */
-    TextView descriptionText;
-    TextView titleList;
-    Toolbar toolbar;
-    ImageView imageProduct ;
-    TextView priceText;
-    Button addToCard;
+    private TextView descriptionText;
+    private TextView titleList;
+    private Toolbar toolbar;
+    private ImageView imageProduct ;
+    private TextView priceText;
+    private Button addToCard;
     private String item;
     private SqlManager db;
-
+    private Button quantityButton;
     /*Product Strings*/
     String price;
     String image_product;
@@ -40,34 +41,30 @@ public class OneItemActivity extends Activity {
             super.onBackPressed();
         }
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_item);
+
         titleList = (TextView)findViewById(R.id.titlelist);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         imageProduct =(ImageView)findViewById(R.id.productImg);
         priceText = (TextView) findViewById(R.id.priceList);
         descriptionText= (TextView) findViewById(R.id.descriptionText);
-        addToCard = (Button)findViewById(R.id.addtocardlist);
-
+        addToCard = (Button)findViewById(R.id.addToCard);
         /*
          * Drawer Layout
          * */
         toolbar = (Toolbar)findViewById(R.id.toolbar);
-
-
-
+        addToCard = (Button)findViewById(R.id.addToCard);
+        quantityButton = (Button)findViewById(R.id.quantity);
 
         //Get the name from the intent and put it on the toolbar
         Bundle bundle = getIntent().getExtras();
         db = new SqlManager(getApplicationContext());
-
         /*Navigation Settings*/
-
         if (bundle != null) {
-
             item = bundle.getString("ItemName");
             toolbar.setTitle(item);
             setSupportActionBar(toolbar);
@@ -82,9 +79,18 @@ public class OneItemActivity extends Activity {
             descS.append("Description\n\n"+ description);
             descriptionText.setText(descS);
             Picasso.with(getApplicationContext()).load("http://i.imgur.com/DvpvklR.png").into(imageProduct);
+        }
 
-        }
-        }
+        addToCard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                    db.addOrder(item,"1");
+
+            }
+        });
+
+
+
+    }
 
     private void setSupportActionBar(Toolbar toolbar) {
     }

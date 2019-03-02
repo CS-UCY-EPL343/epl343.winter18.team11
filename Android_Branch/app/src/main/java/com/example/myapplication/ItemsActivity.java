@@ -12,7 +12,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,7 +32,7 @@ public class ItemsActivity extends Navigation {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item1);
+        setContentView(R.layout.activity_item);
         /*Set the toolbar*/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         Bundle bundle = getIntent().getExtras();
@@ -58,14 +57,8 @@ public class ItemsActivity extends Navigation {
             listView = (ListView)findViewById(R.id.listViewScroll);
                 //Set the array adapter
             ArrayList<String> items = new ArrayList<String>();
-
-            //items=  db.getItemsFromCategory(cat);
-            items.add("s");
-            items.add("s");
-            items.add("s");
-            Log.wtf("ITEMS",items.toString());
+            items=  db.getItemsFromCategory(cat);
             this.mAdapter = new ArrayAdapter<String>(ItemsActivity.this, android.R.layout.simple_list_item_1, items);
-
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 /*Each category has items */
@@ -76,7 +69,6 @@ public class ItemsActivity extends Navigation {
                 }
             });
             listView.setAdapter(mAdapter);
-
         }
     }
 

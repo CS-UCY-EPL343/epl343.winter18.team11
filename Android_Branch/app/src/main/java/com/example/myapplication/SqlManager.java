@@ -50,19 +50,13 @@ public class SqlManager extends SQLiteOpenHelper {
 
         String CREATE_ORDER_TABLE = "CREATE TABLE " +  TABLE_ORDER + "("+ KEY_PRODUCT_ID +
                 " TEXT," + KEY_PRODUCT_QUANTITY + " TEXT )";
-        Log.wtf("TagError",CREATE_LOGIN_TABLE);
 
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +  TABLE_PRODUCTS + "("+ KEY_PRODUCT_ID +
                 " TEXT," +  KEY_PRODUCT_NAME + " TEXT,"+ KEY_PRODUCT_CAT + " TEXT,"+
                 KEY_PRODUCT_PRICE+" TEXT,"+ KEY_PRODUCT_DESCRIPTION + " TEXT," + KEY_PRODUCT_IMAGE + " TEXT"+  " )";
 
-        Log.wtf("TagProducts",CREATE_PRODUCTS_TABLE);
-
-
         db.execSQL(CREATE_LOGIN_TABLE);
-
         db.execSQL(CREATE_ORDER_TABLE);
-
         db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
@@ -88,6 +82,19 @@ public class SqlManager extends SQLiteOpenHelper {
         db.close();
         Log.d(TAG, "New user inserted into sqlite: " + id);
     }
+
+    public void insertOrder(String productId, String productQuantity){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRODUCT_ID, productId);
+        values.put(KEY_PRODUCT_QUANTITY, productQuantity);
+
+        long id = db.insert(TABLE_ORDER, null, values);
+        db.close();
+    }
+
+
 /*
 Add product into mysql lite locally
  */
@@ -103,17 +110,15 @@ Add product into mysql lite locally
 
         long id = db.insert(TABLE_PRODUCTS, null, values);
         db.close();
-        Log.d(TAG, "New product inserted into sqlite: Succesufully " + id);
     }
     /*For adding orders*/
-    public void addOrder(String product_id , int quantity) {
+    public void addOrder(String product_id , String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_PRODUCT_ID, product_id);
         values.put(KEY_PRODUCT_QUANTITY, quantity);
         long id = db.insert(TABLE_ORDER, null, values);
         db.close();
-        Log.d(TAG, "Order inserted into sqlite: " + id);
     }
 /*Get product details on a hashmap
  */

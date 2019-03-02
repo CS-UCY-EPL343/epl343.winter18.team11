@@ -32,12 +32,12 @@ public class CategoryActivity extends Navigation {
         /*Toolbar*/
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.shop_name));
-/*
-        Get the
-         a. session
-         b. database
-         c. pDialog
-*/
+        /*
+            Get the
+             a. session
+             b. database
+             c. pDialog
+        */
         session = new SessionManager(getApplicationContext());
         db = new SqlManager(getApplicationContext());
         pDialog = new ProgressDialog(this);
@@ -61,8 +61,8 @@ public class CategoryActivity extends Navigation {
         *
         * */
         ArrayList<String> categories = new ArrayList<String>();
-        categories = db.getCategories();
 
+        categories = db.getCategories();
 
         this.mAdapter = new ArrayAdapter<String>(CategoryActivity.this,android.R.layout.simple_list_item_1,
                 categories);
