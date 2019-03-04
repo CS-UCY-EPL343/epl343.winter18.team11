@@ -38,12 +38,12 @@ if (!isLoggedIn()) {
                   $array = array_combine($quaty,$ids);
             
                   foreach($array as $q => $i){
-                    $queryy="UPDATE Basket SET Quantity = $q WHERE Product_ID = $i";
+                    $queryy="UPDATE Basket SET Quantity = $q WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
                       mysqli_query($link,$queryy);
             
                   }
             
-                  $sql="SELECT price FROM Product WHERE Product_ID=$i";
+                  $sql="SELECT price FROM Product WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$i";
                   $result = mysqli_query($link, $sql);
                   $row = mysqli_fetch_array($result);
         
@@ -51,7 +51,7 @@ if (!isLoggedIn()) {
               
            
                     $total=$pr*$q;
-                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Product_ID = $i";
+                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
                     mysqli_query($link,$queryy1);
                     header('location: basket.php');	
                
@@ -64,7 +64,7 @@ function del_fun(){
     if(isset($_POST['del'])){
       $de=$_POST['del'];
       foreach($de as $d){
-        $quer="DELETE FROM Basket WHERE Product_ID=$d";
+        $quer="DELETE FROM Basket WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$d ";
         mysqli_query($link, $quer);
         header('location: basket.php');	
       }
@@ -89,7 +89,7 @@ function del_fun(){
         
        
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Homepage</a>
+  <a class="navbar-brand" href="home.php">Homepage</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -102,7 +102,7 @@ function del_fun(){
         <a class="nav-link" href="#">Our Workshop</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
+        <a class="nav-link" href="contact.php">Contact</a>
       </li> 
       <li class="nav-item">
         <a class="nav-link" href="basket.php">Basket</a>
@@ -119,7 +119,7 @@ function del_fun(){
 
                           <?php 
 $link = mysqli_connect("localhost", "root","","emira_pottery");
-$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Product.Product_ID = Basket.Product_id";
+$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Basket.User_ID={$_SESSION['user']['id']} and Product.Product_ID = Basket.Product_id ";
 $result=mysqli_query($link,$sql);
   
   ?>

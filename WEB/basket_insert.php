@@ -1,6 +1,13 @@
 
 
 <?php
+include('functions.php');
+
+if (!isLoggedIn()) {
+	header('location: ../login.php');
+}
+
+
 
 
 $link=mysqli_connect("localhost","root","","emira_pottery");
@@ -15,10 +22,10 @@ $sql="";
     
     $product   = intval($_GET['id']);
     echo $product;
-  
+    
     switch($product){
         case 1:
-             $sql = "INSERT INTO Basket (Product_ID) VALUES (1)";
+             $sql = "INSERT INTO Basket (Product_ID,User_ID) VALUES (1,'{$_SESSION[user]['id']}')";
              break;
         case 2:
              $sql = "INSERT INTO Basket (Product_ID) VALUES (2)";
@@ -163,6 +170,9 @@ $sql="";
       break;
   case 48:
       $sql = "INSERT INTO Basket (Product_ID) VALUES (48)";
+      break;
+      case 68;
+      $sql = "INSERT INTO Basket (Product_ID) VALUES (68)";
       break;
 
    }
