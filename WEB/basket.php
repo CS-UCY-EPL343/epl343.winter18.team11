@@ -32,7 +32,9 @@ if (!isLoggedIn()) {
             if(isset($_POST['add'])){
              
               if(isset($_POST['qty'])){
+  
                   $quaty=$_POST['qty'];
+                  
                   $ids=$_POST['id'];
                  
                   $array = array_combine($quaty,$ids);
@@ -43,15 +45,18 @@ if (!isLoggedIn()) {
             
                   }
             
-                  $sql="SELECT price FROM Product WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$i";
+                  $sql="SELECT price FROM Product WHERE  Product_ID=$i";
                   $result = mysqli_query($link, $sql);
                   $row = mysqli_fetch_array($result);
+
         
                    $pr=$row['price'];
-              
+            
            
                     $total=$pr*$q;
-                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
+                    
+                  
+                    $queryy1="UPDATE basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
                     mysqli_query($link,$queryy1);
                     header('location: basket.php');	
                
@@ -186,6 +191,7 @@ $result=mysqli_query($link,$sql);
          <div class="col" style="padding-right:110px" >
          <?php
           printf("\n$%.2f", $linetotal);
+
           printf("\n");
           ?>
           
