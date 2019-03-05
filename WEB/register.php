@@ -8,12 +8,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+<link rel="stylesheet" type="text/css" href="css/register.css">
+
 </head>
+<div class="signup-form">
 <body>
 <div class="header">
-	<h2>Register</h2>
+	<h2>Sign up</h2>
 </div>
+
+
+
 <form method="post" action="register.php">
 <?php echo display_error(); ?>
 	<div class="input-group">
@@ -22,7 +27,7 @@
 	</div>
 	<div class="input-group">
 		<label>Email</label>
-		<input type="email" name="email" value="<?php echo $email; ?>">
+		<input type="text" name="email" value="<?php echo $email; ?>">
 
 	</div>
 	<div class="input-group">
@@ -40,5 +45,7 @@
 		Already a member? <a href="login.php">Sign in</a>
 	</p>
 </form>
+
+</div>
 </body>
 </html>

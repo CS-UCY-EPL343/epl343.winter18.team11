@@ -25,131 +25,91 @@
 </div>
 </div>
 
-      <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                <a class="navbar-brand" href="products.php">Products</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                  <ul class="navbar-nav">
-                    <li class="nav-item">
-                      <a class="nav-link" href="home.php">Homepage</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Our Workshop</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="contact.php">Contact</a>
-                    </li>    
-                  </ul>
-                </div>  
-        </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="home.php">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="products.php" >Products</a>
+    </li>
+      <li class="nav-item dropdown">
+  
+        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="products_ovenware.php">Ovenware Pots</a>
+          <a class="dropdown-item" href="products_decorative.php">Decorative Pots</a>
+          <a class="dropdown-item" href="products_food_drink.php">Food & Drink Pots</a>
+          <a class="dropdown-item" href="products_ecclesiastical.php">Ecclesiastical Pots</a>
+          <a class="dropdown-item" href="products_cyprus.php">Cyprus Souvenirs Pots</a>
+          <a class="dropdown-item" href="products_ancient.php">Ancient Pots</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" >Workshop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="basket.php" >Basket</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.php" >Contact</a>
+      </li>
+     
+    </ul>
+    
+  </div>
+</nav>
+
 
 
 <!-- PRODUCTS --> 
-<?php $id26 = 26; 
-      $id27 = 27; 
-      $id28 = 28; 
-      $id29 = 29; 
-      $id30 = 30; 
-       
-      
+
+
+<?php
+
+$link = mysqli_connect("localhost", "root","","emira_pottery");
+$sql="SELECT * FROM Product where Product.Product_Type = 'Ancient Pots' order by Product_ID asc";
+$result=mysqli_query($link,$sql);
 ?>
 
-<div class="container" style="padding-top: 70px;">
-                       
-                       <div class="row ">
-                                               
-                                                                         <div class="col-md-3 mx-auto">
-                                                                             
-                                                                         <img src="/images/ancient_1.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                    
-                                                                            <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id26;?>">  Buy now </a> </div>
-                                                                           
-                                                                             <div class="label-items">
-                                                                                  <p> Ancient 1 </p>
-                                                                            </div>      
-                                                                          </div>
-                                                                         </div>
-                                                                       
-          
-                                                                         <div class="col-md-3 mx-auto">
-                                                                         <img src="/images/ancient_2.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id27;?>">  Buy now </a> </div>
-                                                                            
-                                                                             <div class="label-items">
-                                                                                  <p> Ancient 2 </p>
-                                                                            </div>      
-                                                                          </div>
-                                                                         </div>
-         
-                                                                         <div class="col-md-3 mx-auto">
-                                                                         
-                                                                         
-                                                                         <img src="/images/ancient_3.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id28;?>">  Buy now </a> </div>
-                                                                            
-                                                                             <div class="label-items">
-                                                                                  <p> Ancient 3 </p>
-                                                                            </div>      
-                                                                          </div>
+<div class="container-table" style='padding-top:5%; padding-left:5%; padding-right:5%;' >
+<table class="table">
+    <tbody>
+    <?php
+        $i = 0; $trEnd = 0;
+        while ($row = mysqli_fetch_array($result)){
+            if($i == 0){
+                echo '<tr>';
+            }
+            $id=$row[0]; 
+           
+            echo "<td style='border:none; text-align:center;'  >" . "<img src=images/".$row[4]." />" . "<br>". "<br>" .$row[1] ."<br>" .$row[2]. "<br>"."€".$row[3]."<br>".$row[5]. 
+            
+            "<br>". ""?> 
+            <button type="button" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
+                                 
+            
+             <?php    "" ."</td>";
+           
 
-                                                                           </div>
-                                                                        
-                       </div>
-                       <br>        
-                       
-                       
-                     <div class="row">
-                                               
-                                                                         <div class="col-md-3 mx-auto">
-                                                                         <img src="/images/ancient_4.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id29;?>">  Buy now </a> </div>
-                                                                            
-                                                                             <div class="label-items">
-                                                                                  <p> Ancient 4 </p>
-                                                                            </div>      
-                                                                          </div>
-                                                                         </div>
-          
-                                                                         <div class="col-md-3 mx-auto">
-                                                                         <img src="/images/ancient_5.jpg" style="width:100%">
-                                                                         <div class="container_1" >
-                                                                         <div class="overlay"></div>
-                                                                         <div class="button" name="ovenware"><a href="basket_insert.php/?id=<?php echo $id30;?>">  Buy now </a> </div>
-                                                                            
-                                                                             <div class="label-items">
-                                                                                  <p> Ancient 5 </p>
-                                                                            </div>      
-                                                                          </div>
-                                                                         </div>
-                                                    
-                                                                         <div class="col-md-3 mx-auto">
-                                                                        
-                                                                         
-                                                                         
-                                                                         
-                                                                         </div>
-                                                      
-         
-         
-                                                                           
-                                                                        
-                                                                         
-                   </div>
-                  
-         
-                                     
-         
-                 </div>
-
+            if($i == 2){
+                $i = 0; $trEnd = 1;
+            }else{
+                $trEnd = 0; $i++;
+            }
+            if($trEnd == 1) {
+                echo '</tr>';
+            }
+        }
+        if($trEnd == 0) echo '</tr>';
+     ?>
+    </tbody>
+</table>
+ </div>
 
 </body>
+</html>

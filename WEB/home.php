@@ -16,6 +16,7 @@
   <link rel="stylesheet" type="text/css" href="css/home.css">
   <link rel="stylesheet" type="text/css" href="css/login.css">
   <link rel="stylesheet" type="text/css" href="css/register.css">
+ 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -35,56 +36,52 @@
 
 </div>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Homepage</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="home.php">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="products.php">Products</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="products.php" >Products</a>
+    </li>
+      <li class="nav-item dropdown">
+  
+        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="products_ovenware.php">Ovenware Pots</a>
+          <a class="dropdown-item" href="products_decorative.php">Decorative Pots</a>
+          <a class="dropdown-item" href="products_food_drink.php">Food & Drink Pots</a>
+          <a class="dropdown-item" href="products_ecclesiastical.php">Ecclesiastical Pots</a>
+          <a class="dropdown-item" href="products_cyprus.php">Cyprus Souvenirs Pots</a>
+          <a class="dropdown-item" href="products_ancient.php">Ancient Pots</a>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Our Workshop</a>
+        <a class="nav-link" href="#" >Workshop</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="contact.php">Contact</a>
-      </li> 
+        <a class="nav-link" href="basket.php" >Basket</a>
+      </li>
       <li class="nav-item">
-        <a class="nav-link" href="basket.php">Basket</a>
-      </li> 
-
-    </ul>
-  </div>  
-
-
-
-
-
-
-
-  <div class="login-buttons">
-
-    <div class="btn-group">
-     <form  method=post  > 
-
-
-       <!-- LOGIN BUTTON --> 
-      <button type="button" onclick="window.location.href='login.php'" name="login_btn" class="btn btn-dark" style.display='block' style="width:auto;">Login</button>
+        <a class="nav-link" href="contact.php" >Contact</a>
+      </li>
      
-       <!-- REGISTER BUTTON --> 
-      <button type="button" onclick="window.location.href='register.php'"   class="btn btn-dark"  style="width:auto;">Register</button>
-      </form>
-
-
-      
-
-
-
-    </div>
+    </ul>
+    
+    <ul class="navbar-nav  my-2 my-lg-0">
+    <li class="nav-item">
+          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
+    </li>
+    </ul>
   </div>
-
 </nav>
 
 

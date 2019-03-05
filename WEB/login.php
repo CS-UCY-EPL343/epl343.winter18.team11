@@ -1,14 +1,23 @@
 <?php include('functions.php') ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Registration system PHP and MySQL</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
+	
 </head>
 <body>
+
+
+<div class="login-form">
 	<div class="header">
 		<h2>Login</h2>
 	</div>
+
+
+
 	<form method="post" action="login.php">
 
 		<?php echo display_error(); ?>
@@ -28,5 +37,8 @@
 			Not yet a member? <a href="register.php">Sign up</a>
 		</p>
 	</form>
+</div>
+
+
 </body>
 </html>
