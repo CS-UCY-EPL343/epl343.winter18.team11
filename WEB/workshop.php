@@ -1,34 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  
-    <title>Page Title</title> 
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+	<link rel="stylesheet" type="text/css" href="css/workshop-format.css">
+    <link rel="stylesheet" type="text/css" href="css/basket_format.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
  
-<style> 
-			
-          .jumbotron {
-            background-image: url("emira-pottery.jpg");
-            height: 300px;
-            
-          }
-        
-          </style>   
 
 </head>
 
@@ -76,67 +59,69 @@
 			?>
 
 					
-					<div class="jumbotron " style="margin-bottom: 0" >        
-				  
-							<h1 style="color:white;text-align: center;font-family: 'Times New Roman', Times, serif">OUR WORKSHOP</h1>
-							<h1 style="font-size: 100px;
-							font-family: serif;
-							font-style: italic;
-							text-align: left;
-							color:white;
-							padding-bottom: 50%;
-							">Emira Pottery</h1>
-					  
+	
+					<div class="jumbotron" style="margin-bottom:0" >
+    					<div class="logo">
+      						<h1 >Our Workshop</h1>
+    					</div>
+
 					</div>
 
-						  <nav class="navbar navbar-inverse">
-								<div class="container-fluid"></div>
-								  <ul class="nav navbar-nav">
-									
-									<li><a href="#">HOMEPAGE</a></li>
-									<li><a href="#">PRODUCTS</a></li>
-									<li><a href="#">OUR WORKSHOP</a></li>
-									<li><a href="#">CONTACT</a></li>
-								  </ul>
-						 </nav>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="home.php">Homepage</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="products.php">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="workshop.php">Our Workshop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.php">Contact</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="basket.php">Basket</a>
+      </li> 
+
+    </ul>
+  </div>  
+
+</nav>
 							   
 							
-					 <p style="color:gray;margin: 70px 20px 15px 20px;font-size: 135%;font-family: 'Times New Roman', Times, serif "> 
-
-						
-						  
+					 <p class="workshop-content" > 
 
 									Our workshop and showroom are located at 13 Mehmet Ali Street near the St. Lazarus church in Lanraka. Our workshop is open to the public and visitors will have the opportunity to watch the artists creating and also to try the magic of clay.
-									 For the best please book your appointment in advance.<br/>
+									For the best please book your appointment in advance. </p>
 							<br/>
-							<br/>
-							Workshop Working Hours: Monday to Friday: 08:00 – 16:30.<br/>
-							<br/>
+							<p class="details">Workshop Working Hours:</p> 
+							
+							<p class="date">Monday to Friday: 08:00 – 16:30.</p>
+							
 
-							But is open to have a look until 21:00 and Saturday 09:00 – 15:00.<br/>
+							<p class="date">But is open to have a look until 21:00 and Saturday 09:00 – 15:00.</p><br/>
 								  
 							   <br/>
-							   <br/>
-							   <br/>   
+							     
 					
-					</p>
-
-					<div class="second" style=" margin-top: 0px;
-     margin-bottom: 100px;
-     margin-right: 150px;
-     margin-left: 80px;" >   
-
-		 <div id="info"style="width: 400px; float:right; height:100px; margin-right:100px;">
+					 <div class="image">
 						 
 						 <img src="workshop.jpg" alt="Trulli" width="375" height="450">
 						 
-						 
-						 
 						 </div>
-						 <h2 style="margin-right=150px; font-size:135%; font-family:'Times New Roman'"><b>Please choose the time and date for your lesson:</b></h2>
-						 <div id="theform"style="width: 150px; float:left; height:100px; margin:10px">
 
-	<form style="margin-right=150px; font-size:135%; font-family:'Times New Roman'"  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+					<div class="second" style="margin:20px 20px; padding-left: 200px;" >   
+
+		
+						 <h4>Please choose the time and date for your lesson:</h4>
+						 <div id="theform">
+
+				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
     
 						  Date:(required)<br><input type="date" min="2019-02-20" name="date" /><br/>
 						  <br/><br/>
@@ -154,75 +139,71 @@
 						 
 						   <div class="clearfix"></div>
 
-
+</form>
 								
 
-						   <div class="jumbotron text-center" style="margin-bottom:0px;position:absolute;top:1200px;width:100%;height:350px;background-image: none;background-color: beige;">
-							 <footer class="footer">
-							 <div class="container" >
-							   <div class="row">
-								   <div class="col-md-4"> 
-									   <h1 class="footer-products"style="font-size:25px">OUR PRODUCTS</h1>
-									   <br/>
-									   <div class="p1" >
-										<a href="products.php" > Traditional</a>
-										<br/>
-										<a href="products.php" > Ecclesiastical Items</a>
-										<br/>
-										<a href="products.php" > Ancient Pottery Replicas</a>
-										<br/>
-										<a href="products.php" > Decorative</a>
-										<br/>
-										<a href="products.php" > Cyprus Souvenirs</a>
-										<br/>
-										<a href="products.php" > Ovenware Pots</a>
-									   </div>           
-								   </div>
-								   <div class="col-md-4"> 
-								   <h1 class="footer-products"style="font-size:25px">CONTACT</h1>
-									   <br/>
-									   <div class="p3" >
-										   <p style="font-size:15px">13 Mehmet Ali Street,<br/>
-											   6029, Larnaca, <br/>
-											   Cyprus<br/>
-											   <br/>
-											   Mob: +357 99404414 <br/>
-											   Tel: +357 24623952
-										   </p>
-									   </div>
-								   </div>
+						  <footer class="footer">
+        <div class="container" >
+                <div class="row">
+                    <div class="col-md-4"> 
+                        <h1 class="footer-products">OUR PRODUCTS</h1>
+                        <br>
+                        <div class="p1" >
+                         <a href="products.php" > Traditional</a>
+                         <br>
+                         <a href="products.php" > Ecclesiastical Items</a>
+                         <br>
+                         <a href="products.php" > Ancient Pottery Replicas</a>
+                         <br>
+                         <a href="products.php" > Decorative</a>
+                         <br>
+                         <a href="products.php" > Cyprus Souvenirs</a>
+                         <br>
+                         <a href="products.php" > Ovenware Pots</a>
+                        </div>           
+                    </div>
+                    <div class="col-md-4"> 
+                    <h1 class="footer-products">CONTACT</h1>
+                        <br>
+                        <div class="p3" >
+                            <p>13 Mehmet Ali Street,<br>
+                                6029, Larnaca, <br>
+                                Cyprus<br>
+                                <br>
+                                Mob: +357 99404414 <br>
+                                Tel: +357 24623952
+                            </p>
+                        </div>
+                    </div>
 
+                    <div class="col-md-4"> 
+                    <h1 class="footer-products">SHOWROOM HOURS</h1>
+                        <br>
+                        <div class="p2" >
+                            <p>
+                              <b>April - November</b><br>
+                              <br>
+                              Monday to Friday: 08:00-21:00 <br>
+                              Saturday: 09:00 - 15:00<br>
+                              <br>
+                              <b>December - March</b><br>
+                              <br>
+                              Monday to Friday: 08:00-19:00 <br>
+                              Saturday: 09:00 - 15:00
 
-								   <div class="col-md-4"> 
-								   <h1 class="footer-products"style="font-size:25px">SHOWROOM HOURS</h1>
-									  
-									   <div class="p2" >
-										   <p style="font-size:15px">
-											 <b>April - November</b><br/>
-											 
-											 Monday to Friday: 08:00-21:00 <br/>
-											 Saturday: 09:00 - 15:00<br/>
-											 
-											 <b>December - March</b><br/>
-											 
-											 Monday to Friday: 08:00-19:00 <br/>
-											 Saturday: 09:00 - 15:00
-
-										   </p>
-									   </div>
-									 
-									   <h1 class="working-hours"style="font-size:15px"><b>WORKSHOP WORKING HOURS</b></h1>
-
-									   <div class ="p2">
-										   <p style="font-size:15px">Monday to Friday: 08:00-16:30 
-										   </p>
-									   </div>
-								   </div>
-							   
-						</div>
-						</div>
-						</footer>
-						</div>
+                            </p>
+                        </div>
+                        <br>
+                        <h1 class="working-hours">WORKSHOP WORKING HOURS</h1>
+                       
+                        <br>
+                        <div class ="p2">
+                            <p>Monday to Friday: 08:00-16:30 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+	</div>
+	</div>	
 			
-			</form>
 </body>
