@@ -1,35 +1,44 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
-	<link rel="stylesheet" type="text/css" href="css/workshop-format.css">
-    <link rel="stylesheet" type="text/css" href="css/basket_format.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
- 
+<?php
 
+    include('functions.php');
+  
+?>
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>homepage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/home.css">
+  <link rel="stylesheet" type="text/css" href="css/workshop-format.css">
+ 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+ 
+  
+  
 </head>
 
 <body>
 			<?php
-
+  
 			function myFunction(){
-		
+    
+      
       $conn = mysqli_connect("localhost", "root","","emira_pottery");
 		
-
 					
 					if(isset($_POST['submit'])){
 					$date=$_POST['date'];
 					$time=$_POST['time'];
 					
 					
-					$sql = "INSERT INTO meeting ( Date, Time) VALUES ('$date','$time')";
+					$sql = "INSERT INTO meeting ( Date, Time, UserID) VALUES ('$date','$time' , '{$_SESSION['user']['id']}')";
 					
 					//mysqli_query($conn, $sql)
 				if (mysqli_query($conn, $sql) === TRUE) 
@@ -42,7 +51,7 @@
 				
 						//	mysqli_close($con);
 			}
-			
+    
 		}
 			?>
 
@@ -56,30 +65,46 @@
 					</div>
 
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="home.php">Homepage</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="home.php">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="products.php">Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="workshop.php">Our Workshop</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="contact.php">Contact</a>
-      </li> 
-      <li class="nav-item">
-        <a class="nav-link" href="basket.php">Basket</a>
-      </li> 
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="products.php" >Products</a>
+    </li>
+      <li class="nav-item dropdown">
+  
+        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="products_ovenware.php">Ovenware Pots</a>
+          <a class="dropdown-item" href="products_decorative.php">Decorative Pots</a>
+          <a class="dropdown-item" href="products_food_drink.php">Food & Drink Pots</a>
+          <a class="dropdown-item" href="products_ecclesiastical.php">Ecclesiastical Pots</a>
+          <a class="dropdown-item" href="products_cyprus.php">Cyprus Souvenirs Pots</a>
+          <a class="dropdown-item" href="products_ancient.php">Ancient Pots</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="workshop.php" >Workshop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="basket.php" >Basket</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.php" >Contact</a>
+      </li>
+     
     </ul>
-  </div>  
-
+    
+  </div>
 </nav>
+
 							   
 							
 					 <p class="workshop-content" > 
@@ -121,7 +146,11 @@
 						 </div>
 						 </div>
 						 <?php
-							myFunction();
+                if (!isLoggedIn()) {
+                  header('location: ../login.php');
+                }else{
+              myFunction();
+                }
 						 ?>
 
 						 
