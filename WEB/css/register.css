@@ -84,6 +84,13 @@ button:hover {
   display: table;
 }
 
+.signup-form{
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 15%;
+ 
+}
+
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
   .cancelbtn, .signupbtn {
