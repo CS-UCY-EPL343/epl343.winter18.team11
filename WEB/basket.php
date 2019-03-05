@@ -1,11 +1,8 @@
 <?php
-
 include('functions.php');
-
 if (!isLoggedIn()) {
 	header('location: ../login.php');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +29,7 @@ if (!isLoggedIn()) {
             if(isset($_POST['add'])){
              
               if(isset($_POST['qty'])){
-  
                   $quaty=$_POST['qty'];
-                  
                   $ids=$_POST['id'];
                  
                   $array = array_combine($quaty,$ids);
@@ -45,18 +40,16 @@ if (!isLoggedIn()) {
             
                   }
             
-                  $sql="SELECT price FROM Product WHERE  Product_ID=$i";
+                  $sql="SELECT price FROM Product WHERE Product_ID=$i";
                   $result = mysqli_query($link, $sql);
                   $row = mysqli_fetch_array($result);
-
         
                    $pr=$row['price'];
-            
-           
-                    $total=$pr*$q;
-                    
+              
                   
-                    $queryy1="UPDATE basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
+                    $total=$pr*$q;
+             
+                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
                     mysqli_query($link,$queryy1);
                     header('location: basket.php');	
                
@@ -93,44 +86,29 @@ function del_fun(){
     
         
        
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="home.php">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="home.php">Homepage</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="products.php">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Our Workshop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.php">Contact</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="basket.php">Basket</a>
+      </li> 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="products.php" >Products</a>
-    </li>
-      <li class="nav-item dropdown">
-  
-        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="products_ovenware.php">Ovenware Pots</a>
-          <a class="dropdown-item" href="products_decorative.php">Decorative Pots</a>
-          <a class="dropdown-item" href="products_food_drink.php">Food & Drink Pots</a>
-          <a class="dropdown-item" href="products_ecclesiastical.php">Ecclesiastical Pots</a>
-          <a class="dropdown-item" href="products_cyprus.php">Cyprus Souvenirs Pots</a>
-          <a class="dropdown-item" href="products_ancient.php">Ancient Pots</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="workshop.php" >Workshop</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="basket.php" >Basket</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="contact.php" >Contact</a>
-      </li>
-     
     </ul>
-    
-  </div>
+  </div>  
+
 </nav>
                 
              
@@ -206,7 +184,6 @@ $result=mysqli_query($link,$sql);
          <div class="col" style="padding-right:110px" >
          <?php
           printf("\n$%.2f", $linetotal);
-
           printf("\n");
           ?>
           
@@ -243,4 +220,4 @@ del_fun();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </body>
-</html>
+</html> 

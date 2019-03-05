@@ -1,33 +1,28 @@
 <?php include('functions.php') ?>
+
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>Registration system PHP and MySQL</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" type="text/css" href="css/login.css">
-	
+<link rel="stylesheet" type="text/css" href="css/register.css">
+
 </head>
+<div class="signup-form">
 <body>
-
-
-<div class="login-form">
-	<div class="header">
-		<h2>Login</h2>
-	</div>
-
-
+<div class="header">
+	<h2>Login</h2>
+</div>
 
 	<form method="post" action="login.php">
 
 		<?php echo display_error(); ?>
-
+		<label>Username</label>
 		<div class="input-group">
-			<label>Username</label>
+			
 			<input type="text" name="username" >
 		</div>
+		<label>Password</label>
 		<div class="input-group">
-			<label>Password</label>
+			
 			<input type="password" name="password">
 		</div>
 		<div class="input-group">
@@ -37,8 +32,7 @@
 			Not yet a member? <a href="register.php">Sign up</a>
 		</p>
 	</form>
+
 </div>
-
-
 </body>
 </html>

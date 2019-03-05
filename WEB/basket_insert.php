@@ -24,7 +24,7 @@ $sql="";
     echo $product;
     
     
-    $sql = "INSERT INTO Basket (Product_ID,User_ID) VALUES ('$product','{$_SESSION[user]['id']}')";
+    $sql = "INSERT INTO Basket (Product_ID,User_ID) VALUES ('$product','{$_SESSION['user']['id']}') ";
              
    
    

@@ -21,8 +21,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
  
-  
-  
+
   
   
 </head>
@@ -75,7 +74,8 @@
     
     <ul class="navbar-nav  my-2 my-lg-0">
     <li class="nav-item">
-          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+    <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+  
     </li>
     <li class="nav-item">
         <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
