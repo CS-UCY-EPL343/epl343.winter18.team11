@@ -47,7 +47,7 @@ if (isset($_GET['logout'])) {
   <div  class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-    <a class="nav-link" href="">View Meetings</a>
+    <a class="nav-link" href="workshop_details.php">View Meetings</a>
       <li class="nav-item">
 	  <?php  if (isset($_SESSION['user'])) : ?>
 	  <a class="nav-link" href="create_user.php">Add User</a>
@@ -59,7 +59,7 @@ if (isset($_GET['logout'])) {
 	  <?php endif ?>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="contact.php" >View Orders</a>
+        <a class="nav-link" href="orders.php" >View Orders</a>
       </li>
      
     </ul>

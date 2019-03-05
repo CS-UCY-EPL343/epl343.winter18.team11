@@ -61,17 +61,17 @@ function see(){
 try {
     // Connect and create the PDO object
     $link = mysqli_connect("localhost", "root","","emira_pottery");
-    $sql="SELECT username,Date,Time FROM meeting m, users u WHERE m.UserID=u.id";
+    $sql="SELECT * FROM Orders ";
     $result = $link->query($sql);
   
     // If the SQL query is succesfully performed ($result not false)
     if($result !== false) {
       // Create the beginning of HTML table, and the first row with colums title
-      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Username</th><th>Date</th><th>Time</th></tr>';
+      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Order ID</th><th>User ID</th>';
   
       // Parse the result set, and adds each row and colums in HTML table
       foreach($result as $row) {
-        $html_table .= '<tr><td>' .$row['username']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td></tr>';
+        $html_table .= '<tr><td>' .$row['Order_ID']. '</td><td>' .$row['User_ID']. '</td><tr>';
       }
     }
   
