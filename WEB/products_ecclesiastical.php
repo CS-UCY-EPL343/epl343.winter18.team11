@@ -50,7 +50,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" >Workshop</a>
+        <a class="nav-link" href="workshop.php" >Workshop</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="basket.php" >Basket</a>
