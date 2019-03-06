@@ -93,6 +93,13 @@ span.psw {
   animation: animatezoom 0.6s
 }
 
+.login-form{
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 15%;
+ 
+}
+
 @-webkit-keyframes animatezoom {
   from {-webkit-transform: scale(0)} 
   to {-webkit-transform: scale(1)}
@@ -113,3 +120,4 @@ span.psw {
      width: 100%;
   }
 }
+

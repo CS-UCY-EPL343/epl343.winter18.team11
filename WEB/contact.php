@@ -1,16 +1,19 @@
 
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head  >
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  
-    <title>Page Title</title> 
-
-    <link rel="stylesheet" type="text/css" href="css/home.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>products</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/home.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
 
 
@@ -33,30 +36,46 @@
     </div>
     
      
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="home.php">Homepage</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="home.php">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="products.php">Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Our Workshop</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="contact.php">Contact</a>
-      </li> 
-      <li class="nav-item">
-        <a class="nav-link" href="basket.php">Basket</a>
-      </li> 
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="products.php" >Products</a>
+    </li>
+      <li class="nav-item dropdown">
+  
+        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="products_ovenware.php">Ovenware Pots</a>
+          <a class="dropdown-item" href="products_decorative.php">Decorative Pots</a>
+          <a class="dropdown-item" href="products_food_drink.php">Food & Drink Pots</a>
+          <a class="dropdown-item" href="products_ecclesiastical.php">Ecclesiastical Pots</a>
+          <a class="dropdown-item" href="products_cyprus.php">Cyprus Souvenirs Pots</a>
+          <a class="dropdown-item" href="products_ancient.php">Ancient Pots</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="workshop.php" >Workshop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="basket.php" >Basket</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.php" >Contact</a>
+      </li>
+     
     </ul>
-  </div>  
-
+    
+  </div>
 </nav>
+
 
 
 
@@ -81,7 +100,7 @@
 
   
 </form>
-
+</div>
 
 <?php 
 
@@ -92,7 +111,7 @@ if(isset($_POST['button_pressed'])){
 ?>
 
 
-</div>
+
         
   
       <div class="clearfix"></div>
