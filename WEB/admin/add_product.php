@@ -83,6 +83,9 @@ if (isset($_GET['logout'])) {
     </ul>
     
     <ul class="navbar-nav  my-2 my-lg-0">
+    <li class =nav-item>
+        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
+    </li>
     <li class="nav-item">
 	<a class="nav-link" href="../home.php?logout='1'" >Logout</a>
     </li>
@@ -111,7 +114,7 @@ if (isset($_GET['logout'])) {
           <input type="file" id="image" name="image" accept="image/*">
            <!-- <input type="submit" name="upl" value="Upload the picture"/> -->
           <br>
-          
+          <br>
           <button class="submit"  name="submit">Submit</button>
                         </form>
 
