@@ -73,12 +73,31 @@
     </ul>
     
     <ul class="navbar-nav  my-2 my-lg-0">
-    <li class="nav-item">
-    <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
-  
+
+    <li class =nav-item>
+      <?php if (isset($_SESSION['success'])) : ?>
+        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['username']; ?> </p>
+      <?php endif ?>
     </li>
     <li class="nav-item">
+    <?php if (isset($_SESSION['success'])) : ?>
+
+      <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
+    <?php endif ?>
+    <?php if (!isset($_SESSION['success'])) : ?>
+
+          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+    <?php endif ?>
+
+
+    </li>
+    <li class="nav-item">
+
+          <?php if (!isset($_SESSION['success'])) : ?>
+
         <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
+        <?php endif ?>
+
     </li>
     </ul>
   </div>
@@ -86,30 +105,8 @@
 
 
 
-      <?php if (isset($_SESSION['success'])) : ?>
-			<div class="error success" >
-				<h3>
-					<?php 
-						echo $_SESSION['success']; 
-						unset($_SESSION['success']);
-					?>
-				</h3>
-			</div>
-		<?php endif ?>
+  
 
-
-  <div>
-				<?php  if (isset($_SESSION['user'])) : ?>
-					<strong><?php echo $_SESSION['user']['username']; ?></strong>
-
-					<small>
-						<i  style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
-						<br>
-						<a href="home.php?logout='1'" style="color: red;">logout</a>
-					</small>
-
-				<?php endif ?>
-			</div>
 
   <!-- HOME CONTENT --> 
 

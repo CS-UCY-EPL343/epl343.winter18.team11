@@ -69,7 +69,6 @@
 <!-- PRODUCTS --> 
 
 <?php
-
 $link = mysqli_connect("localhost", "root","","emira_pottery");
 $sql="SELECT * FROM Product where Product.Product_Type = 'Decorative Pots' order by Product_ID asc";
 $result=mysqli_query($link,$sql);
