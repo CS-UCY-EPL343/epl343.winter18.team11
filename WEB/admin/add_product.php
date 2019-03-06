@@ -1,19 +1,14 @@
 <?php 
 include('../functions.php');
-
-
-
 if (!isAdmin()) {
 	$_SESSION['msg'] = "You must log in first";
 	header('location: ../login.php');
 }
-
 if (isset($_GET['logout'])) {
 	session_destroy();
 	unset($_SESSION['user']);
 	header("location: ../login.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +17,7 @@ if (isset($_GET['logout'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
         <link rel = "stylesheet" type = "text/css" href = "add_format.css" />
+        <link rel="stylesheet" type="text/css" href="../css/home.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -40,10 +36,10 @@ if (isset($_GET['logout'])) {
                             $img=$_FILES['image']['name'];
                             $target_file = "../images/$img";
                         if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)){
-                            echo "uploaddddddd";
+                            echo "Uploaded Successfully!";
                         }
                             else{
-                                echo "akiro";
+                                echo "Try Again";
                             }
                         $sql = "INSERT INTO Product (Product_name, Product_Type, Description, price,image) VALUES ('$product_name', '$product_type', '$description','$price','$img')";
                         mysqli_query($link, $sql);
@@ -53,9 +49,7 @@ if (isset($_GET['logout'])) {
                </head>
 <body>
 
-<div class="first">
-<h2>Admin</h2>
-</div>
+
 <div class="jumbotron" style="margin-bottom:0" >
     <div class="logo">
       <h1 >Add Product</h1>
@@ -104,36 +98,20 @@ if (isset($_GET['logout'])) {
     <div class="frame">
  <form class="form-signin" action="/admin/add_product.php" method="post" name="form" enctype="multipart/form-data">
           <label for="product_name">Product Name</label>
-          <br>
-          
           <input class="form-styling" type="text" name="prod_name" placeholder=""/>
-
-          <br>
-          
           <label for="product_type">Product Type</label>
-          
-          <br>
-          
-          <input class="form-styling" type="text" name="prod_type" placeholder=""/>
-          <br>
+         <input class="form-styling" type="text" name="prod_type" placeholder=""/>        
           <label for="product_name">Description</label>
-          <br>
-          
           <input class="form-styling" type="text" name="descr" placeholder=""/>
-          <br>
-          <label for="price">Price</label>
-          
-          <br>
+        <label for="price">Price</label>          
           <input class="form-styling" type="text" name="pr" placeholder=""/>
-          <br>
-
           <label for="image">Choose Image</label>
-          <br>
+
           
           <input type="file" id="image" name="image" accept="image/*">
            <!-- <input type="submit" name="upl" value="Upload the picture"/> -->
           <br>
-          <br>
+          
           <button class="submit"  name="submit">Submit</button>
                         </form>
 
