@@ -71,7 +71,10 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent i = new Intent(getApplicationContext(),
+                    BasketActivity.class);
+            startActivity(i);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

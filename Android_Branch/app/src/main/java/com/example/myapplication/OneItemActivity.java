@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ public class OneItemActivity extends Activity {
     private Button addToCard;
     private String item;
     private SqlManager db;
-    private Button quantityButton;
+    private EditText quantityText;
     /*Product Strings*/
     String price;
     String image_product;
@@ -58,7 +59,7 @@ public class OneItemActivity extends Activity {
          * */
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         addToCard = (Button)findViewById(R.id.addToCard);
-        quantityButton = (Button)findViewById(R.id.quantity);
+        quantityText = (EditText)findViewById(R.id.quantity);
 
         //Get the name from the intent and put it on the toolbar
         Bundle bundle = getIntent().getExtras();
@@ -83,8 +84,7 @@ public class OneItemActivity extends Activity {
 
         addToCard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                    db.addOrder(item,"1");
-
+                    db.addOrder(item,quantityText.getText().toString());
             }
         });
 

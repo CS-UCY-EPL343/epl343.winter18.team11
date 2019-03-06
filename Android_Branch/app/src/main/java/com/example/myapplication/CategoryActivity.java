@@ -17,8 +17,7 @@ import java.util.ArrayList;
 public class CategoryActivity extends Navigation {
     private ProgressDialog pDialog;
     private SessionManager session;
-     ArrayAdapter<String> mAdapter = null;
-
+    ArrayAdapter<String> mAdapter = null;
     Toolbar toolbar;
     ListView listView;
     private SqlManager db;

@@ -44,7 +44,7 @@ public class AccountActivity extends Navigation {
     EditText nameViewChange;
     EditText addressViewChange;
     EditText mobileViewChange;
-    EditText emailViewChange;;
+    EditText emailViewChange;
 
     Button btnLogout;
     Button btnUpdate;
@@ -139,7 +139,7 @@ public class AccountActivity extends Navigation {
         navigationView.setNavigationItemSelectedListener(this);
 
         btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnUpdate = (Button) findViewById(R.id.btnUpdate);
+        btnUpdate = (Button) findViewById(R.id.btnSendOrder);
         btnSend = (Button) findViewById(R.id.btnSend);
 
 

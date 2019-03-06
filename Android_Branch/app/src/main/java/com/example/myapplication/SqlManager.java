@@ -194,6 +194,21 @@ Add product into mysql lite locally
             return categories;
         }
 
+    public HashMap<String, String>  getOrder(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        HashMap<String,String>  products = new HashMap<String,String> ();
+        String selectQuery = "SELECT  * FROM " + TABLE_ORDER;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.getCount()>0){
+            while(cursor.moveToNext()) {
+                products.put(cursor.getString(0),cursor.getString(1));
+            }
+        }
+        db.close();
+        cursor.close();
+        return products ;
+    }
 
     public ArrayList<String> getItemsFromCategory(String Cat){
 
@@ -207,6 +222,7 @@ Add product into mysql lite locally
                 items.add(cursor.getString(0));
             }
         }
+        db.close();
         return items;
     }
 
