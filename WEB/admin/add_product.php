@@ -77,7 +77,7 @@ if (isset($_GET['logout'])) {
 	  <?php endif ?>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="contact.php" >View Orders</a>
+        <a class="nav-link" href="orders.php" >View Orders</a>
       </li>
      
     </ul>
