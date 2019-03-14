@@ -1,6 +1,7 @@
   /* WORKSHOP*/
-  .image{
-    float:right;
+
+.image{
+    margin-left: 5%;
 }
 
 .workshop-content {
@@ -21,3 +22,68 @@
   padding-left: 200px;
   margin:20px 20px;
 }
+
+  /* WORKSHOP JUMBOTRON*/
+
+  a:visited {
+    color: black;
+  }
+
+.footer {
+    background-color: beige;
+      
+}
+
+
+  .jumbotron {
+      background-color: beige;
+  }
+  .footer-products {
+      font-size: 20px;
+      padding-top: 50px;
+  }
+  .working-hours {
+      font-size: 20px;
+  }
+
+
+.label-items {
+    font-size: 20px;
+    font-family: cursive;
+    text-align: center;
+ 
+}
+
+
+.products_gallery .jumbotron{
+    background-image: url(emira-pottery.jpg);
+    background-color: blanchedalmond;
+    height: 300px;
+   
+   
+}
+
+.logo-productsgallery h1{
+  font-size: 70px;
+  font-style:italic;
+  font-family: cursive;
+  text-align: center;
+ 
+}
+
+.form1{
+  padding-left: 35%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+
+
+
+
+
+  
+  
+  
+
+  
