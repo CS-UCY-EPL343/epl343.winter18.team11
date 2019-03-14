@@ -206,6 +206,14 @@ public class AccountActivity extends Navigation {
          }
         });
     }
+
+    public String getEmail(){
+
+        HashMap<String, String> user = db.getUserDetails();
+        String email = user.get("email");
+        return email;
+
+    }
     public void updateAccountScreen(){
 
         if (!session.isLoggedIn()) {

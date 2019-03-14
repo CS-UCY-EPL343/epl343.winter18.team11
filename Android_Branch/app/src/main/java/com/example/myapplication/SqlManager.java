@@ -93,8 +93,6 @@ public class SqlManager extends SQLiteOpenHelper {
         long id = db.insert(TABLE_ORDER, null, values);
         db.close();
     }
-
-
 /*
 Add product into mysql lite locally
  */
@@ -183,7 +181,7 @@ Add product into mysql lite locally
 * */
         public ArrayList<String> getCategories() {
             ArrayList<String> categories = new ArrayList<String>();
-            String selectQuery = "SELECT " + KEY_PRODUCT_CAT + " FROM " + TABLE_PRODUCTS;
+            String selectQuery = "SELECT DISTINCT " + KEY_PRODUCT_CAT + " FROM " + TABLE_PRODUCTS;
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery(selectQuery, null);
             if (cursor.getCount() > 0) {

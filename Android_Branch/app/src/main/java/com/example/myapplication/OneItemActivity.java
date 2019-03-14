@@ -79,7 +79,7 @@ public class OneItemActivity extends Activity {
             StringBuilder descS= new StringBuilder();
             descS.append("Description\n\n"+ description);
             descriptionText.setText(descS);
-            Picasso.with(getApplicationContext()).load("http://i.imgur.com/DvpvklR.png").into(imageProduct);
+            Picasso.with(getApplicationContext()).load(image_product).into(imageProduct);
         }
 
         addToCard.setOnClickListener(new View.OnClickListener() {

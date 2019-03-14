@@ -16,8 +16,6 @@ public class BasketActivity extends Navigation {
     private ProgressDialog pDialog;
     private SessionManager session;
     ArrayAdapter<String> mAdapter = null;
-   // BasketAdaptor mAdapter = null;
-
     private SqlManager db;
     private ListView orderlist ;
 
@@ -55,7 +53,8 @@ public class BasketActivity extends Navigation {
                 items.add(itemName+" Quantity: "+itemValue);
         }
 
-         orderlist.setAdapter(mAdapter);
+        this.mAdapter = new ArrayAdapter<String>(BasketActivity.this, android.R.layout.simple_list_item_1, items);
+        orderlist.setAdapter(mAdapter);
     }
 
 }
