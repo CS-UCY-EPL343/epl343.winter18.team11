@@ -17,7 +17,7 @@ if (isset($_GET['logout'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
         <link rel = "stylesheet" type = "text/css" href = "add_format.css" />
-        <link rel="stylesheet" type="text/css" href="../css/home.css">
+        <link rel="stylesheet" type="text/css" href="../css/basket_format.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -51,9 +51,11 @@ if (isset($_GET['logout'])) {
 
 
 <div class="jumbotron" style="margin-bottom:0" >
-    <div class="logo">
-      <h1 >Add Product</h1>
+    <div class="logo-productsgallery">
+     
+	  <h1> Admin - Add Product</h1>
     </div>
+
 </div>
 
 	<nav style="width:100%"  class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -99,30 +101,32 @@ if (isset($_GET['logout'])) {
 <div class="container">
     
     <div class="frame">
- <form class="form-signin" action="/admin/add_product.php" method="post" name="form" enctype="multipart/form-data">
-          <label for="product_name">Product Name</label>
-          <input class="form-styling" type="text" name="prod_name" placeholder=""/>
-          <label for="product_type">Product Type</label>
-         <input class="form-styling" type="text" name="prod_type" placeholder=""/>        
-          <label for="product_name">Description</label>
-          <input class="form-styling" type="text" name="descr" placeholder=""/>
-        <label for="price">Price</label>          
-          <input class="form-styling" type="text" name="pr" placeholder=""/>
-          <label for="image">Choose Image</label>
+            <form class="form-signin" action="/admin/add_product.php" method="post" name="form" enctype="multipart/form-data">
+                    <div class="contents"> 
+                    <label for="product_name">Product Name</label>
+                    <input type="text" name="prod_name" placeholder=""/>
+                    <label for="product_type">Product Type</label>
+                    <input  type="text" name="prod_type" placeholder=""/>        
+                    <label for="product_name">Description</label>
+                    <input type="text" name="descr" placeholder=""/>
+                    <label for="price">Price</label>          
+                    <input type="text" name="pr" placeholder=""/>
+                    <label for="image">Choose Image</label>
 
-          
-          <input type="file" id="image" name="image" accept="image/*">
-           <!-- <input type="submit" name="upl" value="Upload the picture"/> -->
-          <br>
-          <br>
-          <button class="submit"  name="submit">Submit</button>
-                        </form>
-
-                    <?php
-el();
-                    ?>
+                    
+                    <input type="file" id="image" name="image" accept="image/*">
+                    <!-- <input type="submit" name="upl" value="Upload the picture"/> -->
+                    <br>
+                    <br>
+                    <button class="submit"  name="submit">Submit</button>
                         </div>
-                    </div>
+                </form>
+
+                <?php
+                    el();
+                ?>
+    </div>
+</div>
 
       
 

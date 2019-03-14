@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 				<link rel = "stylesheet" type = "text/css" href = "add_format.css" />
-				<link rel="stylesheet" type="text/css" href="../css/home.css">
+				<link rel="stylesheet" type="text/css" href="../css/basket_format.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -13,8 +13,9 @@
 </head>
 <body>
 
+
 <div class="jumbotron" style="margin-bottom:0" >
-    <div class="logo">
+    <div class="logo-productsgallery">
      
 	  <h1> Admin - Create User</h1>
     </div>
@@ -30,7 +31,7 @@
   <div  class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-    <a class="nav-link" href="">View Meetings</a>
+    <a class="nav-link" href="workshop_details.php">View Meetings</a>
       <li class="nav-item">
 	  <?php  if (isset($_SESSION['user'])) : ?>
 	  <a class="nav-link" href="create_user.php">Add User</a>
@@ -62,49 +63,48 @@
 	
 	<div class="container">
     
-    <div class="frame">
+  <div class="frame">
  <form class="form-signin" action="/admin/create_user.php" method="post" name="form" enctype="multipart/form-data">
  <?php echo display_error(); ?>
+ <div class="contents">
           <label for="product_name">Username</label>
-          <br>
           
-          <input class="form-styling" type="text" name="username" placeholder=""/>
-
-          
+          <input type="text" name="username" placeholder=""/>
           
           <label for="product_type">Email</label>
-          
+          <input  type="text" name="email" placeholder=""/>
+
+
+
           <br>
-          
-          <input class="form-styling" type="email" name="email" placeholder=""/>
-          
+
+
+
            <label for="product_name">User Type</label>
+            <select name="user_type" id="user_type" >
+                <option value=""></option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select> 
+          
           <br>
-        
-		 <select name="user_type" id="user_type" >
-				<option value=""></option>
-				<option value="admin">Admin</option>
-				<option value="user">User</option>
-			</select> 
           <br>
-		  <br>
+		  <label for="password">Password</label>
           
-          
-		  <label for="price">Password</label>
-          
-        <br>
-          <input class="form-styling" type="password" name="password_1" placeholder=""/>
+          <input type="password" name="password_1" placeholder=""/>
           
           <br>
 		  <label for="price">Confirm Password</label>
           
          
-          <input class="form-styling" type="password" name="password_2" placeholder=""/>
+          <input type="password" name="password_2" placeholder=""/>
+          <br>
           <br>
            <!-- <input type="submit" name="upl" value="Upload the picture"/> -->
-          <br>
+          
           
           <button class="submit"  name="register_btn">Create User</button>
+    </div>
                         </form>
 
                         </div>

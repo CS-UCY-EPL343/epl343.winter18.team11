@@ -18,8 +18,8 @@ if (isset($_GET['logout'])) {
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="../css/home.css">
 <link rel = "stylesheet" type = "text/css"  href = "add_format.css" />
+<link rel="stylesheet" type="text/css" href="../css/basket_format.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<title>Home</title>
 
@@ -31,7 +31,7 @@ if (isset($_GET['logout'])) {
 
 <body>
 <div class="jumbotron" style="margin-bottom:0" >
-    <div class="logo">
+    <div class="logo-productsgallery">
      
 	  <h1> Admin - Home Page</h1>
     </div>
