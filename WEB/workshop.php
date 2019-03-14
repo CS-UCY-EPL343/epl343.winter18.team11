@@ -13,7 +13,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/home.css">
   <link rel="stylesheet" type="text/css" href="css/workshop-format.css">
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -56,17 +55,17 @@
 			?>
 
 					
-	
+          <div class = "products_gallery">
 					<div class="jumbotron" style="margin-bottom:0" >
-    					<div class="logo">
+    					<div class="logo-productsgallery">
       						<h1 >Our Workshop</h1>
     					</div>
-
+          </div>
 					</div>
 
 
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="home.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -102,32 +101,65 @@
      
     </ul>
     
+    <ul class="navbar-nav  my-2 my-lg-0">
+
+    <li class =nav-item>
+      <?php if (isset($_SESSION['success'])) : ?>
+        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
+      <?php endif ?>
+    </li>
+    <li class="nav-item">
+    <?php if (isset($_SESSION['success'])) : ?>
+
+      <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
+    <?php endif ?>
+    <?php if (!isset($_SESSION['success'])) : ?>
+
+          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+    <?php endif ?>
+
+
+    </li>
+    <li class="nav-item">
+
+          <?php if (!isset($_SESSION['success'])) : ?>
+
+        <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
+        <?php endif ?>
+
+    </li>
+    </ul>
   </div>
 </nav>
 
-							   
-							
+				  
+			
 					 <p class="workshop-content" > 
 
 									Our workshop and showroom are located at 13 Mehmet Ali Street near the St. Lazarus church in Lanraka. Our workshop is open to the public and visitors will have the opportunity to watch the artists creating and also to try the magic of clay.
 									For the best please book your appointment in advance. </p>
-							<br/>
-							<p class="details">Workshop Working Hours:</p> 
-							
-							<p class="date">Monday to Friday: 08:00 – 16:30.</p>
-							
+              <br/>
+              
 
-							<p class="date">But is open to have a look until 21:00 and Saturday 09:00 – 15:00.</p><br/>
-								  
-							   <br/>
-							     
-					
-					 <div class="image">
-						 
-						 <img src="workshop.jpg" alt="Trulli" width="375" height="450">
-						 
-						 </div>
+               <div class="row">
 
+                  <div class="col-md-6">
+
+                        <p class="details">Workshop Working Hours:</p> 
+                        
+                        <p class="date">Monday to Friday: 08:00 – 16:30.</p>
+                        
+
+                        <p class="date">But is open to have a look until 21:00 and Saturday 09:00 – 15:00.</p><br/>
+                </div>
+                <div class="col-md-6">
+                    <div class="image">
+                      
+                      <img src="workshop.jpg" alt="Trulli" width="375" height="450">
+                      
+                      </div>
+            </div>
+            </div>
 					<div class="second" style="margin:20px 20px; padding-left: 200px;" >   
 
 		
@@ -159,7 +191,7 @@
 </form>
 								
 
-						  <footer class="footer">
+				<footer class="footer">
         <div class="container" >
                 <div class="row">
                     <div class="col-md-4"> 

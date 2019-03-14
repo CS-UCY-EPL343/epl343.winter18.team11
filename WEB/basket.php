@@ -1,8 +1,11 @@
 <?php
+
 include('functions.php');
+
 if (!isLoggedIn()) {
 	header('location: ../login.php');
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +38,7 @@ if (!isLoggedIn()) {
                   $array = array_combine($quaty,$ids);
             
                   foreach($array as $q => $i){
-                    $queryy="UPDATE Basket SET Quantity = $q WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
+                    $queryy="UPDATE Basket SET Quantity = $q WHERE Product_ID = $i";
                       mysqli_query($link,$queryy);
             
                   }
@@ -46,10 +49,9 @@ if (!isLoggedIn()) {
         
                    $pr=$row['price'];
               
-                  
+           
                     $total=$pr*$q;
-             
-                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
+                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Product_ID = $i";
                     mysqli_query($link,$queryy1);
                     header('location: basket.php');	
                
@@ -62,7 +64,7 @@ function del_fun(){
     if(isset($_POST['del'])){
       $de=$_POST['del'];
       foreach($de as $d){
-        $quer="DELETE FROM Basket WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$d ";
+        $quer="DELETE FROM Basket WHERE Product_ID=$d";
         mysqli_query($link, $quer);
         header('location: basket.php');	
       }
@@ -84,7 +86,10 @@ function del_fun(){
           
 
     
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        
+       
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="home.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -149,14 +154,14 @@ function del_fun(){
     </li>
     </ul>
   </div>
-</nav>
-     
+</nav>   
+             
                     
                     
 
                           <?php 
 $link = mysqli_connect("localhost", "root","","emira_pottery");
-$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Basket.User_ID={$_SESSION['user']['id']} and Product.Product_ID = Basket.Product_id ";
+$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Product.Product_ID = Basket.Product_id";
 $result=mysqli_query($link,$sql);
   
   ?>
@@ -222,7 +227,7 @@ $result=mysqli_query($link,$sql);
          
          <div class="col" style="padding-right:110px" >
          <?php
-          printf("\n€%.2f", $linetotal);
+          printf("\n$%.2f", $linetotal);
           printf("\n");
           ?>
           
@@ -242,7 +247,7 @@ del_fun();
     <div class="col" style="padding-left:1200px">  
 <?php          
          
-          printf("<b>€%.2f</b>\n", $cartamount);      
+          printf("<b>$%.2f</b>\n", $cartamount);      
  ?>
 
 </div>
@@ -259,4 +264,4 @@ del_fun();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   </body>
-</html> 
+</html>

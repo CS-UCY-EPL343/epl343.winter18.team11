@@ -1,5 +1,9 @@
 
+<?php
+    include('functions.php');
 
+  
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +12,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/home.css">
+  <link rel="stylesheet" type="text/css" href="css/workshop-format.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -29,11 +33,14 @@
 
 </head>
 <body>
-    <div class="jumbotron " style="margin-bottom: 0" >        
-    <div class="logo-productsgallery1">
-      <h1>Contact Us</h1>
-    </div>
-    </div>
+
+      <div class = "products_gallery">
+					<div class="jumbotron" style="margin-bottom:0" >
+    					<div class="logo-productsgallery">
+      						<h1 >Contact us</h1>
+    					</div>
+          </div>
+					</div>
     
      
 
@@ -73,8 +80,36 @@
      
     </ul>
     
+    <ul class="navbar-nav  my-2 my-lg-0">
+
+    <li class =nav-item>
+      <?php if (isset($_SESSION['success'])) : ?>
+        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
+      <?php endif ?>
+    </li>
+    <li class="nav-item">
+    <?php if (isset($_SESSION['success'])) : ?>
+
+      <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
+    <?php endif ?>
+    <?php if (!isset($_SESSION['success'])) : ?>
+
+          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+    <?php endif ?>
+
+
+    </li>
+    <li class="nav-item">
+
+          <?php if (!isset($_SESSION['success'])) : ?>
+
+        <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
+        <?php endif ?>
+
+    </li>
+    </ul>
   </div>
-</nav>
+</nav>   
 
 
 
