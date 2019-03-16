@@ -1,3 +1,9 @@
+<?php
+    include('functions.php');
+
+  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,15 +21,16 @@
 
 
 <body>
+      <div class = "products_gallery">
         <div class="jumbotron -fluid" style="margin-bottom:0" >
-        <div class="logo-productsgallery1">
+        <div class="logo-productsgallery">
                 <h1 >Products</h1>
         </div>
         </div>
+</div>
 
  
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="home.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -59,6 +66,34 @@
      
     </ul>
     
+    <ul class="navbar-nav  my-2 my-lg-0">
+
+    <li class =nav-item>
+      <?php if (isset($_SESSION['success'])) : ?>
+        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['username']; ?> </p>
+      <?php endif ?>
+    </li>
+    <li class="nav-item">
+    <?php if (isset($_SESSION['success'])) : ?>
+
+      <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
+    <?php endif ?>
+    <?php if (!isset($_SESSION['success'])) : ?>
+
+          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+    <?php endif ?>
+
+
+    </li>
+    <li class="nav-item">
+
+          <?php if (!isset($_SESSION['success'])) : ?>
+
+        <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
+        <?php endif ?>
+
+    </li>
+    </ul>
   </div>
 </nav>
 
@@ -86,7 +121,7 @@
                                       
                                                                 <div class="col-md-3 mx-auto">
                                                                     
-                                                                <a href="products_ovenware.php"> <img src="product_1.jpg" style="width:100%"></a>
+                                                                <a href="products_ovenware.php"> <img src="products_images/product_1.jpg" style="width:100%"></a>
                                                                     <div class="label-items">
                                                                     <p> Ovenware Pots </p>
                                                                   </div>      
@@ -95,7 +130,7 @@
                                                               
  
                                                                 <div class="col-md-3 mx-auto">
-                                                                <a href="products_food_drink.php"> <img src="product_2.jpg" style="width:100%"></a>
+                                                                <a href="products_food_drink.php"> <img src="products_images/product_2.jpg" style="width:100%"></a>
                                                                   <div class="label-items">
                                                                     <p> Food & Drink Serving  </p>
                                                                   </div> 
@@ -104,7 +139,7 @@
 
                                                                 <div class="col-md-3 mx-auto">
                                                                 
-                                                                <a href="products_cyprus.php"> <img src="product_3.jpg" style="width:100%"></a>
+                                                                <a href="products_cyprus.php"> <img src="products_images/product_3.jpg" style="width:100%"></a>
                                                                     <div class="label-items">
                                                                     <p> Cyprus Souvenirs </p>
                                                                   </div> 
@@ -117,14 +152,14 @@
             <div class="row">
                                       
                                                                 <div class="col-md-3 mx-auto">
-                                                                  <a href="products_decorative.php"> <img src="product_4.jpg" style="width:100%"></a>
+                                                                  <a href="products_decorative.php"> <img src="products_images/product_4.jpg" style="width:100%"></a>
                                                                   <div class="label-items">
                                                                     <p> Decorative  </p>
                                                                   </div> 
                                                                 </div>
  
                                                                 <div class="col-md-3 mx-auto">
-                                                                <a href="products_ancient.php"> <img src="product_5.jpg" style="width:100%"></a>
+                                                                <a href="products_ancient.php"> <img src="products_images/product_5.jpg" style="width:100%"></a>
                                                                   <div class="label-items">
                                                                     <p> Ancient Pottery Replicas </p>
                                                                   </div> 
@@ -134,7 +169,7 @@
                                              
                                                                 <div class="col-md-3 mx-auto">
                                                                 
-                                                                <a href="products_ecclesiastical.php"> <img src="product_6.jpg" style="width:100%"></a>
+                                                                <a href="products_ecclesiastical.php"> <img src="products_images/product_6.jpg" style="width:100%"></a>
                                                                     <div class="label-items">
                                                                     <p> Ecclesiastical Items </p>
                                                                   </div> 
@@ -145,7 +180,7 @@
           <div class="row">
                                       
                                       <div class="col-md-3 mx-auto">
-                                      <a href="products.php"> <img src="product_7.jpg" style="width:100%"></a>
+                                      <a href="products.php"> <img src="products_images/product_7.jpg" style="width:100%"></a>
                                         <div class="label-items">
                                           <p> Traditional </p>
                                         </div> 

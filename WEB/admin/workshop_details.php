@@ -25,7 +25,7 @@ if (isset($_GET['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
   <link rel = "stylesheet" type = "text/css" href = "../admin/add_format.css" />
-  
+  <link rel="stylesheet" type="text/css" href="../css/basket_format.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -46,11 +46,7 @@ if (isset($_GET['logout'])) {
         background-color: #dddddd;
       }
       
-      .jumbotron{
-          background:white;
-          margin-top:35px;
-          text-align: center;
-      }
+    
 </style>
 </head>
 <body>
@@ -86,13 +82,15 @@ try {
   }
 }
 ?>
-  <div class="first">
-<h2>Admin</h2>
-</div>
-  <div class="jumbotron" style="margin-bottom:0" >
-    <div class="logo">
-      <h1 >Meeting Agenda</h1>
+
+
+
+<div class="jumbotron" style="margin-bottom:0" >
+    <div class="logo-productsgallery">
+     
+	  <h1> Meeting Agenda</h1>
     </div>
+
 </div>
 
  	<nav style="width:100%"  class="navbar navbar-expand-lg navbar-dark bg-dark">

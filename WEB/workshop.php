@@ -1,8 +1,12 @@
 <?php
 
     include('functions.php');
-  
-?>
+    if (!isLoggedIn()) {
+      header('location: ../login.php');
+    }
+    
+    ?>
+
 
 
 <!DOCTYPE html>
@@ -13,7 +17,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/home.css">
   <link rel="stylesheet" type="text/css" href="css/workshop-format.css">
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -26,7 +29,42 @@
 
 <body>
 			<?php
+  function send_email(){
+
+    $conn = mysqli_connect("localhost", "root","","emira_pottery");
+
+    $datee=$_POST['date'];
+    $timee=$_POST['time'];
   
+
+    $sql= "SELECT email FROM users WHERE id='{$_SESSION['user']['id']}'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_array($result);
+    $em=$row['email'];
+   
+    $sql= "SELECT username FROM users WHERE id='{$_SESSION['user']['id']}'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_array($result);
+    $name=$row['username'];
+
+    $to = 'georgia_kap@hotmail.com';
+    $subject = 'Emira Pottery-Workshop';
+    $message = 'User '.$name.' would like to to book a lesson on: '.$datee. ' at '. $timee;
+    $from = $em;
+  
+  
+  
+ 
+  
+     
+    
+    if(mail($to, $subject, $message, $from)){
+        echo 'Your mail has been sent successfully.';
+    } else{
+        echo 'Unable to send email. Please try again.';
+    }
+  
+  }
 			function myFunction(){
     
       
@@ -56,17 +94,17 @@
 			?>
 
 					
-	
+          <div class = "products_gallery">
 					<div class="jumbotron" style="margin-bottom:0" >
-    					<div class="logo">
+    					<div class="logo-productsgallery">
       						<h1 >Our Workshop</h1>
     					</div>
-
+          </div>
 					</div>
 
 
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="home.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -79,8 +117,7 @@
     </li>
       <li class="nav-item dropdown">
   
-        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-        </a>
+        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown"  data-reference="parent"></a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="products_ovenware.php">Ovenware Pots</a>
           <a class="dropdown-item" href="products_decorative.php">Decorative Pots</a>
@@ -102,64 +139,110 @@
      
     </ul>
     
-  </div>
-</nav>
+    <ul class="navbar-nav  my-2 my-lg-0">
 
-							   
-							
+    <li class =nav-item>
+      <?php if (isset($_SESSION['success'])) : ?>
+        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
+      <?php endif ?>
+    </li>
+    <li class="nav-item">
+    <?php if (isset($_SESSION['success'])) : ?>
+
+      <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
+    <?php endif ?>
+    <?php if (!isset($_SESSION['success'])) : ?>
+
+          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+    <?php endif ?>
+
+
+    </li>
+    <li class="nav-item">
+
+          <?php if (!isset($_SESSION['success'])) : ?>
+
+        <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
+        <?php endif ?>
+
+    </li>
+    </ul>
+  </div>
+</nav>  
+
+				  
+			
 					 <p class="workshop-content" > 
 
 									Our workshop and showroom are located at 13 Mehmet Ali Street near the St. Lazarus church in Lanraka. Our workshop is open to the public and visitors will have the opportunity to watch the artists creating and also to try the magic of clay.
 									For the best please book your appointment in advance. </p>
-							<br/>
-							<p class="details">Workshop Working Hours:</p> 
-							
-							<p class="date">Monday to Friday: 08:00 – 16:30.</p>
-							
+              <br/>
+              
 
-							<p class="date">But is open to have a look until 21:00 and Saturday 09:00 – 15:00.</p><br/>
-								  
-							   <br/>
-							     
-					
-					 <div class="image">
-						 
-						 <img src="workshop.jpg" alt="Trulli" width="375" height="450">
-						 
-						 </div>
+               <div class="row">
 
-					<div class="second" style="margin:20px 20px; padding-left: 200px;" >   
+                  <div class="col-md-6">
+
+                        <p class="details">Workshop Working Hours:</p> 
+                        
+                        <p class="date">Monday to Friday: 08:00 – 16:30.</p>
+                        
+
+                        <p class="date">But is open to have a look until 21:00 and Saturday 09:00 – 15:00.</p><br/>
+
+
+
+                        					<div class="second" style="margin:20px 20px; padding-left: 200px;" >   
 
 		
-						 <h4>Please choose the time and date for your lesson:</h4>
-						 <div id="theform">
+                                  <h4>Please choose the time and date for your lesson:</h4>
+                                  <div id="theform">
 
-				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
-    
-						  Date:(required)<br><input type="date" min="2019-02-20" name="date" /><br/>
-						  <br/><br/>
-                          
-							Time:(required)<br><input type="time" name="time"/><br/>
-						  <br/><br/>
-						  <input type="submit" name="submit" value="Submit"/>  
-						   
-						 </div>
-						 </div>
-						 <?php
-                if (!isLoggedIn()) {
-                  header('location: ../login.php');
-                }else{
-              myFunction();
-                }
-						 ?>
+                                  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
 
-						 
-						   <div class="clearfix"></div>
+                                  Date:(required)<br><input type="date" min="2019-02-20" name="date" /><br/>
+                                  <br/><br/>
+                                              
+                                  Time:(required)<br><input type="time" name="time"/><br/>
+                                  <br/><br/>
+                                  <input type="submit" name="submit" value="Submit"/>  
+                                    
+                                  </div>
+                                  </div>
+                                  <?php
+                                    if (!isLoggedIn()) {
+                                      header('location: ../login.php');
+                                    }else{
+                                  myFunction();
+                                    }
+                                  ?>
 
-</form>
-								
 
-						  <footer class="footer">
+                                    <div class="clearfix"></div>
+
+                                  </form>
+
+
+                </div>
+                <div class="col-md-6">
+                    <div class="image">
+                      
+                      <img src="workshop.jpg" alt="Trulli" width="375" height="450">
+                      
+                      </div>
+            </div>
+            </div>
+
+
+              <?php 
+
+if(isset($_POST['submit'])){
+      send_email();
+  }  
+  
+?>	
+
+				<footer class="footer">
         <div class="container" >
                 <div class="row">
                     <div class="col-md-4"> 
