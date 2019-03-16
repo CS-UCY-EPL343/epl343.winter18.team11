@@ -20,37 +20,70 @@
             android:layout_height="311dp"
             android:layout_marginTop="52dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <EditText
             android:id="@+id/dayTime"
             android:layout_width="141dp"
             android:layout_height="44dp"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="219dp"
-            tools:layout_editor_absoluteY="404dp" />
+            android:layout_marginStart="219dp"
+            android:layout_marginLeft="219dp"
+            android:layout_marginTop="363dp"
+            android:layout_marginEnd="51dp"
+            android:layout_marginRight="51dp"
+            android:inputType="time"
+            android:ems = "10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/scheduleTime"
             android:layout_width="141dp"
             android:layout_height="44dp"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="42dp"
-            tools:layout_editor_absoluteY="404dp" />
+            android:layout_marginStart="42dp"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="363dp"
+            android:layout_marginEnd="228dp"
+            android:layout_marginRight="228dp"
+            android:text="Time :"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/MeetingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="131dp"
+            android:layout_marginLeft="131dp"
+            android:layout_marginTop="419dp"
+            android:layout_marginEnd="192dp"
+            android:layout_marginRight="192dp"
+            android:text="Make Meeting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <include
-layout="@layout/app_bar_navigation"
-android:layout_width="match_parent"
-android:layout_height="match_parent" />
+        layout="@layout/app_bar_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
 
-<android.support.design.widget.NavigationView
-android:id="@+id/nav_view"
-android:layout_width="wrap_content"
-android:layout_height="match_parent"
-android:layout_gravity="start"
-android:fitsSystemWindows="true"
-app:headerLayout="@layout/nav_header_navigation"
-app:menu="@menu/activity_navigation_drawer" />
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:visibility="visible"
+        app:headerLayout="@layout/nav_header_navigation"
+        app:menu="@menu/activity_navigation_drawer" />
 
     </android.support.v4.widget.DrawerLayout>

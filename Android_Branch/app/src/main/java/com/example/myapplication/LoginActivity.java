@@ -91,7 +91,7 @@ public class LoginActivity extends Activity {
         pDialog.setMessage("Logging in.Please Wait");
         showDialog();
 
-        /*Send the request*/
+        /*SendActivity the request*/
         StringRequest strReq = new StringRequest(Method.POST,
                 NetworkConfigure.URL_LOGIN, new Response.Listener<String>() {
         /*Capture the request*/

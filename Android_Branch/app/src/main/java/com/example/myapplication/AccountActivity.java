@@ -13,15 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -207,13 +204,7 @@ public class AccountActivity extends Navigation {
         });
     }
 
-    public String getEmail(){
 
-        HashMap<String, String> user = db.getUserDetails();
-        String email = user.get("email");
-        return email;
-
-    }
     public void updateAccountScreen(){
 
         if (!session.isLoggedIn()) {

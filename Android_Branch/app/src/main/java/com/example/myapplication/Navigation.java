@@ -49,19 +49,20 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            /*The return of a hash map */
+            HashMap<String, String> user = db.getUserDetails();
+            email = (TextView) findViewById(R.id.emailNav);
+            name = (TextView) findViewById(R.id.nameNav);
+            String nameStr = user.get("name");
+            String emailStr = user.get("email");
 
-        /*The return of a hash map */
-        HashMap<String, String> user = db.getUserDetails();
-        email = (TextView) findViewById(R.id.emailNav);
-        name = (TextView) findViewById(R.id.nameNav);
-        String nameStr = user.get("name");
-        String emailStr = user.get("email");
-
-        /*To be changed with user details */
-        name.setText(nameStr);
-        email.setText(emailStr);
-        getMenuInflater().inflate(R.menu.navigation, menu);
-
+            /*To be changed with user details */
+            name.setText(nameStr);
+            email.setText(emailStr);
+            getMenuInflater().inflate(R.menu.navigation, menu);
+        }
         return true;
     }
 
@@ -107,10 +108,15 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             finish();
         } else if (id == R.id.nav_map) {
-
-
+            Intent i = new Intent(getApplicationContext(), MapActivity.class);
+            startActivity(i);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            finish();
         } else if (id == R.id.nav_send) {
-
+            Intent i = new Intent(getApplicationContext(), SendActivity.class);
+            startActivity(i);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

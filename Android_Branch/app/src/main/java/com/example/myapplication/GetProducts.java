@@ -33,7 +33,7 @@ public class GetProducts extends AppCompatActivity {
         Log.wtf("Jason Object","s");
         // Tag used to cancel the request
         String tag_string_req = "products";
-        /*Send the request*/
+        /*SendActivity the request*/
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 NetworkConfigure.URL_PRODUCTS, new Response.Listener<String>() {
             /*Capture the request*/
