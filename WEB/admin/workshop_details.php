@@ -52,82 +52,30 @@ if (isset($_GET['logout'])) {
 <body>
 
 <?php
-function click($name,$id){
-    $link = mysqli_connect("localhost", "root","","emira_pottery");
-          
-           
-    if(isset($_POST['conf'])){
-        $de=$_POST['conf'];
-        echo $name;
-        echo $id;
-
-        foreach($de as $d){
-          $sql= "SELECT * FROM meeting WHERE MeetingID=$d";
-          $result=mysqli_query($link,$sql);
-          $row=mysqli_fetch_array($result);
-          $date=$row['Date'];	
-          echo "ok";
-          echo $date;
-
-          $sql1= "SELECT email FROM users u, meeting m WHERE u.id=m.UserID";
-          $result=mysqli_query($link,$sql1);
-          $row=mysqli_fetch_array($result);
-          $em=$row['email'];
-          echo $em;
-       
-       
-        }
-
-      }
-      else{
-
-        
-      }
-
-  
-}
 function see(){
  
 try {
     // Connect and create the PDO object
     $link = mysqli_connect("localhost", "root","","emira_pottery");
-    $sql="SELECT username,Date,Time, MeetingID, UserID FROM meeting m, users u WHERE m.UserID=u.id";
+    $sql="SELECT username,Date,Time FROM meeting m, users u WHERE m.UserID=u.id";
     $result = $link->query($sql);
   
     // If the SQL query is succesfully performed ($result not false)
     if($result !== false) {
       // Create the beginning of HTML table, and the first row with colums title
-      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Username</th><th>Date</th><th>Time</th><th></th></tr>';
- 
+      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Username</th><th>Date</th><th>Time</th></tr>';
+  
       // Parse the result set, and adds each row and colums in HTML table
       foreach($result as $row) {
         $html_table .= '<tr><td>' .$row['username']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td></tr>';
-    
-      ?>
-      <form method="post"   >
-      <input type="hidden" name="date[]" value="<?php echo $row['Date'] ?>" />
-      <input type="hidden" name="time[]" value="<?php echo $row['Time'] ?>" />
-     <td> <button type="submit" name="conf[]" value="<?php echo $row['MeetingID']?>" >confirm</button> </td>
-      
-      </form>  
-      <?php
-        click($row['username'],$row['UserID']);
-    }
+      }
     }
   
     $conn = null;        // Disconnect
   
     $html_table .= '</table>';           // ends the HTML table
-    
+  
     echo $html_table;        // display the HTML table
-    ?>
-    <form method="post"   >
-    <input type="hidden" name="date[]" value="<?php echo $row['Date'] ?>" />
-    <input type="hidden" name="time[]" value="<?php echo $row['Time'] ?>" />
-   <td> <button type="submit" name="conf[]" value="<?php echo $row['MeetingID']?>" >complete</button> </td>
-    
-    </form>
-    <?php  
   }
   catch(PDOException $e) {
     echo $e->getMessage();
@@ -193,7 +141,6 @@ try {
 <br>
 <?php
 see();
-
 ?>
 
 </body>
