@@ -14,7 +14,7 @@ public class NetworkConfigure {
         /*SERVER UPDATE URL
          */
         public static String URL_UPDATE = "http://www.cs.ucy.ac.cy/~sioann12/android/update.php";
-
+        /*Server for Meeting Url*/
         public static String URL_MEETING = "http://www.cs.ucy.ac.cy/~sioann12/android/meeting.php";
 
 
