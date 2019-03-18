@@ -38,12 +38,12 @@ if (!isLoggedIn()) {
                   $array = array_combine($quaty,$ids);
             
                   foreach($array as $q => $i){
-                    $queryy="UPDATE Basket SET Quantity = $q WHERE Product_ID = $i";
+                    $queryy="UPDATE Basket SET Quantity = $q WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
                       mysqli_query($link,$queryy);
             
                   }
             
-                  $sql="SELECT price FROM Product WHERE Product_ID=$i";
+                  $sql="SELECT price FROM Product WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$i";
                   $result = mysqli_query($link, $sql);
                   $row = mysqli_fetch_array($result);
         
@@ -51,7 +51,7 @@ if (!isLoggedIn()) {
               
            
                     $total=$pr*$q;
-                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Product_ID = $i";
+                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
                     mysqli_query($link,$queryy1);
                     header('location: basket.php');	
                
@@ -64,7 +64,7 @@ function del_fun(){
     if(isset($_POST['del'])){
       $de=$_POST['del'];
       foreach($de as $d){
-        $quer="DELETE FROM Basket WHERE Product_ID=$d";
+        $quer="DELETE FROM Basket WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$d ";
         mysqli_query($link, $quer);
         header('location: basket.php');	
       }
@@ -88,80 +88,38 @@ function del_fun(){
     
         
        
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="home.php">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="home.php">Homepage</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="products.php">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Our Workshop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.php">Contact</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="basket.php">Basket</a>
+      </li> 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="products.php" >Products</a>
-    </li>
-      <li class="nav-item dropdown">
-  
-        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="products_ovenware.php">Ovenware Pots</a>
-          <a class="dropdown-item" href="products_decorative.php">Decorative Pots</a>
-          <a class="dropdown-item" href="products_food_drink.php">Food & Drink Pots</a>
-          <a class="dropdown-item" href="products_ecclesiastical.php">Ecclesiastical Pots</a>
-          <a class="dropdown-item" href="products_cyprus.php">Cyprus Souvenirs Pots</a>
-          <a class="dropdown-item" href="products_ancient.php">Ancient Pots</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="workshop.php" >Workshop</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="basket.php" >Basket</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="contact.php" >Contact</a>
-      </li>
-     
     </ul>
-    
-    <ul class="navbar-nav  my-2 my-lg-0">
+  </div>  
 
-    <li class =nav-item>
-      <?php if (isset($_SESSION['success'])) : ?>
-        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
-      <?php endif ?>
-    </li>
-    <li class="nav-item">
-    <?php if (isset($_SESSION['success'])) : ?>
-
-      <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
-    <?php endif ?>
-    <?php if (!isset($_SESSION['success'])) : ?>
-
-          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
-    <?php endif ?>
-
-
-    </li>
-    <li class="nav-item">
-
-          <?php if (!isset($_SESSION['success'])) : ?>
-
-        <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
-        <?php endif ?>
-
-    </li>
-    </ul>
-  </div>
-</nav>   
+</nav>
+                
              
                     
                     
 
                           <?php 
 $link = mysqli_connect("localhost", "root","","emira_pottery");
-$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Product.Product_ID = Basket.Product_id";
+$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Basket.User_ID={$_SESSION['user']['id']} and Product.Product_ID = Basket.Product_id ";
 $result=mysqli_query($link,$sql);
   
   ?>

@@ -1,12 +1,8 @@
 <?php
 
     include('functions.php');
-    if (!isLoggedIn()) {
-      header('location: ../login.php');
-    }
-    
-    ?>
-
+  
+?>
 
 
 <!DOCTYPE html>
@@ -29,42 +25,7 @@
 
 <body>
 			<?php
-  function send_email(){
-
-    $conn = mysqli_connect("localhost", "root","","emira_pottery");
-
-    $datee=$_POST['date'];
-    $timee=$_POST['time'];
   
-
-    $sql= "SELECT email FROM users WHERE id='{$_SESSION['user']['id']}'";
-    $result=mysqli_query($conn,$sql);
-    $row=mysqli_fetch_array($result);
-    $em=$row['email'];
-   
-    $sql= "SELECT username FROM users WHERE id='{$_SESSION['user']['id']}'";
-    $result=mysqli_query($conn,$sql);
-    $row=mysqli_fetch_array($result);
-    $name=$row['username'];
-
-    $to = 'georgia_kap@hotmail.com';
-    $subject = 'Emira Pottery-Workshop';
-    $message = 'User '.$name.' would like to to book a lesson on: '.$datee. ' at '. $timee;
-    $from = $em;
-  
-  
-  
- 
-  
-     
-    
-    if(mail($to, $subject, $message, $from)){
-        echo 'Your mail has been sent successfully.';
-    } else{
-        echo 'Unable to send email. Please try again.';
-    }
-  
-  }
 			function myFunction(){
     
       
@@ -117,7 +78,8 @@
     </li>
       <li class="nav-item dropdown">
   
-        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown"  data-reference="parent"></a>
+        <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+        </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="products_ovenware.php">Ovenware Pots</a>
           <a class="dropdown-item" href="products_decorative.php">Decorative Pots</a>
@@ -168,7 +130,7 @@
     </li>
     </ul>
   </div>
-</nav>  
+</nav>
 
 				  
 			
@@ -189,40 +151,6 @@
                         
 
                         <p class="date">But is open to have a look until 21:00 and Saturday 09:00 – 15:00.</p><br/>
-
-
-
-                        					<div class="second" style="margin:20px 20px; padding-left: 200px;" >   
-
-		
-                                  <h4>Please choose the time and date for your lesson:</h4>
-                                  <div id="theform">
-
-                                  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
-
-                                  Date:(required)<br><input type="date" min="2019-02-20" name="date" /><br/>
-                                  <br/><br/>
-                                              
-                                  Time:(required)<br><input type="time" name="time"/><br/>
-                                  <br/><br/>
-                                  <input type="submit" name="submit" value="Submit"/>  
-                                    
-                                  </div>
-                                  </div>
-                                  <?php
-                                    if (!isLoggedIn()) {
-                                      header('location: ../login.php');
-                                    }else{
-                                  myFunction();
-                                    }
-                                  ?>
-
-
-                                    <div class="clearfix"></div>
-
-                                  </form>
-
-
                 </div>
                 <div class="col-md-6">
                     <div class="image">
@@ -232,15 +160,36 @@
                       </div>
             </div>
             </div>
+					<div class="second" style="margin:20px 20px; padding-left: 200px;" >   
 
+		
+						 <h4>Please choose the time and date for your lesson:</h4>
+						 <div id="theform">
 
-              <?php 
+				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+    
+						  Date:(required)<br><input type="date" min="2019-02-20" name="date" /><br/>
+						  <br/><br/>
+                          
+							Time:(required)<br><input type="time" name="time"/><br/>
+						  <br/><br/>
+						  <input type="submit" name="submit" value="Submit"/>  
+						   
+						 </div>
+						 </div>
+						 <?php
+                if (!isLoggedIn()) {
+                  header('location: ../login.php');
+                }else{
+              myFunction();
+                }
+						 ?>
 
-if(isset($_POST['submit'])){
-      send_email();
-  }  
-  
-?>	
+						 
+						   <div class="clearfix"></div>
+
+</form>
+								
 
 				<footer class="footer">
         <div class="container" >
