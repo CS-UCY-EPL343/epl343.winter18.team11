@@ -1,7 +1,10 @@
 <?php
 
     include('functions.php');
-  
+    if (!isLoggedIn()) {
+      header('location: ../login.php');
+    }
+    
 ?>
 
 
@@ -151,6 +154,36 @@
                         
 
                         <p class="date">But is open to have a look until 21:00 and Saturday 09:00 – 15:00.</p><br/>
+
+                        <div class="second" style="margin:20px 20px; padding-left: 200px;" >   
+
+		
+                          <h4>Please choose the time and date for your lesson:</h4>
+                          <div id="theform">
+
+                          <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+
+                          Date:(required)<br><input type="date" min="2019-02-20" name="date" /><br/>
+                          <br/><br/>
+                                      
+                          Time:(required)<br><input type="time" name="time"/><br/>
+                          <br/><br/>
+                          <input type="submit" name="submit" value="Submit"/>  
+                            
+                          </div>
+                          </div>
+                          <?php
+                            if (!isLoggedIn()) {
+                              header('location: ../login.php');
+                            }else{
+                          myFunction();
+                            }
+                          ?>
+
+
+                            <div class="clearfix"></div>
+
+                          </form>
                 </div>
                 <div class="col-md-6">
                     <div class="image">
@@ -160,35 +193,7 @@
                       </div>
             </div>
             </div>
-					<div class="second" style="margin:20px 20px; padding-left: 200px;" >   
-
-		
-						 <h4>Please choose the time and date for your lesson:</h4>
-						 <div id="theform">
-
-				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
-    
-						  Date:(required)<br><input type="date" min="2019-02-20" name="date" /><br/>
-						  <br/><br/>
-                          
-							Time:(required)<br><input type="time" name="time"/><br/>
-						  <br/><br/>
-						  <input type="submit" name="submit" value="Submit"/>  
-						   
-						 </div>
-						 </div>
-						 <?php
-                if (!isLoggedIn()) {
-                  header('location: ../login.php');
-                }else{
-              myFunction();
-                }
-						 ?>
-
-						 
-						   <div class="clearfix"></div>
-
-</form>
+					
 								
 
 				<footer class="footer">
