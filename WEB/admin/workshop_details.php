@@ -52,57 +52,12 @@ if (isset($_GET['logout'])) {
 <body>
 
 <?php
-function click($name,$id){
-  $link = mysqli_connect("localhost", "root","","emira_pottery");
-        
-         
-  if(isset($_POST['conf'])){
-      $de=$_POST['conf'];
-     
-
-      foreach($de as $d){
-        $sql= "SELECT * FROM meeting WHERE MeetingID=$d";
-        $result=mysqli_query($link,$sql);
-        $row=mysqli_fetch_array($result);
-        $date=$row['Date'];	
-        $uid=$row['UserID'];
-       
-
-        
-        $sql1= "SELECT email FROM users WHERE id=$uid";
-        $result=mysqli_query($link,$sql1);
-        $row=mysqli_fetch_array($result);
-        $em=$row['email'];
-       
-
-        $to = $em;
-        $subject = 'Emira Pottery-Workshop CConfirmation';
-        $message = 'Thank you for booking your place at out workshop! We are looking forward to seeing you!';
-        $from ='georgia_kap@hotmail.com' ;
-      
-       
-  if(mail($to, $subject, $message, $from)){
-    echo 'Your mail has been sent successfully.';
-} else{
-    echo 'Unable to send email. Please try again.';
-}
-     
-      }
-
-    }
-    else{
-
-      
-    }
-
-
-}
 function see(){
  
 try {
     // Connect and create the PDO object
     $link = mysqli_connect("localhost", "root","","emira_pottery");
-    $sql="SELECT username,Date,Time, MeetingID, UserID FROM meeting m, users u WHERE m.UserID=u.id";
+    $sql="SELECT username,Date,Time FROM meeting m, users u WHERE m.UserID=u.id";
     $result = $link->query($sql);
   
     // If the SQL query is succesfully performed ($result not false)
@@ -113,18 +68,8 @@ try {
       // Parse the result set, and adds each row and colums in HTML table
       foreach($result as $row) {
         $html_table .= '<tr><td>' .$row['username']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td></tr>';
-        ?>
-        <form method="post"   >
-        <input type="hidden" name="date[]" value="<?php echo $row['Date'] ?>" />
-        <input type="hidden" name="time[]" value="<?php echo $row['Time'] ?>" />
-       <td> <button type="submit"  name="conf[]" value="<?php echo $row['MeetingID']?>" >confirm</button> </td>
-        
-        </form>  
-        <?php
-          click($row['username'],$row['UserID']);
       }
-      }
-    
+    }
   
     $conn = null;        // Disconnect
   
