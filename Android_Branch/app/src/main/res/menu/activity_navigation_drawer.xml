@@ -14,13 +14,13 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Shop" />
         <item
-            android:id="@+id/nav_time"
+            android:id="@+id/nav_basket"
             android:icon="@android:drawable/ic_menu_month"
-            android:title="TimeSchedule" />
+            android:title="Basket" />
         <item
-            android:id="@+id/nav_contact"
+            android:id="@+id/nav_time"
             android:icon="@android:drawable/sym_call_incoming"
-            android:title="Contact" />
+            android:title="TimeSchedule" />
     </group>
 
     <item android:title="Communicate">

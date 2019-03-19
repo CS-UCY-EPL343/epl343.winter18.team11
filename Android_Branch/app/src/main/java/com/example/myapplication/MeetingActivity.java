@@ -9,15 +9,12 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,6 +28,8 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MeetingActivity extends Navigation {
 
@@ -43,27 +42,7 @@ public class MeetingActivity extends Navigation {
     private  String time = null;
     private  String date = null;
     private Boolean valid = false;
-    public abstract class TextValidator implements TextWatcher {
-        private final TextView textView;
 
-        public TextValidator(TextView textView) {
-            this.textView = textView;
-        }
-
-        public abstract void validate(TextView textView, String text);
-
-        @Override
-        final public void afterTextChanged(Editable s) {
-            String text = textView.getText().toString();
-            validate(textView, text);
-        }
-
-        @Override
-        final public void beforeTextChanged(CharSequence s, int start, int count, int after) { /* Don't care */ }
-
-        @Override
-        final public void onTextChanged(CharSequence s, int start, int before, int count) { /* Don't care */ }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,13 +72,15 @@ public class MeetingActivity extends Navigation {
                                           KeyEvent event)
             {
                 boolean handled = false;
-                Log.wtf("TAG", String.valueOf(event.getAction()+"Spacebar is "+ KeyEvent.KEYCODE_ENTER));
+                Log.wtf("TAG", String.valueOf(keyCode+"Spacebar is "+ KeyEvent.KEYCODE_ENTER));
                 if ( event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
                 {
                     Log.wtf("TAG","entered");
                     Log.wtf("timecal",timeCal.getText().toString());
+                    Pattern p = Pattern.compile("(?m)^(\\d\\d:\\d\\d)");
+                    Matcher m = p.matcher(timeCal.getText().toString());
 
-                    if (timeCal.getText().toString().matches("[^a-zA-Z]")){
+                    if (m.matches()){
                         pDialog.setMessage("Valid Phone number");
                         showDialog();
                         valid = true;
@@ -148,13 +129,12 @@ public class MeetingActivity extends Navigation {
         }
             private void sendDates(final String date, final String time , final String email) {
                     String tag_string_req = "req_update";
-                    pDialog.setCancelable(false);
                     pDialog.setMessage("Sending the meeting!");
-
+                    showDialog();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            pDialog.dismiss();
+                            hideDialog();
                         }
                     }, 2000);
 
@@ -162,7 +142,6 @@ public class MeetingActivity extends Navigation {
                             NetworkConfigure.URL_MEETING, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            hideDialog();
                             try {
                                 JSONObject jObj = new JSONObject(response);
                                 boolean error = jObj.getBoolean("error");

@@ -92,14 +92,18 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             startActivity(i);
             finish();
 
-        } else if (id == R.id.nav_contact) {
-
+        } else if (id == R.id.nav_basket) {
+            Intent i = new Intent(getApplicationContext(),
+                    BasketActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
         } else if (id == R.id.nav_time) {
-                Intent i = new Intent(getApplicationContext(),
-                       MeetingActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-                finish();
+            Intent i = new Intent(getApplicationContext(),
+                    MeetingActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
 
         } else if (id == R.id.nav_shop) {
 

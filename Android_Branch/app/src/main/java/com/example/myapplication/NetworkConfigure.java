@@ -17,6 +17,8 @@ public class NetworkConfigure {
         /*Server for Meeting Url*/
         public static String URL_MEETING = "http://www.cs.ucy.ac.cy/~sioann12/android/meeting.php";
 
+        /*Server for Order Url*/
+        public static String URL_ORDER = "http://www.cs.ucy.ac.cy/~sioann12/android/orders.php";
 
 }
 

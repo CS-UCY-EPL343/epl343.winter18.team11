@@ -23,8 +23,7 @@ public class GetProducts extends AppCompatActivity {
     }
 
     /**
-     * Fetch the products from the local sql th
-     *                 the data.
+     * Fetch the products from the local mysqllite the data.
      *
      */
 
@@ -88,7 +87,6 @@ public class GetProducts extends AppCompatActivity {
         };
         /*Create a HashMap that will get the categories
          */
-
         // Adding request to request queue
         StartController.getmInstance().addToRequestQueue(strReq, tag_string_req);
     }
