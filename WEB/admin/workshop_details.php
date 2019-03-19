@@ -1,13 +1,9 @@
 <?php 
 include('../functions.php');
-
-
-
 if (!isAdmin()) {
 	$_SESSION['msg'] = "You must log in first";
 	header('location: ../login.php');
 }
-
 if (isset($_GET['logout'])) {
 	session_destroy();
 	unset($_SESSION['user']);
@@ -52,22 +48,73 @@ if (isset($_GET['logout'])) {
 <body>
 
 <?php
+function click($name,$id){
+  $link = mysqli_connect("localhost", "root","","emira_pottery");
+        
+         
+  if(isset($_POST['conf'])){
+      $de=$_POST['conf'];
+     
+      foreach($de as $d){
+        $sql= "SELECT * FROM meeting WHERE MeetingID=$d";
+        $result=mysqli_query($link,$sql);
+        $row=mysqli_fetch_array($result);
+        $date=$row['Date'];	
+        $uid=$row['UserID'];
+       
+        
+        $sql1= "SELECT email FROM users WHERE id=$uid";
+        $result=mysqli_query($link,$sql1);
+        $row=mysqli_fetch_array($result);
+        $em=$row['email'];
+       
+        $to = $em;
+        $subject = 'Emira Pottery-Workshop CConfirmation';
+        $message = 'Thank you for booking your place at out workshop! We are looking forward to seeing you!';
+        $from ='georgia_kap@hotmail.com' ;
+      
+       
+  if(mail($to, $subject, $message, $from)){
+    echo 'Your mail has been sent successfully.';
+} else{
+    echo 'Unable to send email. Please try again.';
+}
+     
+      }
+    }
+    else{
+      if(isset($_POST['upt'])){
+        $mid=$_POST['upt'];
+        foreach($mid as $d){
+          $sql= "SELECT * FROM meeting WHERE MeetingID=$d";
+          $result=mysqli_query($link,$sql);
+          $row=mysqli_fetch_array($result);
+          $date=$row['Date'];	
+          $uid=$row['UserID'];
+          echo $uid;
+        }
+      }
+    }
+}
 function see(){
  
 try {
     // Connect and create the PDO object
     $link = mysqli_connect("localhost", "root","","emira_pottery");
-    $sql="SELECT username,Date,Time FROM meeting m, users u WHERE m.UserID=u.id";
+    $sql="SELECT username,Date,Time, MeetingID, UserID FROM meeting m, users u WHERE m.UserID=u.id";
     $result = $link->query($sql);
   
     // If the SQL query is succesfully performed ($result not false)
     if($result !== false) {
       // Create the beginning of HTML table, and the first row with colums title
-      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Username</th><th>Date</th><th>Time</th></tr>';
+      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Username</th><th>Date</th><th>Time</th><th></th><th></th></tr>';
   
       // Parse the result set, and adds each row and colums in HTML table
       foreach($result as $row) {
-        $html_table .= '<tr><td>' .$row['username']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td></tr>';
+        $html_table .= '<tr><td>' .$row['username']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td><td> <form method="post"   ><button type="submit"  name="conf[]" value="'. $row['MeetingID'].'" >confirm</button></td><td><button type="submit"  name="upt[]" value="'. $row['MeetingID'].'" >update</button></form></td></tr>';
+     
+        
+          click($row['username'],$row['UserID']);
       }
     }
   
