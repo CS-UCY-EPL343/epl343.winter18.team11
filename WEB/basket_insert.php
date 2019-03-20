@@ -3,9 +3,7 @@
 <?php
 include('functions.php');
 
-if (!isLoggedIn()) {
-	header('location: ../login.php');
-}else{
+
 
 
 
@@ -55,12 +53,14 @@ $sql="";
     }
 
 
-}
+
 
 
 
 
 
 ?>
+
+
 
 

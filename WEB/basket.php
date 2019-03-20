@@ -3,78 +3,101 @@
 include('functions.php');
 
 if (!isLoggedIn()) {
-	header('location: ../login.php');
+
 }
 
 ?>
+    <?php 
+          
+          function get_quantity($id,$quant){
+            
+           $link = mysqli_connect("localhost", "root","","emira_pottery");
+         
+          
+           if(isset($_POST['add'])){
+            
+             if(isset($_POST['qty'])){
+                 $quaty=$_POST['qty'];
+                 $ids=$_POST['id'];
+                
+                 $array = array_combine($quaty,$ids);
+           
+                 foreach($array as $q => $i){
+                   $queryy="UPDATE Basket SET Quantity = $q WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
+                     mysqli_query($link,$queryy);
+           
+                 }
+           
+                 $sql="SELECT price FROM Product WHERE  Product_ID=$i";
+                 $result = mysqli_query($link, $sql);
+                 $row = mysqli_fetch_array($result);
+       
+                  $pr=$row['price'];
+             
+          
+                   $total=$pr*$q;
+                   $queryy1="UPDATE Basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
+                   mysqli_query($link,$queryy1);
+                   header('location: basket.php');	
+              
+          }
+         }
+       }
+          
+           function del_fun(){
+             $link = mysqli_connect("localhost", "root","","emira_pottery");
+               if(isset($_POST['del'])){
+                 $de=$_POST['del'];
+                 foreach($de as $d){
+                   $quer="DELETE FROM Basket WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$d ";
+                   mysqli_query($link, $quer);
+                   header('location: basket.php');	
+                 }
+               }
+           }
+                 
+           function checkout(){
+             $link = mysqli_connect("localhost", "root","","emira_pottery");
+             if (isset($_POST['check'])){
+               $sql= "INSERT INTO Orders(User_Id) VALUES ('{$_SESSION['user']['id']}')";
+               mysqli_query($link, $sql);
+    
+             }
+         }
+   ?>
 
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/basket_format.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-    <?php 
-          
-           function get_quantity($id,$quant){
-             
-            $link = mysqli_connect("localhost", "root","","emira_pottery");
-          
-           
-            if(isset($_POST['add'])){
-             
-              if(isset($_POST['qty'])){
-                  $quaty=$_POST['qty'];
-                  $ids=$_POST['id'];
-                 
-                  $array = array_combine($quaty,$ids);
-            
-                  foreach($array as $q => $i){
-                    $queryy="UPDATE Basket SET Quantity = $q WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
-                      mysqli_query($link,$queryy);
-            
-                  }
-            
-                  $sql="SELECT price FROM Product WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$i";
-                  $result = mysqli_query($link, $sql);
-                  $row = mysqli_fetch_array($result);
-        
-                   $pr=$row['price'];
-              
-           
-                    $total=$pr*$q;
-                    $queryy1="UPDATE Basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
-                    mysqli_query($link,$queryy1);
-                    header('location: basket.php');	
-               
-           }
-          }
-        }
-           
-function del_fun(){
-  $link = mysqli_connect("localhost", "root","","emira_pottery");
-    if(isset($_POST['del'])){
-      $de=$_POST['del'];
-      foreach($de as $d){
-        $quer="DELETE FROM Basket WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$d ";
-        mysqli_query($link, $quer);
-        header('location: basket.php');	
-      }
-    }
-}
-         
-    ?>
 
 
-  </head>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-grid.css">
+  <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-reboot.css">
+  <link rel="stylesheet" href="css/mdb.css">
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <link rel="stylesheet" href="css/mdb.lite.css">
+  <link rel="stylesheet" href="css/mdb.lite.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+
+
   <body>
   
   <div class="jumbotron" style="margin-bottom:0" >
@@ -87,9 +110,7 @@ function del_fun(){
 
     
         
-       
-       
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #555555">
   <a class="navbar-brand" href="home.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -114,10 +135,28 @@ function del_fun(){
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="workshop.php" >Workshop</a>
+      <?php if (isset($_SESSION['success'])) : ?>
+          <form method="post">
+          <a name="w" value="workshop" class="nav-link" href="workshop.php">Workshop</a>
+          </form>
+      <?php endif ?>
+        <?php if (!isset($_SESSION['success'])) : ?>
+        <form method="post">
+          <a name="w" value="workshop" class="nav-link"  data-toggle="modal" data-target="#modalLoginForm">Workshop</a>
+          </form>
+      <?php endif ?>
+
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="basket.php" >Basket</a>
+      <?php if (isset($_SESSION['success'])) : ?>
+          
+          <a class="nav-link" href="basket.php">Basket</a>
+     
+      <?php endif ?>
+        <?php if (!isset($_SESSION['success'])) : ?>
+          <a class="nav-link"  data-toggle="modal" data-target="#modalLoginForm">Basket</a>
+          
+      <?php endif ?>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="contact.php" >Contact</a>
@@ -127,19 +166,18 @@ function del_fun(){
     
     <ul class="navbar-nav  my-2 my-lg-0">
 
-    <li class =nav-item>
+    <li class ="nav-item">
       <?php if (isset($_SESSION['success'])) : ?>
         <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
       <?php endif ?>
     </li>
     <li class="nav-item">
     <?php if (isset($_SESSION['success'])) : ?>
-
       <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
     <?php endif ?>
     <?php if (!isset($_SESSION['success'])) : ?>
-
-          <a class="nav-link" onclick="window.location.href='login.php'">Login</a>
+          
+          <a class="nav-link"  data-toggle="modal" data-target="#modalLoginForm">Login</a>
     <?php endif ?>
 
 
@@ -148,24 +186,22 @@ function del_fun(){
 
           <?php if (!isset($_SESSION['success'])) : ?>
 
-        <a class="nav-link" onclick="window.location.href='register.php'">Sign up</a>
+        <a class="nav-link" data-toggle="modal" data-target="#modalRegisterForm">Sign up</a>
         <?php endif ?>
 
     </li>
     </ul>
   </div>
-</nav>  
+</nav> 
+ 
                 
              
-                    
-                    
-
-                          <?php 
-$link = mysqli_connect("localhost", "root","","emira_pottery");
-$sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Basket.User_ID={$_SESSION['user']['id']} and Product.Product_ID = Basket.Product_id ";
-$result=mysqli_query($link,$sql);
+<?php 
+      $link = mysqli_connect("localhost", "root","","emira_pottery");
+      $sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Basket.User_ID={$_SESSION['user']['id']} and Product.Product_ID = Basket.Product_id ";
+      $result=mysqli_query($link,$sql);
   
-  ?>
+?>
  
  <div class="row" style="padding-left:145px" >
               <div class="col"></div>
@@ -176,10 +212,9 @@ $result=mysqli_query($link,$sql);
               <div class="col">Quantity</div>
              
               <div class="col">Total</div>
-              <br></br>
-          </div>
-        <?php
-       
+              <br>
+ </div>
+ <?php
         $cartcount=0;
         $cartamount=0;
         while ($row=mysqli_fetch_row($result)) {
@@ -187,76 +222,154 @@ $result=mysqli_query($link,$sql);
           $cartcount += $row[0];
           $linetotal = $row[2]*$row[0];
           $cartamount += $linetotal;
-         
-         
-         // echo "\n\t<td>" . "<input type=\"text\" size=3 name=\"" . $row[4] ."\" value = \"" . $row[0] . "\"></td>\n";
-         
           $id=$row[4];
           $qua=$row[0];
           $pr=$row[2];
-          ?>
-          <div class="row" >
-          <div class="col">
-          <?php
-          echo "<img src=images/".$row[5]." />";
-          ?>
-          </div>
-          <div class="col" style="padding-right:150px">
-                                               
-                                               <?php echo $row[3]; ?>
-                                            
-                                         </div>
-          <div class="col"  style="padding-right:250px">
-<?php
-          printf("$%.2f", $row[2]);
-?>
-          </div>
-        
+  ?>       
+  <div class="row" >
+                <div class="col">
+                      <?php
+                      echo "<img src=images/".$row[5]." />";
+                      ?>
+                </div>
+                <div class="col" style="padding-right:150px">
+                  <?php echo $row[3]; ?>                               
+                </div>
+                <div class="col"  style="padding-right:250px">
+                      <?php
+                          printf("$%.2f", $row[2]);
+                        ?>
+                </div>
 
-          <form method="post"   >
-              <input type="hidden" name="id[]" value="<?php echo $id ?>" />
+                <form method="post" >
+                    <input type="hidden" name="id[]" value="<?php echo $id ?>" />
+                    <input type="text" name="qty[]" size="2" value="<?php echo $qua?>" />
+                    <button type="submit" name="add" >Add</button>
+                    <button type="submit" name="del[]" value="<?php echo $id?>" >Remove</button>
               
-              <input type="text" name="qty[]" size="2" value="<?php echo $qua?>" />
-        
-        
-              <button type="submit" name="add" >Add</button>
-       
-              <button type="submit" name="del[]" value="<?php echo $id?>" >Remove</button>
-        
-          </form>
-          
-         
-         <div class="col" style="padding-right:110px" >
-         <?php
-          printf("\n$%.2f", $linetotal);
-          printf("\n");
-          ?>
-          
-          </div>
-          
-          </div>
-          <br></br>
-      <?php
-get_quantity($id,$qua);
-del_fun();
-   ?>
+                </form>
 
- <?php    
-          }
-      ?>
+                <div class="col" style="padding-right:110px" >
+                      <?php
+                        printf("\n$%.2f", $linetotal);
+                        printf("\n");
+                        ?>
+                  
+                  </div>
+          
+    </div>
+    <br>
+
+        <?php
+          get_quantity($id,$qua);
+          del_fun();
+         ?>
+
+        <?php    
+                  }
+              ?>
    
     <div class="col" style="padding-left:1200px">  
-<?php          
-         
-          printf("<b>$%.2f</b>\n", $cartamount);      
- ?>
+        <?php          
+                
+                  printf("<b>$%.2f</b>\n", $cartamount);      
+        ?>
+        <form method="post"   >
+            <button type="submit" name="check"  class="checkout" >Checkout</button>
+        </form>
+      <?php
+         checkout();
+      ?>
 
-</div>
-</div>
+    </div>
+
       
-      <button class="checkout">Checkout</button>
+     <!-- MODAL LOGIN --> 
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Login</h4>
+        <button style="padding-left:30%;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" >
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fa fa-envelope prefix grey-text"></i>
+          <input type="text" id="defaultForm-email" name="username" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="defaultForm-email">Username </label>
+        </div>
 
+        <div class="md-form mb-4">
+          <i class="fa fa-lock prefix grey-text"></i>
+          <input type="password" id="defaultForm-pass" name="password" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-default" name="login_btn">Login</button>
+      </div>
+      <p align="center">
+			Not yet a member? <a data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterForm">Sign up</a>
+		</p>
+      </form>
+    </div>
+  </div>
 </div>
+<!-- Material form login -->
+<!-- MODAL REGISTER --> 
+
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+        <button type="button" style="padding-left:30%;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST">
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="username" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Name</label>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fa fa-envelope prefix grey-text"></i>
+          <input type="email" id="orangeForm-email" name="email" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
+        </div>
+
+        <div class="md-form mb-4">
+          <i class="fa fa-lock prefix grey-text"></i>
+          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
+        </div>
+        <div class="md-form mb-4">
+          <i class="fa fa-lock prefix grey-text"></i>
+          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-deep-orange" name="register_btn">Sign up</button>
+      </div>
+      <p align="center">
+	    	Already a member? <a  data-dismiss="modal" data-toggle="modal" data-target="#modalLoginForm" >Login</a>
+	    </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
 
 
     <!-- Optional JavaScript -->
