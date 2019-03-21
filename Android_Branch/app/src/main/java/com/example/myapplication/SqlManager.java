@@ -224,6 +224,11 @@ Add product into mysql lite locally
         return items;
     }
 
+    public void deleteOrder(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ORDER, null, null);
+
+        }
 /*Get user details on a hashmap*
  */
     public HashMap<String, String> getUserDetails() {

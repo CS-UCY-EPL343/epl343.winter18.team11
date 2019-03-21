@@ -55,6 +55,6 @@ public class MapActivity extends Navigation implements OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         LatLng emmira = new LatLng(34.916517, 33.628297);
         mMap.addMarker(new MarkerOptions().position(emmira).title("Marker in Emmira Pottery"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(emmira));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emmira,10.0f));
     }
 }

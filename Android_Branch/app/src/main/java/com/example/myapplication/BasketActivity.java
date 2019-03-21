@@ -34,6 +34,7 @@ public class BasketActivity extends Navigation {
     private ArrayList<String> items;
     private HashMap<String,String> orderedItems = new HashMap<String,String>();
     private Button SendOrder;
+    private Button removeOrder;
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(BasketActivity.this, AccountActivity.class);
@@ -48,6 +49,7 @@ public class BasketActivity extends Navigation {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SendOrder = (Button) findViewById(R.id.btnSendOrder);
+        removeOrder = (Button)findViewById(R.id.btnRemoveOrder);
         session = new SessionManager(getApplicationContext());
         db = new SqlManager(getApplicationContext());
         pDialog = new ProgressDialog(this);
@@ -70,9 +72,31 @@ public class BasketActivity extends Navigation {
                 }
             });
 
+        removeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeOrder();
+            }
+        });
         this.mAdapter = new ArrayAdapter<String>(BasketActivity.this, android.R.layout.simple_list_item_1, items);
         orderlist.setAdapter(mAdapter);
     }
+
+    public void removeOrder(){
+            db.deleteOrder();
+         items = new ArrayList<String>();
+         orderedItems =  db.getOrder();
+        for (Map.Entry<String, String> order_items : orderedItems.entrySet()) {
+            String itemName = order_items.getKey();
+            String itemValue = order_items.getValue();
+
+            items.add(itemName + " Quantity: " + itemValue);
+        }
+        this.mAdapter = new ArrayAdapter<String>(BasketActivity.this, android.R.layout.simple_list_item_1, items);
+        orderlist.setAdapter(mAdapter);
+
+    }
+
 
     public void sendOrder() {
         String tag_string_req = "req_update";

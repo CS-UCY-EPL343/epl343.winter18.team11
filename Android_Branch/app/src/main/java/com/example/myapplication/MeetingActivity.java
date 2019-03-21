@@ -9,12 +9,10 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,20 +26,19 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MeetingActivity extends Navigation {
 
     private SqlManager db;
     private CalendarView calendar;
-    private EditText timeCal;
+  //  private EditText timeCal;
     private Button MeetingButton ;
     private ProgressDialog pDialog;
     private  String email = null;/*DateFormat pick the dates*/
     private  String time = null;
     private  String date = null;
     private Boolean valid = false;
+    private TimePicker timeCal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +59,10 @@ public class MeetingActivity extends Navigation {
         pDialog.setCancelable(false);
 
         calendar = (CalendarView) findViewById(R.id.calendarView);
-        timeCal = (EditText) findViewById(R.id.dayTime);
+        timeCal = (TimePicker) findViewById(R.id.dayTime);
         MeetingButton = (Button) findViewById(R.id.MeetingButton);
-        timeCal.setImeActionLabel("Custom text", KeyEvent.KEYCODE_ENTER);
 
+        /*
         timeCal.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode,
@@ -102,24 +99,26 @@ public class MeetingActivity extends Navigation {
                 return handled;
             }
         });
+        */
         MeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 db = new SqlManager(getApplicationContext());
                 HashMap<String, String> user = db.getUserDetails();
                 email = user.get("email");
-                if (valid == true ) {
+
                     getDates();
                     sendDates(date, time, email);
-                }
-                valid = false;
+
             }
         });
     }
         public void getDates() {
 
             SimpleDateFormat sdf = null;
-            time = timeCal.getText().toString();
+            int hour = timeCal.getCurrentHour();
+            int min = timeCal.getCurrentMinute();
+            time = String.valueOf(hour) + " : " + String.valueOf(min);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 sdf = new SimpleDateFormat("dd/MM/yyyy");
             }
