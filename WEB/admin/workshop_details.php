@@ -95,10 +95,7 @@ if (isset($_GET['logout'])) {
   </div>
 </nav>
 <br>      
-<div class="info">
-<h4> Meeting Information </h4>
-</div>
-<br>
+
           
            <div class="container" style="width:700px;">  
           
@@ -191,26 +188,7 @@ if (isset($_GET['logout'])) {
            $('#insert_form')[0].reset();  
            $('#delete_data').hide();
       });  
-      $(document).on('click', '.edit_data', function(){  
-           var employee_id = $(this).attr("id");  
-           $.ajax({  
-                url:"fetch.php",  
-                method:"POST",  
-                data:{employee_id:employee_id},  
-                dataType:"json",  
-                success:function(data){ 
-
-                     $('#date').val(data.date);  
-                     $('#time').val(data.time);  
-                     $('#employee_id').val(data.id); 
-                     $('#name').hide(); 
-                     $('#lname').hide(); 
-                     
-                     $('#insert').val("Update");  
-                     $('#add_data_Modal').modal('show');  
-                }  
-           });  
-      });  
+  
       $('#insert_form').on("submit", function(event){  
            event.preventDefault();  
            if($('#date').val() == "")  
@@ -259,18 +237,19 @@ if (isset($_GET['logout'])) {
       
       $(document).on('click', '.delete_data', function(){  
            var employee_id = $(this).attr("id");  
-           if(confirm('are you sure?'))  
-           {  
+           
                 $.ajax({  
                      url:"delete.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},
                      success:function(data){  
-                          $('#delete'+id).hide();
+                          $('#delete'+employee_id).hide();
                      }  
                 });  
-           }            
+                      
       });  
+      
+
 
  });  
  </script>

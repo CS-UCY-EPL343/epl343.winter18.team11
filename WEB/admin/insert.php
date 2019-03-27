@@ -8,8 +8,7 @@
       $time = mysqli_real_escape_string($connect, $_POST["time"]);  
       $name = mysqli_real_escape_string($connect, $_POST["name"]);  
       
-    echo $name;
-
+ 
     
       if($_POST["employee_id"] != '')  
       {  
@@ -28,8 +27,7 @@
       }  
       else  
       {  
-        echo "insertttttt";
-        echo $name;
+     
    
    $sql= "SELECT * FROM users WHERE username='$name'";
    $result=mysqli_query($connect,$sql);
@@ -44,7 +42,7 @@
       }  
       if(mysqli_query($connect, $query))  
       {  
-        echo "mpenw";
+        
            $output .= '<label class="text-success">' . $message . '</label>';  
            $select_query="SELECT username,Date,Time, MeetingID, UserID FROM meeting m, users u WHERE m.UserID=u.id";  
            $result = mysqli_query($connect, $select_query);  
