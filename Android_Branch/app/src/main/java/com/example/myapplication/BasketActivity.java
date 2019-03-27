@@ -35,6 +35,11 @@ public class BasketActivity extends Navigation {
     private HashMap<String,String> orderedItems = new HashMap<String,String>();
     private Button SendOrder;
     private Button removeOrder;
+
+    /**
+     * When the user press the back buttton , start the
+     * account activity
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(BasketActivity.this, AccountActivity.class);
@@ -43,6 +48,11 @@ public class BasketActivity extends Navigation {
     }
 
     @Override
+    /**
+     * On create function of the basket activity
+     * When the basket is created for the user it will
+     * select all the data from the orders table.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
@@ -62,7 +72,6 @@ public class BasketActivity extends Navigation {
         for (Map.Entry<String, String> order_items : orderedItems.entrySet()) {
             String itemName = order_items.getKey();
             String itemValue = order_items.getValue();
-
             items.add(itemName + " Quantity: " + itemValue);
         }
             SendOrder.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +80,6 @@ public class BasketActivity extends Navigation {
                     sendOrder();
                 }
             });
-
         removeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +89,10 @@ public class BasketActivity extends Navigation {
         this.mAdapter = new ArrayAdapter<String>(BasketActivity.this, android.R.layout.simple_list_item_1, items);
         orderlist.setAdapter(mAdapter);
     }
-
+    /**
+     * Remove the order form the local sqlite database,
+     * by collecting each key and value
+     */
     public void removeOrder(){
             db.deleteOrder();
          items = new ArrayList<String>();
@@ -97,7 +108,11 @@ public class BasketActivity extends Navigation {
 
     }
 
-
+    /**
+     * Send the order to the /orders API endpoint.
+     * The end point will search the user with the current
+     * email and search the UID and insert the order.
+     */
     public void sendOrder() {
         String tag_string_req = "req_update";
         pDialog.setMessage("Sending the order!");
@@ -162,6 +177,4 @@ public class BasketActivity extends Navigation {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-
-
 }

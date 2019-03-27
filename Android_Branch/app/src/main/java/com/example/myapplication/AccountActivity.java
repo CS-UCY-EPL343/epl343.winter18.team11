@@ -13,23 +13,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/*For the account activity we will have to first
-   1.Get a database connection
-   2.View username password ,any orders that happened to that name before
- */
 
+
+
+/**
+ * This is for the Account View activity
+ */
 public class AccountActivity extends Navigation {
 
-    /*------------------*/
     private SqlManager db;
     TextView nameView;
     TextView emailView;
@@ -37,7 +40,6 @@ public class AccountActivity extends Navigation {
     TextView mobileView;
     TextView titleView;
 
-    /*--------------------*/
     EditText nameViewChange;
     EditText addressViewChange;
     EditText mobileViewChange;
@@ -56,7 +58,17 @@ public class AccountActivity extends Navigation {
     String email_cur;
     String name_cur;
 
-
+    /**
+     *This method updates data of the user. It hits the Url update which is the endpoint to change the
+     * data in phpmyadmin
+     * @param mobile New mobile of customer
+     * @param address New address of customer
+     * @param name New name of customer
+     * @param email New email of customer
+     * @param cur_name Current name of customer
+     * @param cur_email Current email of customer
+     *
+     */
     protected void update(final String mobile, final String address, final String name, final String email, final String cur_name, final String cur_email) {
         String tag_string_req = "req_update";
         pDialog = new ProgressDialog(this);
@@ -97,9 +109,13 @@ public class AccountActivity extends Navigation {
             }
         }) {
 
+
             @Override
+            /**
+             *  Posting parameters to login url
+             *
+             */
             protected Map<String, String> getParams() {
-                // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
                 params.put("address", address);
@@ -117,6 +133,9 @@ public class AccountActivity extends Navigation {
 
 
     @Override
+    /**
+     * Create the account activity instance
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
@@ -204,7 +223,9 @@ public class AccountActivity extends Navigation {
         });
     }
 
-
+    /**
+     * Update the Account Screen with the name, email, address and mobile of the user
+     */
     public void updateAccountScreen(){
 
         if (!session.isLoggedIn()) {
@@ -244,11 +265,17 @@ public class AccountActivity extends Navigation {
                startActivity(intent);
                finish();
            }
+
+           /**
+            * Show the android dialog to the user
+            */
     private void showDialog() {
         if (!pDialog.isShowing())
             pDialog.show();
     }
-
+    /**
+     * Hide the android dialog to the user
+     */
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();

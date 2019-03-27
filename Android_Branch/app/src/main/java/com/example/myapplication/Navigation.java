@@ -12,14 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.HashMap;
-
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private SqlManager db;
     TextView name;
     TextView email;
 
     @Override
+    /**
+     * On create of the Navigation Class.
+     * Throught this class many other classes inherit due to the fact
+     * that the drawer layout is inside this class.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
@@ -48,26 +51,17 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         }
     }
     @Override
+    /**
+     * Creates the upper menu of the drawer layout.
+     * Contains the name and the email of the user.
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            /*The return of a hash map */
-            HashMap<String, String> user = db.getUserDetails();
-            email = (TextView) findViewById(R.id.emailNav);
-            name = (TextView) findViewById(R.id.nameNav);
-            String nameStr = user.get("name");
-            String emailStr = user.get("email");
-
-            /*To be changed with user details */
-            name.setText(nameStr);
-            email.setText(emailStr);
-            getMenuInflater().inflate(R.menu.navigation, menu);
-        }
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         int id = item.getItemId();
 
@@ -79,7 +73,12 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         }
         return super.onOptionsItemSelected(item);
     }
-
+    /**
+     * This function is for the navigation opening drawer
+     * The item is the tab in which the user selects
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -106,7 +105,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             finish();
 
         } else if (id == R.id.nav_shop) {
-
             Intent i = new Intent(getApplicationContext(), CategoryActivity.class);
             startActivity(i);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -121,8 +119,17 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             startActivity(i);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             finish();
+        }else if (id == R.id.nav_upload) {
+            Intent i = new Intent(getApplicationContext(), UploadActivity.class);
+            startActivity(i);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            finish();
+        }   else if (id == R.id.nav_draw) {
+            Intent i = new Intent(getApplicationContext(), DrawActivity.class);
+            startActivity(i);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            finish();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

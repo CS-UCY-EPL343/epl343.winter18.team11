@@ -43,6 +43,11 @@ public class OneItemActivity extends Activity {
         }
     }
     @Override
+    /**
+     * On create of the one item activity. The user now can see the picture
+     * of the image, set the quantity he wants , add it to the card and read a
+     * description  of the product.
+     */
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -87,11 +92,7 @@ public class OneItemActivity extends Activity {
                     db.addOrder(item,quantityText.getText().toString());
             }
         });
-
-
-
     }
-
     private void setSupportActionBar(Toolbar toolbar) {
     }
 }

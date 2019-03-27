@@ -16,7 +16,6 @@ import java.util.HashMap;
 
 public class SendActivity extends Navigation {
 
-    private static final String SUBJECT = "Emmira Pottery Communication Form";
     /*On back pressed */
     @Override
     public void onBackPressed() {
@@ -28,6 +27,9 @@ public class SendActivity extends Navigation {
         }
     }
     @Override
+    /**
+     * On create of the send activity. It opens an xml file where the user can send an email.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send1);
@@ -51,17 +53,23 @@ public class SendActivity extends Navigation {
             }
         }));
     }
+
+    /**
+     * This function is used in order to sent an email
+     * It parses the text from the email editext and the subject editext
+     */
     public void sendEmail(){
         SqlManager db = new SqlManager(getApplicationContext());
 
         TextView  email = findViewById(R.id.email);
+        TextView  subject = findViewById(R.id.subject);
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         HashMap<String, String> user = db.getUserDetails();
         String emailStr = user.get("email");
         emailIntent.setData(Uri.parse("mailTo:"));
         emailIntent.setType("text/plain");
         emailIntent.putExtra(Intent.EXTRA_EMAIL,"bluemindset@outlook.com");
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT,SUBJECT);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT,subject.getText());
         emailIntent.putExtra(Intent.EXTRA_TEXT,email.getText());
         try{
             startActivity(Intent.createChooser(emailIntent, "Sending Mail"));

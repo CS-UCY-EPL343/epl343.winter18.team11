@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">draw_pottery</string>
+    <string name="button">Button</string>
+    <string name="upload_photo">UPLOAD PHOTO</string>
+    <string name="draw_your_pottery">DRAW YOUR POTTERY</string>
+    <string name="upload_your_pottery">Upload Your Pottery</string>
+</resources>

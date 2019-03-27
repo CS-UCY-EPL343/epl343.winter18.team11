@@ -3,7 +3,6 @@ package com.example.myapplication;
 /**
  * Created by apple on 21/02/16.
  */
-
 public class BasketItem {
     private String title="";
     private boolean checked=false;

@@ -32,6 +32,10 @@ public class RegisterActivity extends Activity {
     private SqlManager db;
 
     @Override
+    /**
+     * On create of the register activity
+     * The user must enter full name , password , email ,mobile and address
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);

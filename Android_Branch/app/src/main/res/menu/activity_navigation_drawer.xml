@@ -36,4 +36,17 @@
         </menu>
     </item>
 
+    <item android:title="Custom Potter">
+        <menu>
+            <item
+                android:id="@+id/nav_upload"
+                android:icon="@android:drawable/ic_menu_mapmode"
+                android:title="Upload a Poter" />
+            <item
+                android:id="@+id/nav_draw"
+                android:icon="@android:drawable/ic_menu_mapmode"
+                android:title="Draw a Poter" />
+        </menu>
+    </item>
+
 </menu>
