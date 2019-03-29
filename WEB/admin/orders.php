@@ -55,7 +55,7 @@ function see(){
  
 try {
     // Connect and create the PDO object
-    $link = mysqli_connect("localhost", "root","","emira_pottery");
+    $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
     $sql="SELECT * FROM Orders ";
     $result = $link->query($sql);
   
@@ -66,7 +66,7 @@ try {
   
       // Parse the result set, and adds each row and colums in HTML table
       foreach($result as $row) {
-        $html_table .= '<tr><td>' .$row['Order_ID']. '</td><td>' .$row['User_ID']. '</td><tr>';
+        $html_table .= '<tr><td>' .$row['UserID']. '</td><td>' .$row['Product_Name']. '</td><tr>';
       }
     }
   
@@ -119,7 +119,7 @@ try {
     
     <ul class="navbar-nav  my-2 my-lg-0">
     <li class =nav-item>
-        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['Username']; ?> </p>
     </li>
     <li class="nav-item">
 	<a class="nav-link" href="../home.php?logout='1'" >Logout</a>
@@ -135,7 +135,7 @@ try {
 
     <br>      
 <div class="info">
-<h4> Meeting Information </h4>
+<h4> Orders </h4>
 </div>
 <br>
 <?php

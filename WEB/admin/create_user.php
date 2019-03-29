@@ -51,7 +51,7 @@
     
     <ul class="navbar-nav  my-2 my-lg-0">
     <li class =nav-item>
-        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['Username']; ?> </p>
     </li>
     <li class="nav-item">
 	<a class="nav-link" href="../home.php?logout='1'" >Logout</a>

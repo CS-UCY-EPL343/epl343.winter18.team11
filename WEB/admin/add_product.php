@@ -25,7 +25,7 @@ if (isset($_GET['logout'])) {
         
         <?php
           function   el(){
-                    $link = mysqli_connect("localhost", "root","","emira_pottery");
+                    $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
                     if (isset($_POST['submit']))
                     {
                         $product_name   = $_POST['prod_name'];
@@ -35,13 +35,12 @@ if (isset($_GET['logout'])) {
                         
                             $img=$_FILES['image']['name'];
                             $target_file = "../images/$img";
-                        if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)){
-                            echo "Uploaded Successfully!";
-                        }
-                            else{
-                                echo "Try Again";
-                            }
-                        $sql = "INSERT INTO Product (Product_name, Product_Type, Description, price,image) VALUES ('$product_name', '$product_type', '$description','$price','$img')";
+
+                        $image1="http://cproject.in.cs.ucy.ac.cy/emirapottery/images/".$img;
+                        move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
+                        echo "Uploaded Successfully!";
+                    
+                        $sql = "INSERT INTO Product_web (Product_name, Product_Type, Description, price,image) VALUES ('$product_name', '$product_type', '$description','$price','$image1')";
                         mysqli_query($link, $sql);
                     }
                 }
@@ -87,7 +86,7 @@ if (isset($_GET['logout'])) {
     
     <ul class="navbar-nav  my-2 my-lg-0">
     <li class =nav-item>
-        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['Username']; ?> </p>
     </li>
     <li class="nav-item">
 	<a class="nav-link" href="../home.php?logout='1'" >Logout</a>
@@ -102,7 +101,7 @@ if (isset($_GET['logout'])) {
 <div class="container">
     
     <div class="frame">
-            <form class="form-signin" action="/admin/add_product.php" method="post" name="form" enctype="multipart/form-data">
+            <form class="form-signin"  method="post" name="form" enctype="multipart/form-data">
                     <div class="contents"> 
                     <label for="product_name">Product Name</label>
                     <input type="text" name="prod_name" placeholder=""/>
