@@ -190,8 +190,6 @@ if(isset($_POST['button_pressed'])){
                         <h1 class="footer-products">OUR PRODUCTS</h1>
                         <br>
                         <div class="p1" >
-                         <a href="products.php" > Traditional</a>
-                         <br>
                          <a href="products.php" > Ecclesiastical Items</a>
                          <br>
                          <a href="products.php" > Ancient Pottery Replicas</a>
@@ -358,8 +356,8 @@ function send_email(){
 
    
   
-  if(mail($to, $subject, $message)){
-      echo 'Your mail has been sent successfully.';
+  if(mail($to, $subject, $message, $from)){
+      echo '?> <p style="padding-left:35%">Your mail has been sent successfully.</p> <?php ';
   } else{
       echo 'Unable to send email. Please try again.';
   }

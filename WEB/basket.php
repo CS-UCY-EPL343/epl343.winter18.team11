@@ -11,7 +11,7 @@ if (!isLoggedIn()) {
           
           function get_quantity($id,$quant){
             
-           $link = mysqli_connect("localhost", "root","","emira_pottery");
+           $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
          
           
            if(isset($_POST['add'])){
@@ -23,12 +23,12 @@ if (!isLoggedIn()) {
                  $array = array_combine($quaty,$ids);
            
                  foreach($array as $q => $i){
-                   $queryy="UPDATE Basket SET Quantity = $q WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
+                   $queryy="UPDATE Basket_Info SET Quantity = $q WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
                      mysqli_query($link,$queryy);
            
                  }
            
-                 $sql="SELECT price FROM Product WHERE  Product_ID=$i";
+                 $sql="SELECT price FROM Product_web WHERE  Product_ID=$i";
                  $result = mysqli_query($link, $sql);
                  $row = mysqli_fetch_array($result);
        
@@ -36,34 +36,31 @@ if (!isLoggedIn()) {
              
           
                    $total=$pr*$q;
-                   $queryy1="UPDATE Basket SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID = $i";
+                   $queryy1="UPDATE Basket_Info SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
                    mysqli_query($link,$queryy1);
-                   header('location: basket.php');	
+                   $URL="basket.php";
+                   echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+                   echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
               
           }
          }
        }
           
            function del_fun(){
-             $link = mysqli_connect("localhost", "root","","emira_pottery");
+             $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
                if(isset($_POST['del'])){
                  $de=$_POST['del'];
                  foreach($de as $d){
-                   $quer="DELETE FROM Basket WHERE Basket.User_ID={$_SESSION['user']['id']} and Product_ID=$d ";
+                   $quer="DELETE FROM Basket_Info WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID=$d ";
                    mysqli_query($link, $quer);
-                   header('location: basket.php');	
+                   $URL="basket.php";
+                   echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+                   echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
                  }
                }
            }
                  
-           function checkout(){
-             $link = mysqli_connect("localhost", "root","","emira_pottery");
-             if (isset($_POST['check'])){
-               $sql= "INSERT INTO Orders(User_Id) VALUES ('{$_SESSION['user']['id']}')";
-               mysqli_query($link, $sql);
-    
-             }
-         }
+        
    ?>
 
 <!DOCTYPE html>
@@ -94,6 +91,12 @@ if (!isLoggedIn()) {
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+ 
+
+
+
 </head>
 
 
@@ -165,12 +168,13 @@ if (!isLoggedIn()) {
     </ul>
     
     <ul class="navbar-nav  my-2 my-lg-0">
-
+    
     <li class ="nav-item">
       <?php if (isset($_SESSION['success'])) : ?>
-        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['Username']; ?> </p>
       <?php endif ?>
     </li>
+  
     <li class="nav-item">
     <?php if (isset($_SESSION['success'])) : ?>
       <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
@@ -197,8 +201,8 @@ if (!isLoggedIn()) {
                 
              
 <?php 
-      $link = mysqli_connect("localhost", "root","","emira_pottery");
-      $sql="SELECT Basket.Quantity,Basket.Total_price,Product.Price,Product.Product_Type,Product.Product_ID, Product.image FROM Basket,Product where Basket.User_ID={$_SESSION['user']['id']} and Product.Product_ID = Basket.Product_id ";
+      $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+      $sql="SELECT Basket_Info.Quantity,Basket_Info.Total_price,Product_web.Price,Product_web.Product_Type,Product_web.Product_ID, Product_web.image FROM Basket_Info,Product_web where Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_web.Product_ID = Basket_Info.Product_id ";
       $result=mysqli_query($link,$sql);
   
 ?>
@@ -210,7 +214,6 @@ if (!isLoggedIn()) {
               <div class="col">Price</div>
               <div class="col"></div>
               <div class="col">Quantity</div>
-             
               <div class="col">Total</div>
               <br>
  </div>
@@ -229,7 +232,7 @@ if (!isLoggedIn()) {
   <div class="row" >
                 <div class="col">
                       <?php
-                      echo "<img src=images/".$row[5]." />";
+                      echo "<img src=".$row[5]." />";
                       ?>
                 </div>
                 <div class="col" style="padding-right:150px">
@@ -275,11 +278,9 @@ if (!isLoggedIn()) {
                   printf("<b>$%.2f</b>\n", $cartamount);      
         ?>
         <form method="post"   >
-            <button type="submit" name="check"  class="checkout" >Checkout</button>
+            <button type="submit" name="check"  class="checkout" >Place your order</button>
         </form>
-      <?php
-         checkout();
-      ?>
+     
 
     </div>
 
@@ -369,6 +370,17 @@ if (!isLoggedIn()) {
 </div>
 
 
+<script>
+$(document).ready(function(){
+$("button").click(function(){
+
+<?php 
+  
+?>
+
+});
+
+});
 
 
 
