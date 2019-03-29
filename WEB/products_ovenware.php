@@ -166,7 +166,7 @@ $result=mysqli_query($link,$sql);
 
              <?php if (isset($_SESSION['success'])) : ?>
 
-                <button type="button" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
+                <button type="button" name="insert" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
               <?php endif ?>             
             
              <?php    "" ."</td>";
@@ -271,5 +271,8 @@ $result=mysqli_query($link,$sql);
     </div>
   </div>
 </div>
+
+
+
 </body>
 </html>

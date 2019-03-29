@@ -59,7 +59,21 @@ if (!isLoggedIn()) {
                  }
                }
            }
-                 
+          
+
+
+           
+          if(isset($_POST['check2'])){
+            $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
+              $query6="SELECT b.Product_id, p.Product_name, b.Quantity, b.Total_Price FROM Basket_Info b, Product_web p WHERE User_id={$_SESSION['user']['UserID']} and p.Product_id=b.Product_id" ;    
+              $result=mysqli_query($link, $query6);
+              while ( $row = mysqli_fetch_array($result)){
+                $sql7="INSERT INTO Order_Info (UserID, Product_Name, Quantity, Total_Price) VALUES ('{$_SESSION['user']['UserID']}','$row[Product_name]','$row[Quantity]','$row[Total_Price]')";
+                $result=mysqli_query($link, $sql7);
+              }
+
+        }
+    
         
    ?>
 
@@ -278,7 +292,7 @@ if (!isLoggedIn()) {
                   printf("<b>$%.2f</b>\n", $cartamount);      
         ?>
         <form method="post"   >
-            <button type="submit" name="check"  class="checkout" >Place your order</button>
+            <a name="check" data-toggle="modal" data-target="#modalorderinfo" class="checkout" >Place your order</a>
         </form>
      
 
@@ -370,17 +384,39 @@ if (!isLoggedIn()) {
 </div>
 
 
-<script>
-$(document).ready(function(){
-$("button").click(function(){
 
-<?php 
-  
-?>
 
-});
-
-});
+<div class="modal fade" id="modalorderinfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Order Info</h4>
+        <button type="button" style="padding-left:30%;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST">
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Full Name</label>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fa fa-phone prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="telephone" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Telephone Number</label>
+        </div>
+      
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-deep-orange" name="check2">Complete Order</button>
+      </div>
+    
+      </form>
+    </div>
+  </div>
+</div>
 
 
 
