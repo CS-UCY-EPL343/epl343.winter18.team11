@@ -10,6 +10,8 @@ class database_behaviour {
         $this->conn = $db->getConnection();
     }
 
+
+
     /*Save the user*/
     public function saveUser($name, $email, $password,$address,$mobile) {
         /*Generate a unique ID*/
@@ -68,14 +70,53 @@ class database_behaviour {
             return false;
         }
     }
+    public function findUser($email) {
+        $stmt = $this->conn->prepare("SELECT * FROM Users WHERE Email = ?");
+        $stmt->bind_param("s", $email);
+        $response = array("error" => FALSE);
+        if ($stmt->execute()) {
+        /*Execute Statement*/
+            $user = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+            return $user;
+
+            }
+         else {
+            return false;
+        }
+    }
+
+    public function storeMeeting($UID, $time,$date){
+        $stmt = $this->conn->prepare ("INSERT INTO Meeting(Date,Time,UserID)VALUES (?,?,?) ");
+        $stmt->bind_param("sss",$date,$time,$UID);
+        if($stmt ->execute()){
+          $stmt->close();
+          return true;
+        }
+        else
+          return false;
+    }
+
+    public function saveOrder($UID,$product_name,$quantity){
+        $stmt = $this->conn->prepare ("INSERT INTO `Order`(`UserID`,`Product_Name`,`Quantity`,`Created`) VALUES (?,?,?,NOW())");
+        $stmt->bind_param("sss",$UID,$product_name,$quantity);
+
+        if($stmt ->execute()){
+          $stmt->close();
+          return true;
+        }
+        else
+          return false;
+
+    }
+
 
 /*Find the user */
-    public function findUser($email) {
-        $stmt = $this->conn->prepare("SELECT email from Users WHERE Email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
-        if ($stmt->num_rows > 0) {
+    public function UpdateUser($email, $name ,$mobile, $address, $cur_name, $cur_email) {
+        $stmt = $this->conn->prepare("UPDATE  Users SET Email = ?, Name = ? , Mobile = ?, Address = ?  WHERE Email = ? AND Name = ? ");
+        $stmt->bind_param("ssssss", $email,$name,$mobile,$address,$cur_email,$cur_name);
+
+        if ($stmt->execute()) {
             $stmt->close();
             return true;
         } else {
@@ -97,9 +138,12 @@ class database_behaviour {
       $i = 0;
       while ($row = $result->fetch_array()){
                 $response["products".$i]["product_name"] = $row["Product_Name"];
-                $response["products".$i]["product_price"] = $row["Product_Price"];
-                $response["products".$i]["product_category"] = $row["Product_Category"];
+                $response["products".$i]["product_price"] = $row["Price"];
+                $response["products".$i]["product_category"] = $row["Product_Type"];
+                $response["products".$i]["product_desc"] = $row["Product_Description"];
                 $response["products".$i]["product_id"] = $row["Product_ID"];
+                $response["products".$i]["product_image"] = $row["Product_Image"];
+
                 $i++;
       }
       $stmt->close();

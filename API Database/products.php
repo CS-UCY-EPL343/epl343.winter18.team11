@@ -3,7 +3,6 @@
 require_once 'database_behaviour.php';
 $db = new database_behaviour();
 
-$response = array("error" => FALSE);
 
 if(isset($_POST['products'])){
         $db->getProducts();
