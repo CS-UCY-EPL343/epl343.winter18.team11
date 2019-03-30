@@ -1,33 +1,35 @@
 <?php 
 include('../functions.php');
+
+
+
 if (!isAdmin()) {
 	$_SESSION['msg'] = "You must log in first";
 	header('location: ../login.php');
 }
+
 if (isset($_GET['logout'])) {
 	session_destroy();
 	unset($_SESSION['user']);
 	header("location: ../login.php");
 }
 ?>
- <?php  
- $connect = mysqli_connect("localhost", "root","","emira_pottery"); 
- $query="SELECT username,Date,Time, MeetingID, UserID FROM meeting m, users u WHERE m.UserID=u.id"; 
- $result = mysqli_query($connect, $query);  
- ?>  
- <!DOCTYPE html>  
- <html>  
-      <head>  
-           <title>workshop_details</title>  
-           <meta name="viewport" content="width=device-width, initial-scale=1">
-           
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+       <title>workshop_details</title>
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
   <link rel = "stylesheet" type = "text/css" href = "../admin/add_format.css" />
   <link rel="stylesheet" type="text/css" href="../css/basket_format.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-  <style>
+<style>
  table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -46,9 +48,44 @@ if (isset($_GET['logout'])) {
       
     
 </style>
-      </head>  
-      <body>  
-      <div class="jumbotron" style="margin-bottom:0" >
+</head>
+<body>
+
+<?php
+function see(){
+ 
+try {
+    // Connect and create the PDO object
+    $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+    $sql="SELECT Username,Date,Time FROM Meeting m, Users u WHERE m.UserID=u.UserID";
+    $result = $link->query($sql);
+  
+    // If the SQL query is succesfully performed ($result not false)
+    if($result !== false) {
+      // Create the beginning of HTML table, and the first row with colums title
+      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Username</th><th>Date</th><th>Time</th></tr>';
+  
+      // Parse the result set, and adds each row and colums in HTML table
+      foreach($result as $row) {
+        $html_table .= '<tr><td>' .$row['Username']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td></tr>';
+      }
+    }
+  
+    $conn = null;        // Disconnect
+  
+    $html_table .= '</table>';           // ends the HTML table
+  
+    echo $html_table;        // display the HTML table
+  }
+  catch(PDOException $e) {
+    echo $e->getMessage();
+  }
+}
+?>
+
+
+
+<div class="jumbotron" style="margin-bottom:0" >
     <div class="logo-productsgallery">
      
 	  <h1> Meeting Agenda</h1>
@@ -85,7 +122,7 @@ if (isset($_GET['logout'])) {
     
     <ul class="navbar-nav  my-2 my-lg-0">
     <li class =nav-item>
-        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['Username']; ?> </p>
     </li>
     <li class="nav-item">
 	<a class="nav-link" href="../home.php?logout='1'" >Logout</a>
@@ -94,184 +131,19 @@ if (isset($_GET['logout'])) {
     </ul>
   </div>
 </nav>
-<br>      
+
+
+
+
+
+    <br>      
 <div class="info">
 <h4> Meeting Information </h4>
 </div>
 <br>
-          
-           <div class="container" style="width:700px;">  
-          
-                <div class="table-responsive">  
-                     <div align="right">  
-                          <button type="button" name="add" id="add" data-toggle="modal" data-target="#add_data_Modal" class="btn btn-warning">Add</button>  
-                     </div>  
-                     <br />  
-                     <div id="employee_table">  
-                          <table border="1" cellspacing="0" cellpadding="2">  
-                               <tr>  
-                                    <th>Username</th>  
-                                    <th>Date</th>  
-                                    <th>Time</th>  
-                                    <th></th> 
-                                    <th></th> 
-                               </tr>  
-                               <?php  
-                               while($row = mysqli_fetch_array($result))  
-                               {  
-                               ?>  
-                               
-                               <tr id="delete<?php echo $row['MeetingID']?>" >  
-                                    <td><?php echo $row["username"]; ?></td>  
-                                    <td><?php echo $row["Date"]; ?></td>  
-                                    <td><?php echo $row["Time"]; ?></td>  
-                                    <!-- <td><input type="button" name="edit" value="Edit" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs edit_data" /></td>   -->
-                                    <td><input type="button" name="view" value="Confirm" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
-                                    <td><input type="button" name="delete_data" value="Delete" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs delete_data" /></td>  
+<?php
+see();
+?>
 
-                               </tr>  
-                               <?php  
-                               }  
-                               ?>  
-                          </table>  
-                     </div>  
-                </div>  
-           </div>  
-      </body>  
- </html>  
- <div id="dataModal" class="modal fade">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
-                     <h4 class="modal-title">Meeting Details</h4>  
-                </div>  
-                <div class="modal-body" id="employee_detail">  
-                </div>  
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
-                </div>  
-           </div>  
-      </div>  
- </div>  
- <div id="add_data_Modal" class="modal fade">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
-                     <h4 class="modal-title">Choose Date and Time</h4>  
-                </div>  
-                <div class="modal-body">  
-                     <form method="post" id="insert_form">
-                     <label id="lname">username</label>  
-                     <input type="textarea" name="name" id="name" class="form-control">  
-                          <br />  
-                          <label>Date</label>  
-                          <input type="date" name="date" id="date" class="form-control" />  
-                          <br />  
-                          <label>Time</label>  
-                          <input type="time" name="time" id="time" class="form-control" />   
-                          <br />  
-                          
-                          <input type="hidden" name="employee_id" id="employee_id" value="<?php echo $row['MeetingID'] ?>"  />  
-                          <!-- <input type="button" name="delete_data" value="Delete" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs delete_data" /> -->
-                          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />  
-                     </form>  
-                </div>  
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
-                </div>  
-           </div>  
-      </div>  
- </div>  
- <script>  
- $(document).ready(function(){  
-      $('#add').click(function(){  
-           $('#insert').val("Insert");  
-           $('#insert_form')[0].reset();  
-           $('#delete_data').hide();
-      });  
-      $(document).on('click', '.edit_data', function(){  
-           var employee_id = $(this).attr("id");  
-           $.ajax({  
-                url:"fetch.php",  
-                method:"POST",  
-                data:{employee_id:employee_id},  
-                dataType:"json",  
-                success:function(data){ 
-
-                     $('#date').val(data.date);  
-                     $('#time').val(data.time);  
-                     $('#employee_id').val(data.id); 
-                     $('#name').hide(); 
-                     $('#lname').hide(); 
-                     
-                     $('#insert').val("Update");  
-                     $('#add_data_Modal').modal('show');  
-                }  
-           });  
-      });  
-      $('#insert_form').on("submit", function(event){  
-           event.preventDefault();  
-           if($('#date').val() == "")  
-           {  
-                alert("Date is required");  
-           }  
-           else if($('#time').val() == '')  
-           {  
-                alert("Time is required");  
-           }  
-      
-           else  
-           {  
-            var employee_id = $(this).attr("id");  
-                $.ajax({  
-                     url:"insert.php",  
-                     method:"POST",  
-                     data:$('#insert_form').serialize(),  
-                     beforeSend:function(){  
-                          $('#insert').val("Inserting");  
-                     },  
-                     success:function(data){  
-                        
-                          $('#insert_form')[0].reset();  
-                          $('#add_data_Modal').modal('hide');  
-                          $('#employee_table').html(data);  
-                     }  
-                });  
-           }  
-      });  
-      $(document).on('click', '.view_data', function(){  
-           var employee_id = $(this).attr("id");  
-           if(employee_id != '')  
-           {  
-                $.ajax({  
-                     url:"select.php",  
-                     method:"POST",  
-                     data:{employee_id:employee_id},
-                     success:function(data){  
-                          $('#employee_detail').html(data);  
-                          $('#dataModal').modal('show');  
-                     }  
-                });  
-           }            
-      });  
-      
-      $(document).on('click', '.delete_data', function(){  
-           var employee_id = $(this).attr("id");  
-           if(confirm('are you sure?'))  
-           {  
-                $.ajax({  
-                     url:"delete.php",  
-                     method:"POST",  
-                     data:{employee_id:employee_id},
-                     success:function(data){  
-                          $('#delete'+id).hide();
-                     }  
-                });  
-           }            
-      });  
-
- });  
- </script>
- 
+</body>
+</html>

@@ -138,8 +138,8 @@
 
 <?php
 
-$link = mysqli_connect("localhost", "root","","emira_pottery");
-$sql="SELECT * FROM Product where Product.Product_Type = 'Ancient Pots' order by Product_ID asc";
+$link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+$sql="SELECT * FROM Product_web where Product_web.Product_Type = 'Ancient Pots' order by Product_ID asc";
 $result=mysqli_query($link,$sql);
 ?>
 
@@ -154,7 +154,7 @@ $result=mysqli_query($link,$sql);
             }
             $id=$row[0]; 
            
-            echo "<td style='border:none; text-align:center;'  >" . "<img src=images/".$row[4]." />" . "<br>". "<br>" .$row[1] ."<br>" .$row[2]. "<br>"."€".$row[3]."<br>".$row[5]. 
+            echo "<td style='border:none; text-align:center;'  >" . "<img src=".$row[4]." />" . "<br>". "<br>" .$row[1] ."<br>" .$row[2]. "<br>"."€".$row[3]."<br>".$row[5]. 
             
             "<br>". ""?> 
              <?php if (!isset($_SESSION['success'])) : ?>

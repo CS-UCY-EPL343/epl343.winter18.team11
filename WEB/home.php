@@ -104,7 +104,7 @@
 
     <li class ="nav-item">
       <?php if (isset($_SESSION['success'])) : ?>
-        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['Username']; ?> </p>
       <?php endif ?>
     </li>
     <li class="nav-item">
@@ -176,8 +176,6 @@
                         <h1 class="footer-products">OUR PRODUCTS</h1>
                         <br>
                         <div class="p1" >
-                         <a href="products.php" > Traditional</a>
-                         <br>
                          <a href="products.php" > Ecclesiastical Items</a>
                          <br>
                          <a href="products.php" > Ancient Pottery Replicas</a>

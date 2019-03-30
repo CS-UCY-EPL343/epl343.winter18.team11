@@ -206,17 +206,7 @@
 
                                                         
           </div>
-          <div class="row">
-                                      
-                                      <div class="col-md-3 mx-auto">
-                                      <a href="products.php"> <img src="products_images/product_7.jpg" style="width:100%"></a>
-                                        <div class="label-items">
-                                          <p> Traditional </p>
-                                        </div> 
-                                      </div>
-               
-                                      
-      </div>
+    
 
                             
 
@@ -232,8 +222,6 @@
                         <h1 class="footer-products">OUR PRODUCTS</h1>
                         <br>
                         <div class="p1" >
-                         <a href="products.php" > Traditional</a>
-                         <br>
                          <a href="products.php" > Ecclesiastical Items</a>
                          <br>
                          <a href="products.php" > Ancient Pottery Replicas</a>

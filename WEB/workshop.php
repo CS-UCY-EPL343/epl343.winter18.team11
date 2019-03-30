@@ -42,10 +42,48 @@
 <body>
 			<?php
   
+
+
+  function send_email(){
+    $conn = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+    $datee=$_POST['date'];
+    $timee=$_POST['time'];
+  
+    $sql= "SELECT Email FROM Users WHERE UserID='{$_SESSION['user']['UserID']}'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_array($result);
+    $em=$row['Email'];
+   
+    $sql= "SELECT Username FROM Users WHERE UserID='{$_SESSION['user']['UserID']}'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_array($result);
+    $name=$row['Username'];
+    $to = 'georgia_kap@hotmail.com';
+    $subject = 'Emira Pottery-Workshop';
+    $message = 'User '.$name.' would like to to book a lesson on: '.$datee. ' at '. $timee;
+    $from = $em;
+  
+  
+  
+ 
+  
+     
+    
+    if(mail($to, $subject, $message, $from)){
+        echo 'Your mail has been sent successfully.';
+    } else{
+        echo 'Unable to send email. Please try again.';
+    }
+  
+  }
+
+
+
+
 			function myFunction(){
     
       
-      $conn = mysqli_connect("localhost", "root","","emira_pottery");
+      $conn = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
 		
 					
 					if(isset($_POST['submit'])){
@@ -53,7 +91,7 @@
 					$time=$_POST['time'];
 					
 					
-					$sql = "INSERT INTO meeting ( Date, Time, UserID) VALUES ('$date','$time' , '{$_SESSION['user']['id']}')";
+					$sql = "INSERT INTO Meeting ( Date, Time, UserID) VALUES ('$date','$time' , '{$_SESSION['user']['UserID']}')";
 					
 					//mysqli_query($conn, $sql)
 				if (mysqli_query($conn, $sql) === TRUE) 
@@ -62,8 +100,12 @@
 				} else 
 				{
 					echo "Error: " . $sql . "<br>" . $conn->error;
-				}
-				
+        }
+      
+        $URL="workshop.php";
+        echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+        echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+        
 						//	mysqli_close($con);
 			}
     
@@ -225,7 +267,12 @@
             </div>
             </div>
 					
-								
+          <?php 
+          if(isset($_POST['submit'])){
+                send_email();
+            }  
+            
+          ?>		
 
 				<footer class="footer">
         <div class="container" >
@@ -234,8 +281,6 @@
                         <h1 class="footer-products">OUR PRODUCTS</h1>
                         <br>
                         <div class="p1" >
-                         <a href="products.php" > Traditional</a>
-                         <br>
                          <a href="products.php" > Ecclesiastical Items</a>
                          <br>
                          <a href="products.php" > Ancient Pottery Replicas</a>
