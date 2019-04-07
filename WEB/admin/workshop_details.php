@@ -11,8 +11,8 @@ if (isset($_GET['logout'])) {
 }
 ?>
  <?php  
- $connect = mysqli_connect("localhost", "root","","emira_pottery"); 
- $query="SELECT username,Date,Time, MeetingID, UserID FROM meeting m, users u WHERE m.UserID=u.id"; 
+ $connect = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery"); 
+ $query="SELECT u.Username,m.Date,m.Time, m.MeetingID, m.UserID FROM Meeting m, Users u WHERE m.UserID=u.UserID"; 
  $result = mysqli_query($connect, $query);  
  ?>  
  <!DOCTYPE html>  
@@ -57,7 +57,7 @@ if (isset($_GET['logout'])) {
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #555555">
-  <a class="navbar-brand" href="/admin/home.php">Admin Home</a>
+  <a class="navbar-brand" href="home.php">Admin Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -85,7 +85,7 @@ if (isset($_GET['logout'])) {
     
     <ul class="navbar-nav  my-2 my-lg-0">
     <li class =nav-item>
-        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php echo "Welcome  " ; echo  $_SESSION['user']['Username']; ?> </p>
     </li>
     <li class="nav-item">
 	<a class="nav-link" href="../home.php?logout='1'" >Logout</a>
@@ -119,10 +119,9 @@ if (isset($_GET['logout'])) {
                                ?>  
                                
                                <tr id="delete<?php echo $row['MeetingID']?>" >  
-                                    <td><?php echo $row["username"]; ?></td>  
+                                    <td><?php echo $row["Username"]; ?></td>  
                                     <td><?php echo $row["Date"]; ?></td>  
                                     <td><?php echo $row["Time"]; ?></td>  
-                                    <!-- <td><input type="button" name="edit" value="Edit" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs edit_data" /></td>   -->
                                     <td><input type="button" name="view" value="Confirm" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
                                     <td><input type="button" name="delete_data" value="Delete" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs delete_data" /></td>  
 
@@ -171,7 +170,6 @@ if (isset($_GET['logout'])) {
                           <br />  
                           
                           <input type="hidden" name="employee_id" id="employee_id" value="<?php echo $row['MeetingID'] ?>"  />  
-                          <!-- <input type="button" name="delete_data" value="Delete" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs delete_data" /> -->
                           <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />  
                      </form>  
                 </div>  
