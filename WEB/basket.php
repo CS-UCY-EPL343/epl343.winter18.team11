@@ -8,43 +8,86 @@ if (!isLoggedIn()) {
 
 ?>
     <?php 
+          function sendemail(){
+           
+            
+                
+                 
+                 $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+                       
+          
+                 
+                 $sql1= "SELECT Email FROM Users WHERE UserID={$_SESSION['user']['UserID']}";
+                 $result=mysqli_query($link,$sql1);
+                 $row=mysqli_fetch_array($result);
+                 $em=$row['Email'];
+                 
+             
+           
+                $sql= "SELECT * FROM Order_Info WHERE UserID={$_SESSION['user']['UserID']}";
+                 $result1 = mysqli_query($link, $sql);
+                 echo 'Your order has been succesfully submitted';
+                
+
+                 $to = $em;
+                 $subject = 'Order Confirmation';
+                 $message = 'Thank you for your order.';
+                 $from ='georgia_kap@hotmail.com' ;
+
+                 
+                
+           if(mail($to, $subject, $message, $from)){
+             echo 'Check your email.';
+      
+           
+            } else{
+             echo 'Unable to send email.';
+           }
+           
+
+
+
+            }  
+
           
           function get_quantity($id,$quant){
             
-           $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
-         
+            $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
           
-           if(isset($_POST['add'])){
-            
-             if(isset($_POST['qty'])){
-                 $quaty=$_POST['qty'];
-                 $ids=$_POST['id'];
-                
-                 $array = array_combine($quaty,$ids);
            
-                 foreach($array as $q => $i){
-                   $queryy="UPDATE Basket_Info SET Quantity = $q WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
-                     mysqli_query($link,$queryy);
-           
-                 }
-           
-                 $sql="SELECT price FROM Product_web WHERE  Product_ID=$i";
-                 $result = mysqli_query($link, $sql);
-                 $row = mysqli_fetch_array($result);
-       
-                  $pr=$row['price'];
+            if(isset($_POST['add'])){
              
-          
-                   $total=$pr*$q;
-                   $queryy1="UPDATE Basket_Info SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
-                   mysqli_query($link,$queryy1);
-                   $URL="basket.php";
-                   echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
-                   echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+              if(isset($_POST['qty'])){
+                  $quaty=$_POST['qty'];
+                  $ids=$_POST['id'];
+                 
+                  $array = array_combine($quaty,$ids);
+            
+                  foreach($array as $q => $i){
+                    $queryy="UPDATE Basket_Info SET Quantity = $q WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
+                      mysqli_query($link,$queryy);
+            
+                  }
+            
+                  $sql="SELECT price FROM Product_web WHERE  Product_ID=$i";
+                  $result = mysqli_query($link, $sql);
+                  $row = mysqli_fetch_array($result);
+        
+                   $pr=$row['price'];
               
+           
+                    $total=$pr*$q;
+                    $queryy1="UPDATE Basket_Info SET Total_price = $total WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
+                    mysqli_query($link,$queryy1);
+                    $URL="basket.php";
+                    echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+                    echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+               
+           }
           }
-         }
-       }
+      
+        }
+ 
           
            function del_fun(){
              $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
@@ -62,19 +105,33 @@ if (!isLoggedIn()) {
           
 
 
-           
-          if(isset($_POST['check2'])){
-            $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
-              $query6="SELECT b.Product_id, p.Product_name, b.Quantity, b.Total_Price FROM Basket_Info b, Product_web p WHERE User_id={$_SESSION['user']['UserID']} and p.Product_id=b.Product_id" ;    
+  
+            if(isset($_POST['check2'])){
+              $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
+              $query6="SELECT * FROM Basket_Info WHERE User_ID={$_SESSION['user']['UserID']}" ;    
               $result=mysqli_query($link, $query6);
+              
+              $date1= date("d-m-y h:i:sa");
+              
               while ( $row = mysqli_fetch_array($result)){
-                $sql7="INSERT INTO Order_Info (UserID, Product_Name, Quantity, Total_Price) VALUES ('{$_SESSION['user']['UserID']}','$row[Product_name]','$row[Quantity]','$row[Total_Price]')";
-                $result=mysqli_query($link, $sql7);
+                $sql7="INSERT INTO Order_Info (Product_ID,Quantity,Total_Price,UserID,Created) VALUES ('$row[Product_id]','$row[Quantity]','$row[Total_Price]','$row[User_ID]', '$date1' ) ";
+                $result6=mysqli_query($link, $sql7);
+                
+               
               }
+              
+            
+              $quer="DELETE FROM Basket_Info  WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']}";
+              $result7=mysqli_query($link, $quer);
+               
+              sendemail();
 
-        }
-    
-        
+              session_destroy();
+              header("location: home.php");
+
+             }
+            
+
    ?>
 
 <!DOCTYPE html>
@@ -234,6 +291,7 @@ if (!isLoggedIn()) {
  <?php
         $cartcount=0;
         $cartamount=0;
+ 
         while ($row=mysqli_fetch_row($result)) {
        
           $cartcount += $row[0];
@@ -242,6 +300,9 @@ if (!isLoggedIn()) {
           $id=$row[4];
           $qua=$row[0];
           $pr=$row[2];
+         
+  
+
   ?>       
   <div class="row" >
                 <div class="col">
@@ -284,6 +345,7 @@ if (!isLoggedIn()) {
 
         <?php    
                   }
+          
               ?>
    
     <div class="col" style="padding-left:1200px">  
@@ -299,6 +361,10 @@ if (!isLoggedIn()) {
     </div>
 
       
+
+
+
+
      <!-- MODAL LOGIN --> 
   <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -400,17 +466,17 @@ if (!isLoggedIn()) {
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="name" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Full Name</label>
         </div>
         <div class="md-form mb-5">
           <i class="fa fa-phone prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="telephone" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="telephone" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Telephone Number</label>
         </div>
       
       <div class="modal-footer d-flex justify-content-center">
-        <button type="submit" class="btn btn-deep-orange" name="check2">Complete Order</button>
+        <button type="submit" class="btn btn-deep-orange" name="check2" id="check2" >Complete Order</button>
       </div>
     
       </form>
@@ -418,6 +484,22 @@ if (!isLoggedIn()) {
   </div>
 </div>
 
+   
+
+  <div class="modal fade" id="thankyouModal" tabindex="-1" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Your order has been succesfully submitted!</h4>
+            </div>
+            <div class="modal-body">
+                                   
+            </div>    
+        </div>
+    </div>
+</div>
 
 
     <!-- Optional JavaScript -->

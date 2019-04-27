@@ -159,7 +159,11 @@ $result=mysqli_query($link,$sql);
 
              <?php if (isset($_SESSION['success'])) : ?>
 
-                <button type="button" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
+                <form method="post" >
+                <input type="hidden" name="id[]" value="<?php echo $id ?>" >
+                <button type="submit" name="insert" class="btn btn-outline-dark">Buy now</button>
+               
+              </form>
               <?php endif ?> 
                                  
             
@@ -179,49 +183,31 @@ $result=mysqli_query($link,$sql);
      ?>
     </tbody>
 </table>
- </div>
 
 
-<?php
 
-$link = mysqli_connect("localhost", "root","","emira_pottery");
-$sql="SELECT * FROM Product where Product.Product_Type = 'Cyprus Souvenirs' order by Product_ID asc";
-$result=mysqli_query($link,$sql);
+
+<?php 
+                  
+                  if(isset($_POST['insert'])){
+                    
+
+                    $product= $_POST['id'];
+                    
+                    foreach($product as $p){
+                    $sql = "INSERT INTO Basket_Info (Product_ID,User_ID) VALUES ('$p','{$_SESSION['user']['UserID']}') ";
+                    $result=mysqli_query($link, $sql);
+                    }
+                  }
+                
 ?>
 
-<div class="container-table" style='padding-top:5%; padding-left:5%; padding-right:5%;' >
-<table class="table">
-    <tbody>
-    <?php
-        $i = 0; $trEnd = 0;
-        while ($row = mysqli_fetch_array($result)){
-            if($i == 0){
-                echo '<tr>';
-            }
-            $id=$row[0]; 
-           
-            echo "<td style='border:none; text-align:center;'  >" . "<img src=images/".$row[4]." />" . "<br>". "<br>" .$row[1] ."<br>" .$row[2]. "<br>"."€".$row[3]."<br>".$row[5]. 
-            
-            "<br>". ""?> 
-            <button type="button" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
-                                 
-            
-             <?php    "" ."</td>";
-           
 
-            if($i == 2){
-                $i = 0; $trEnd = 1;
-            }else{
-                $trEnd = 0; $i++;
-            }
-            if($trEnd == 1) {
-                echo '</tr>';
-            }
-        }
-        if($trEnd == 0) echo '</tr>';
-     ?>
-    </tbody>
-</table>
+
+
+
+
+
  </div>
 
 

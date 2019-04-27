@@ -162,11 +162,16 @@ $result=mysqli_query($link,$sql);
 
             <?php if (!isset($_SESSION['success'])) : ?>
             <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modalLoginForm">Buy now</a></button>
+            
              <?php endif ?>
 
              <?php if (isset($_SESSION['success'])) : ?>
-
-                <button type="button" name="insert" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
+             <form method="post" >
+                <input type="hidden" name="id[]" value="<?php echo $id ?>" >
+            
+                <button type="submit" name="insert" class="btn btn-outline-dark">Buy now</button>
+               
+              </form>
               <?php endif ?>             
             
              <?php    "" ."</td>";
@@ -185,6 +190,24 @@ $result=mysqli_query($link,$sql);
      ?>
     </tbody>
 </table>
+
+
+<?php 
+                  
+                    if(isset($_POST['insert'])){
+                      
+
+                      $product= $_POST['id'];
+                      
+                      foreach($product as $p){
+               
+                      $sql = "INSERT INTO Basket_Info (Product_ID,User_ID) VALUES ('$p','{$_SESSION['user']['UserID']}') ";
+                      $result=mysqli_query($link, $sql);
+                      }
+                    }
+                  
+?>
+
  </div>
 
 
