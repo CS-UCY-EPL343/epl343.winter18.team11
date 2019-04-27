@@ -13,19 +13,19 @@ if (!isLoggedIn()) {
             
                 
                  
-                 $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+                 
                        
           
                  
                  $sql1= "SELECT Email FROM Users WHERE UserID={$_SESSION['user']['UserID']}";
-                 $result=mysqli_query($link,$sql1);
+                 $result=mysqli_query($db,$sql1);
                  $row=mysqli_fetch_array($result);
                  $em=$row['Email'];
                  
              
            
                 $sql= "SELECT * FROM Order_Info WHERE UserID={$_SESSION['user']['UserID']}";
-                 $result1 = mysqli_query($link, $sql);
+                 $result1 = mysqli_query($db, $sql);
                  echo 'Your order has been succesfully submitted';
                 
 
@@ -52,9 +52,6 @@ if (!isLoggedIn()) {
           
           function get_quantity($id,$quant){
             
-            $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
-          
-           
             if(isset($_POST['add'])){
              
               if(isset($_POST['qty'])){
@@ -65,12 +62,12 @@ if (!isLoggedIn()) {
             
                   foreach($array as $q => $i){
                     $queryy="UPDATE Basket_Info SET Quantity = $q WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
-                      mysqli_query($link,$queryy);
+                      mysqli_query($db,$queryy);
             
                   }
             
                   $sql="SELECT price FROM Product_web WHERE  Product_ID=$i";
-                  $result = mysqli_query($link, $sql);
+                  $result = mysqli_query($db, $sql);
                   $row = mysqli_fetch_array($result);
         
                    $pr=$row['price'];
@@ -78,7 +75,7 @@ if (!isLoggedIn()) {
            
                     $total=$pr*$q;
                     $queryy1="UPDATE Basket_Info SET Total_price = $total WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
-                    mysqli_query($link,$queryy1);
+                    mysqli_query($db,$queryy1);
                     $URL="basket.php";
                     echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
                     echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
@@ -90,12 +87,12 @@ if (!isLoggedIn()) {
  
           
            function del_fun(){
-             $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
+            
                if(isset($_POST['del'])){
                  $de=$_POST['del'];
                  foreach($de as $d){
                    $quer="DELETE FROM Basket_Info WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID=$d ";
-                   mysqli_query($link, $quer);
+                   mysqli_query($db, $quer);
                    $URL="basket.php";
                    echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
                    echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
@@ -107,22 +104,21 @@ if (!isLoggedIn()) {
 
   
             if(isset($_POST['check2'])){
-              $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
+ 
               $query6="SELECT * FROM Basket_Info WHERE User_ID={$_SESSION['user']['UserID']}" ;    
-              $result=mysqli_query($link, $query6);
+              $result=mysqli_query($db, $query6);
               
               $date1= date("d-m-y h:i:sa");
               
               while ( $row = mysqli_fetch_array($result)){
                 $sql7="INSERT INTO Order_Info (Product_ID,Quantity,Total_Price,UserID,Created) VALUES ('$row[Product_id]','$row[Quantity]','$row[Total_Price]','$row[User_ID]', '$date1' ) ";
-                $result6=mysqli_query($link, $sql7);
+                $result6=mysqli_query($db, $sql7);
                 
                
               }
-              
-            
+
               $quer="DELETE FROM Basket_Info  WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']}";
-              $result7=mysqli_query($link, $quer);
+              $result7=mysqli_query($db, $quer);
                
               sendemail();
 
@@ -272,9 +268,9 @@ if (!isLoggedIn()) {
                 
              
 <?php 
-      $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+      
       $sql="SELECT Basket_Info.Quantity,Basket_Info.Total_price,Product_web.Price,Product_web.Product_Type,Product_web.Product_ID, Product_web.image FROM Basket_Info,Product_web where Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_web.Product_ID = Basket_Info.Product_id ";
-      $result=mysqli_query($link,$sql);
+      $result=mysqli_query($db,$sql);
   
 ?>
  
@@ -364,8 +360,7 @@ if (!isLoggedIn()) {
 
 
 
-
-     <!-- MODAL LOGIN --> 
+  <!-- MODAL LOGIN --> 
   <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -380,13 +375,13 @@ if (!isLoggedIn()) {
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="text" id="defaultForm-email" name="username" class="form-control validate">
+          <input type="text" id="defaultForm-email" name="username" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-email">Username </label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" name="password" class="form-control validate">
+          <input type="password" id="defaultForm-pass" name="password" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
         </div>
 
@@ -418,23 +413,28 @@ if (!isLoggedIn()) {
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="username" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Name</label>
         </div>
         <div class="md-form mb-5">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="username" class="form-control validate" required> 
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+        </div>
+        <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="email" id="orangeForm-email" name="email" class="form-control validate">
+          <input type="email" id="orangeForm-email" name="email" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate">
+          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
         </div>
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate">
+          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
         </div>
       </div>
@@ -448,6 +448,7 @@ if (!isLoggedIn()) {
     </div>
   </div>
 </div>
+
 
 
 

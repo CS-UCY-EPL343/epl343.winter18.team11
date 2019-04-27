@@ -45,17 +45,17 @@
 
 
   function send_email(){
-    $conn = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+    
     $datee=$_POST['date'];
     $timee=$_POST['time'];
   
     $sql= "SELECT Email FROM Users WHERE UserID='{$_SESSION['user']['UserID']}'";
-    $result=mysqli_query($conn,$sql);
+    $result=mysqli_query($db,$sql);
     $row=mysqli_fetch_array($result);
     $em=$row['Email'];
    
     $sql= "SELECT Username FROM Users WHERE UserID='{$_SESSION['user']['UserID']}'";
-    $result=mysqli_query($conn,$sql);
+    $result=mysqli_query($db,$sql);
     $row=mysqli_fetch_array($result);
     $name=$row['Username'];
     $to = 'georgia_kap@hotmail.com';
@@ -83,7 +83,7 @@
 			function myFunction(){
     
       
-      $conn = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
+      
 		
 					
 					if(isset($_POST['submit'])){
@@ -94,7 +94,7 @@
 					$sql = "INSERT INTO Meeting ( Date, Time, UserID) VALUES ('$date','$time' , '{$_SESSION['user']['UserID']}')";
 					
 					//mysqli_query($conn, $sql)
-				if (mysqli_query($conn, $sql) === TRUE) 
+				if (mysqli_query($db, $sql) === TRUE) 
 				{
 					echo "";
 				} else 
@@ -336,7 +336,6 @@
 	</div>
 	</div>	
 
-   
   <!-- MODAL LOGIN --> 
   <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -352,13 +351,13 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="text" id="defaultForm-email" name="username" class="form-control validate">
+          <input type="text" id="defaultForm-email" name="username" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-email">Username </label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" name="password" class="form-control validate">
+          <input type="password" id="defaultForm-pass" name="password" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
         </div>
 
@@ -390,23 +389,28 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="username" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Name</label>
         </div>
         <div class="md-form mb-5">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="username" class="form-control validate" required> 
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+        </div>
+        <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="email" id="orangeForm-email" name="email" class="form-control validate">
+          <input type="email" id="orangeForm-email" name="email" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate">
+          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
         </div>
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate">
+          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
         </div>
       </div>
@@ -420,6 +424,7 @@
     </div>
   </div>
 </div>
+
 
  	
 </body>

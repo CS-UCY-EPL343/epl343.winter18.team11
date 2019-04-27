@@ -20,7 +20,8 @@ function register(){
 	global $db, $errors, $username, $email;
 
 	// receive all input values from the form. Call the e() function
-    // defined below to escape form values
+	// defined below to escape form values
+	$name		 =  e($_POST['name']);
 	$username    =  e($_POST['username']);
 	$email       =  e($_POST['email']);
 	$password_1  =  e($_POST['password_1']);
@@ -46,14 +47,14 @@ function register(){
 
 		if (isset($_POST['user_type'])) {
 			$user_type = e($_POST['user_type']);
-			$query = "INSERT INTO Users (Username, Email, user_type, Password) 
-					  VALUES('$username', '$email', '$user_type', '$password')";
+			$query = "INSERT INTO Users (Name, Username, Email, user_type, Password) 
+					  VALUES('$name','$username', '$email', '$user_type', '$password')";
 			mysqli_query($db, $query);
 			$_SESSION['success']  = "New user successfully created!!";
 			header('location: home.php');
 		}else{
-			$query = "INSERT INTO Users (Username, Email, user_type, Password) 
-					  VALUES('$username', '$email', 'user', '$password')";
+			$query = "INSERT INTO Users (Name, Username, Email, user_type, Password) 
+					  VALUES('$name','$username', '$email', 'user', '$password')";
 			mysqli_query($db, $query);
 
 			// get id of the created user
