@@ -244,6 +244,10 @@
                                 Mob: +357 99404414 <br>
                                 Tel: +357 24623952
                             </p>
+                            <a href="https://www.facebook.com/EMIRA-Pottery-559970017462447/"><i class="fa fa-facebook-square prefix black-text" style="font-size:30px; padding-right:35px"></i> </a>
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g190379-d6979787-Reviews-Emira_Pottery-Larnaca_Larnaka_District.html" > <i class="fa fa-tripadvisor prefix black-text" style="font-size:30px"></i>  </a>
+
+                             
                         </div>
                     </div>
 
