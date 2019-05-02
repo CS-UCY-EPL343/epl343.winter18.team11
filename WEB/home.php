@@ -40,7 +40,7 @@
   
 <div class="jumbotron" style="margin-bottom:0" >
     <div class="logo">
-      <h1 >Emira Pottery</h1>
+
     </div>
 
 </div>
@@ -198,6 +198,12 @@
                                 Mob: +357 99404414 <br>
                                 Tel: +357 24623952
                             </p>
+                            <a href="https://www.facebook.com/EMIRA-Pottery-559970017462447/"><i class="fa fa-facebook-square prefix black-text" style="font-size:30px; padding-right:35px"></i> </a>
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g190379-d6979787-Reviews-Emira_Pottery-Larnaca_Larnaka_District.html" > <i class="fa fa-tripadvisor prefix black-text" style="font-size:30px"></i>  </a>
+
+                             
+                           
+
                         </div>
                     </div>
 
@@ -247,13 +253,13 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="text" id="defaultForm-email" name="username" class="form-control validate">
+          <input type="text" id="defaultForm-email" name="username" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-email">Username </label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" name="password" class="form-control validate">
+          <input type="password" id="defaultForm-pass" name="password" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
         </div>
 
@@ -285,23 +291,28 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="username" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Name</label>
         </div>
         <div class="md-form mb-5">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="username" class="form-control validate" required> 
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+        </div>
+        <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="email" id="orangeForm-email" name="email" class="form-control validate">
+          <input type="email" id="orangeForm-email" name="email" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate">
+          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
         </div>
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate">
+          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
         </div>
       </div>
@@ -316,11 +327,5 @@
   </div>
 </div>
 
-
-
-
-
-<script src="javascript/register.js"></script>
-<script src="javascript/login.js"></script>
 
 </html>

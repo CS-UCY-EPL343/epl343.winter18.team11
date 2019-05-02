@@ -12,11 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/home.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/bootstrap-grid.css">
   <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -27,14 +23,12 @@
   <link rel="stylesheet" href="css/mdb.min.css">
   <link rel="stylesheet" href="css/mdb.lite.css">
   <link rel="stylesheet" href="css/mdb.lite.min.css">
-  <link rel="stylesheet" href="css/cart.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
  
-
 
 
 </head>
@@ -51,7 +45,7 @@
 </div>
 </div>
 
- <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #555555">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #555555">
   <a class="navbar-brand" href="home.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -107,9 +101,10 @@
     
     <ul class="navbar-nav  my-2 my-lg-0">
 
-    <li class ="nav-item">
+   
+   <li class ="nav-item">
       <?php if (isset($_SESSION['success'])) : ?>
-        <p class="nav-link" style="color:white;">   <?php echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
       <?php endif ?>
     </li>
     <li class="nav-item">
@@ -133,16 +128,16 @@
     </li>
     </ul>
   </div>
-</nav>
+</nav>   
 
 
 
 
 <?php
 
-$link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+
 $sql="SELECT * FROM Product_web where Product_web.Product_Type = 'Ovenware Pots' order by Product_ID asc";
-$result=mysqli_query($link,$sql);
+$result=mysqli_query($db,$sql);
 ?>
 
 <div class="container-table" style='padding-top:5%; padding-left:5%; padding-right:5%;' >
@@ -162,11 +157,16 @@ $result=mysqli_query($link,$sql);
 
             <?php if (!isset($_SESSION['success'])) : ?>
             <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modalLoginForm">Buy now</a></button>
+            
              <?php endif ?>
 
              <?php if (isset($_SESSION['success'])) : ?>
-
-                <button type="button" name="insert" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
+             <form method="post" >
+                <input type="hidden" name="id[]" value="<?php echo $id ?>" >
+            
+                <button type="submit" name="insert" class="btn btn-outline-dark">Buy now</button>
+               
+              </form>
               <?php endif ?>             
             
              <?php    "" ."</td>";
@@ -185,11 +185,29 @@ $result=mysqli_query($link,$sql);
      ?>
     </tbody>
 </table>
+
+
+<?php 
+                  
+                    if(isset($_POST['insert'])){
+                      
+
+                      $product= $_POST['id'];
+                      
+                      foreach($product as $p){
+               
+                      $sql = "INSERT INTO Basket_Info (Product_ID,User_ID) VALUES ('$p','{$_SESSION['user']['UserID']}') ";
+                      $result=mysqli_query($db, $sql);
+                      }
+                    }
+                  
+?>
+
  </div>
 
 
-  <!-- MODAL LOGIN --> 
-  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+   <!-- MODAL LOGIN --> 
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -203,13 +221,13 @@ $result=mysqli_query($link,$sql);
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="text" id="defaultForm-email" name="username" class="form-control validate">
+          <input type="text" id="defaultForm-email" name="username" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-email">Username </label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" name="password" class="form-control validate">
+          <input type="password" id="defaultForm-pass" name="password" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
         </div>
 
@@ -241,23 +259,28 @@ $result=mysqli_query($link,$sql);
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="username" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Name</label>
         </div>
         <div class="md-form mb-5">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="username" class="form-control validate" required> 
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+        </div>
+        <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="email" id="orangeForm-email" name="email" class="form-control validate">
+          <input type="email" id="orangeForm-email" name="email" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate">
+          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
         </div>
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate">
+          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
         </div>
       </div>
@@ -271,6 +294,7 @@ $result=mysqli_query($link,$sql);
     </div>
   </div>
 </div>
+
 
 
 

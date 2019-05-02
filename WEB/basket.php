@@ -8,51 +8,91 @@ if (!isLoggedIn()) {
 
 ?>
     <?php 
+          function sendemail(){
+           
+            
+                
+                 
+                 
+                       
+          
+                 
+                 $sql1= "SELECT Email FROM Users WHERE UserID={$_SESSION['user']['UserID']}";
+                 $result=mysqli_query($db,$sql1);
+                 $row=mysqli_fetch_array($result);
+                 $em=$row['Email'];
+                 
+             
+           
+                $sql= "SELECT * FROM Order_Info WHERE UserID={$_SESSION['user']['UserID']}";
+                 $result1 = mysqli_query($db, $sql);
+                 echo 'Your order has been succesfully submitted';
+                
+
+                 $to = $em;
+                 $subject = 'Order Confirmation';
+                 $message = 'Thank you for your order.';
+                 $from ='georgia_kap@hotmail.com' ;
+
+                 
+                
+           if(mail($to, $subject, $message, $from)){
+             echo 'Check your email.';
+      
+           
+            } else{
+             echo 'Unable to send email.';
+           }
+           
+
+
+
+            }  
+
           
           function get_quantity($id,$quant){
             
-           $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
-         
-          
-           if(isset($_POST['add'])){
-            
-             if(isset($_POST['qty'])){
-                 $quaty=$_POST['qty'];
-                 $ids=$_POST['id'];
-                
-                 $array = array_combine($quaty,$ids);
-           
-                 foreach($array as $q => $i){
-                   $queryy="UPDATE Basket_Info SET Quantity = $q WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
-                     mysqli_query($link,$queryy);
-           
-                 }
-           
-                 $sql="SELECT price FROM Product_web WHERE  Product_ID=$i";
-                 $result = mysqli_query($link, $sql);
-                 $row = mysqli_fetch_array($result);
-       
-                  $pr=$row['price'];
+            if(isset($_POST['add'])){
              
-          
-                   $total=$pr*$q;
-                   $queryy1="UPDATE Basket_Info SET Total_price = $total WHERE Basket.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
-                   mysqli_query($link,$queryy1);
-                   $URL="basket.php";
-                   echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
-                   echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+              if(isset($_POST['qty'])){
+                  $quaty=$_POST['qty'];
+                  $ids=$_POST['id'];
+                 
+                  $array = array_combine($quaty,$ids);
+            
+                  foreach($array as $q => $i){
+                    $queryy="UPDATE Basket_Info SET Quantity = $q WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
+                      mysqli_query($db,$queryy);
+            
+                  }
+            
+                  $sql="SELECT price FROM Product_web WHERE  Product_ID=$i";
+                  $result = mysqli_query($db, $sql);
+                  $row = mysqli_fetch_array($result);
+        
+                   $pr=$row['price'];
               
+           
+                    $total=$pr*$q;
+                    $queryy1="UPDATE Basket_Info SET Total_price = $total WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID = $i";
+                    mysqli_query($db,$queryy1);
+                    $URL="basket.php";
+                    echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+                    echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+               
+           }
           }
-         }
-       }
+      
+        }
+ 
           
            function del_fun(){
-             $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
+            
                if(isset($_POST['del'])){
                  $de=$_POST['del'];
                  foreach($de as $d){
                    $quer="DELETE FROM Basket_Info WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_ID=$d ";
-                   mysqli_query($link, $quer);
+                   mysqli_query($db, $quer);
                    $URL="basket.php";
                    echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
                    echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
@@ -62,19 +102,35 @@ if (!isLoggedIn()) {
           
 
 
-           
-          if(isset($_POST['check2'])){
-            $link = mysqli_connect('localhost', 'emirapottery', 's94mz5SN3Xu5Hafu', 'emirapottery');
-              $query6="SELECT b.Product_id, p.Product_name, b.Quantity, b.Total_Price FROM Basket_Info b, Product_web p WHERE User_id={$_SESSION['user']['UserID']} and p.Product_id=b.Product_id" ;    
-              $result=mysqli_query($link, $query6);
+  
+            if(isset($_POST['check2'])){
+ 
+              $query6="SELECT * FROM Basket_Info WHERE User_ID={$_SESSION['user']['UserID']}" ;    
+              $result=mysqli_query($db, $query6);
+              
+              $date1= date("d-m-y h:i:sa");
+              
               while ( $row = mysqli_fetch_array($result)){
-                $sql7="INSERT INTO Order_Info (UserID, Product_Name, Quantity, Total_Price) VALUES ('{$_SESSION['user']['UserID']}','$row[Product_name]','$row[Quantity]','$row[Total_Price]')";
-                $result=mysqli_query($link, $sql7);
+                $sql7="INSERT INTO Order_Info (Product_ID,Quantity,Total_Price,UserID,Created) VALUES ('$row[Product_id]','$row[Quantity]','$row[Total_Price]','$row[User_ID]', '$date1' ) ";
+                $result6=mysqli_query($db, $sql7);
+                
+               
               }
 
-        }
+              $quer="DELETE FROM Basket_Info  WHERE Basket_Info.User_ID={$_SESSION['user']['UserID']}";
+              $result7=mysqli_query($db, $quer);
+               
+
+             
+              
+              echo "Your order has been succesfully submitted";
+                
     
         
+             
+             }
+            
+
    ?>
 
 <!DOCTYPE html>
@@ -86,10 +142,13 @@ if (!isLoggedIn()) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/basket_format.css">
 
 
+  
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/bootstrap-grid.css">
   <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -105,19 +164,14 @@ if (!isLoggedIn()) {
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
  
-
-
 
 </head>
 
 
-
-  <body>
+<body>
   
-  <div class="jumbotron" style="margin-bottom:0" >
+<div class="jumbotron" style="margin-bottom:0" >
     <div class="logo-productsgallery">
       <h1>Shopping Cart</h1>
     </div>
@@ -126,7 +180,6 @@ if (!isLoggedIn()) {
           
 
     
-        
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #555555">
   <a class="navbar-brand" href="home.php">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -182,13 +235,13 @@ if (!isLoggedIn()) {
     </ul>
     
     <ul class="navbar-nav  my-2 my-lg-0">
-    
-    <li class ="nav-item">
+
+   
+   <li class ="nav-item">
       <?php if (isset($_SESSION['success'])) : ?>
-        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['Username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
       <?php endif ?>
     </li>
-  
     <li class="nav-item">
     <?php if (isset($_SESSION['success'])) : ?>
       <a  class="nav-link" href="home.php?logout='1'" style="color: white;">Logout</a>
@@ -210,14 +263,14 @@ if (!isLoggedIn()) {
     </li>
     </ul>
   </div>
-</nav> 
+</nav>   
  
                 
              
 <?php 
-      $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+      
       $sql="SELECT Basket_Info.Quantity,Basket_Info.Total_price,Product_web.Price,Product_web.Product_Type,Product_web.Product_ID, Product_web.image FROM Basket_Info,Product_web where Basket_Info.User_ID={$_SESSION['user']['UserID']} and Product_web.Product_ID = Basket_Info.Product_id ";
-      $result=mysqli_query($link,$sql);
+      $result=mysqli_query($db,$sql);
   
 ?>
  
@@ -234,6 +287,7 @@ if (!isLoggedIn()) {
  <?php
         $cartcount=0;
         $cartamount=0;
+ 
         while ($row=mysqli_fetch_row($result)) {
        
           $cartcount += $row[0];
@@ -242,6 +296,9 @@ if (!isLoggedIn()) {
           $id=$row[4];
           $qua=$row[0];
           $pr=$row[2];
+         
+  
+
   ?>       
   <div class="row" >
                 <div class="col">
@@ -273,6 +330,8 @@ if (!isLoggedIn()) {
                         ?>
                   
                   </div>
+
+                 
           
     </div>
     <br>
@@ -284,6 +343,7 @@ if (!isLoggedIn()) {
 
         <?php    
                   }
+          
               ?>
    
     <div class="col" style="padding-left:1200px">  
@@ -298,9 +358,17 @@ if (!isLoggedIn()) {
 
     </div>
 
-      
-     <!-- MODAL LOGIN --> 
-  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+
+
+  <!-- MODAL LOGIN --> 
+ 
+ 
+ 
+   </div>
+ 
+ 
+ 
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -314,13 +382,13 @@ if (!isLoggedIn()) {
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="text" id="defaultForm-email" name="username" class="form-control validate">
+          <input type="text" id="defaultForm-email" name="username" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-email">Username </label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" name="password" class="form-control validate">
+          <input type="password" id="defaultForm-pass" name="password" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
         </div>
 
@@ -352,23 +420,28 @@ if (!isLoggedIn()) {
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="username" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Name</label>
         </div>
         <div class="md-form mb-5">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="username" class="form-control validate" required> 
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+        </div>
+        <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="email" id="orangeForm-email" name="email" class="form-control validate">
+          <input type="email" id="orangeForm-email" name="email" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate">
+          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
         </div>
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate">
+          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
         </div>
       </div>
@@ -382,6 +455,7 @@ if (!isLoggedIn()) {
     </div>
   </div>
 </div>
+
 
 
 
@@ -400,17 +474,17 @@ if (!isLoggedIn()) {
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="name" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Full Name</label>
         </div>
         <div class="md-form mb-5">
           <i class="fa fa-phone prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="telephone" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="telephone" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Telephone Number</label>
         </div>
       
       <div class="modal-footer d-flex justify-content-center">
-        <button type="submit" class="btn btn-deep-orange" name="check2">Complete Order</button>
+        <button type="submit" class="btn btn-deep-orange" name="check2" id="check2" >Complete Order</button>
       </div>
     
       </form>
@@ -418,12 +492,29 @@ if (!isLoggedIn()) {
   </div>
 </div>
 
+   
+
+  <div class="modal fade" id="thankyouModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <h4 class="modal-title" id="myModalLabel">Your order has been succesfully submitted!</h4>
+                <button type="button" style="padding-left:30%;" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                                   
+            </div>    
+        </div>
+    </div>
+</div>
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+   
   </body>
 </html>

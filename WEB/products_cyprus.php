@@ -11,10 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/home.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/bootstrap-grid.css">
   <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -30,6 +27,8 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ 
+
  
 </head>
 
@@ -102,10 +101,10 @@
     
     <ul class="navbar-nav  my-2 my-lg-0">
 
-
-    <li class ="nav-item">
+   
+   <li class ="nav-item">
       <?php if (isset($_SESSION['success'])) : ?>
-        <p class="nav-link" style="color:white;">   <?php echo  $_SESSION['user']['username']; ?> </p>
+        <p class="nav-link" style="color:white;">   <?php  echo  $_SESSION['user']['username']; ?> </p>
       <?php endif ?>
     </li>
     <li class="nav-item">
@@ -129,14 +128,15 @@
     </li>
     </ul>
   </div>
-</nav>
+</nav>   
+
 
 
 <!-- PRODUCTS --> 
 <?php
-$link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
+
 $sql="SELECT * FROM Product_web where Product_web.Product_Type = 'Ecclesiastical Pots' order by Product_ID asc";
-$result=mysqli_query($link,$sql);
+$result=mysqli_query($db,$sql);
 ?>
 
 <div class="container-table" style='padding-top:5%; padding-left:5%; padding-right:5%;' >
@@ -159,7 +159,11 @@ $result=mysqli_query($link,$sql);
 
              <?php if (isset($_SESSION['success'])) : ?>
 
-                <button type="button" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
+                <form method="post" >
+                <input type="hidden" name="id[]" value="<?php echo $id ?>" >
+                <button type="submit" name="insert" class="btn btn-outline-dark">Buy now</button>
+               
+              </form>
               <?php endif ?> 
                                  
             
@@ -179,54 +183,36 @@ $result=mysqli_query($link,$sql);
      ?>
     </tbody>
 </table>
- </div>
 
 
-<?php
 
-$link = mysqli_connect("localhost", "root","","emira_pottery");
-$sql="SELECT * FROM Product where Product.Product_Type = 'Cyprus Souvenirs' order by Product_ID asc";
-$result=mysqli_query($link,$sql);
+
+<?php 
+                  
+                  if(isset($_POST['insert'])){
+                    
+
+                    $product= $_POST['id'];
+                    
+                    foreach($product as $p){
+                    $sql = "INSERT INTO Basket_Info (Product_ID,User_ID) VALUES ('$p','{$_SESSION['user']['UserID']}') ";
+                    $result=mysqli_query($db, $sql);
+                    }
+                  }
+                
 ?>
 
-<div class="container-table" style='padding-top:5%; padding-left:5%; padding-right:5%;' >
-<table class="table">
-    <tbody>
-    <?php
-        $i = 0; $trEnd = 0;
-        while ($row = mysqli_fetch_array($result)){
-            if($i == 0){
-                echo '<tr>';
-            }
-            $id=$row[0]; 
-           
-            echo "<td style='border:none; text-align:center;'  >" . "<img src=images/".$row[4]." />" . "<br>". "<br>" .$row[1] ."<br>" .$row[2]. "<br>"."€".$row[3]."<br>".$row[5]. 
-            
-            "<br>". ""?> 
-            <button type="button" class="btn btn-outline-dark"><a href="basket_insert.php/?id=<?php echo $id;?>">Buy now</button>
-                                 
-            
-             <?php    "" ."</td>";
-           
 
-            if($i == 2){
-                $i = 0; $trEnd = 1;
-            }else{
-                $trEnd = 0; $i++;
-            }
-            if($trEnd == 1) {
-                echo '</tr>';
-            }
-        }
-        if($trEnd == 0) echo '</tr>';
-     ?>
-    </tbody>
-</table>
+
+
+
+
+
  </div>
 
 
- <!-- MODAL LOGIN --> 
- <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  <!-- MODAL LOGIN --> 
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -240,13 +226,13 @@ $result=mysqli_query($link,$sql);
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="text" id="defaultForm-email" name="username" class="form-control validate">
+          <input type="text" id="defaultForm-email" name="username" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-email">Username </label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" name="password" class="form-control validate">
+          <input type="password" id="defaultForm-pass" name="password" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
         </div>
 
@@ -278,23 +264,28 @@ $result=mysqli_query($link,$sql);
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="username" class="form-control validate">
+          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Name</label>
         </div>
         <div class="md-form mb-5">
+          <i class="fa fa-user prefix grey-text"></i>
+          <input type="text" id="orangeForm-name" name="username" class="form-control validate" required> 
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+        </div>
+        <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i>
-          <input type="email" id="orangeForm-email" name="email" class="form-control validate">
+          <input type="email" id="orangeForm-email" name="email" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
         </div>
 
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate">
+          <input type="password" id="orangeForm-pass" name="password_1" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
         </div>
         <div class="md-form mb-4">
           <i class="fa fa-lock prefix grey-text"></i>
-          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate">
+          <input type="password" id="orangeForm-pass1" name="password_2" class="form-control validate" required>
           <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
         </div>
       </div>
@@ -308,5 +299,6 @@ $result=mysqli_query($link,$sql);
     </div>
   </div>
 </div>
+
 </body>
 </html>

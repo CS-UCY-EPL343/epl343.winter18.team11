@@ -14,7 +14,11 @@ if (isset($_GET['logout'])) {
 	header("location: ../login.php");
 }
 ?>
-
+                         <?php  
+ $connect = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery"); 
+ $query="SELECT u.Name, oi.Product_Name, oi.Quantity, oi.Created, oi.Total_Price, oi.Product_ID FROM  Order_Info oi, Users u WHERE   oi.UserID=u.UserID "; 
+ $result = mysqli_query($connect, $query);  
+ ?> 
 
 <!DOCTYPE html>
 <html>
@@ -50,37 +54,7 @@ if (isset($_GET['logout'])) {
 </head>
 <body>
 
-<?php
-function see(){
- 
-try {
-    // Connect and create the PDO object
-    $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
-    $sql="SELECT * FROM Orders ";
-    $result = $link->query($sql);
-  
-    // If the SQL query is succesfully performed ($result not false)
-    if($result !== false) {
-      // Create the beginning of HTML table, and the first row with colums title
-      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Order ID</th><th>User ID</th>';
-  
-      // Parse the result set, and adds each row and colums in HTML table
-      foreach($result as $row) {
-        $html_table .= '<tr><td>' .$row['UserID']. '</td><td>' .$row['Product_Name']. '</td><tr>';
-      }
-    }
-  
-    $conn = null;        // Disconnect
-  
-    $html_table .= '</table>';           // ends the HTML table
-  
-    echo $html_table;        // display the HTML table
-  }
-  catch(PDOException $e) {
-    echo $e->getMessage();
-  }
-}
-?>
+
 
 <div class="jumbotron" style="margin-bottom:0" >
     <div class="logo-productsgallery">
@@ -128,16 +102,48 @@ try {
     </ul>
   </div>
 </nav>
+    <br> 
+
+    <div class="container" style="width:700px;">  
+          
+          <div class="table-responsive">  
+          
+               
+               <div id="employee_table">  
+                    <table border="1" cellspacing="0" cellpadding="2">  
+                         <tr>  
+                              <th>Name</th>  
+                              <th>Product id</th>  
+                              <th>Quantity</th>  
+                              <th>Created</th> 
+                              
+                         </tr>  
+ 
+                         <?php  
+                         while($row = mysqli_fetch_array($result))  
+                         {  
+                         ?>  
+                         
+                         <tr >  
+                              <td><?php echo $row["Name"]; ?></td>  
+                              <td><?php echo $row["Product_ID"]; ?></td>  
+                              <td><?php echo $row["Quantity"]; ?></td>  
+                              <td><?php echo $row["Created"]; ?></td>  
+
+                         </tr>  
+                         <?php  
+                         }  
+                         ?>  
+                    </table>  
+               </div>  
+          </div>  
+     </div> 
+
+     
 
 
-
-
-
-    <br>      
-<div class="info">
-<h4> Orders </h4>
-</div>
 <br>
+
 <?php
 see();
 ?>

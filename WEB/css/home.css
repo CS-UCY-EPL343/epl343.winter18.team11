@@ -29,9 +29,9 @@ h5 {
     padding-bottom: 25px;
 }
 .jumbotron {
-    background-image : url("emira-pottery.jpg");
-    height: 700px;
-    background-size: cover;
+    background-image : url("logo.jpg");
+    height: 300px;
+    background-size: contain;
      
 }
 

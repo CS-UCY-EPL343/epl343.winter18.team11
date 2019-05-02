@@ -1,8 +1,8 @@
 <?php  
   
- $connect = mysqli_connect("localhost", "root","","emira_pottery"); 
+ $connect = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery"); 
 
-$sql= "DELETE FROM meeting WHERE MeetingID='".$_POST["employee_id"]."'";
+$sql= "DELETE FROM Meeting WHERE MeetingID='".$_POST["employee_id"]."'";
 $result=mysqli_query($connect,$sql);
 $row=mysqli_fetch_array($result)
 
