@@ -194,4 +194,9 @@ public class MeetingActivity extends Navigation {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+    @Override
+    public void onBackPressed() {
+        //DO nothing
+    }
+
 }

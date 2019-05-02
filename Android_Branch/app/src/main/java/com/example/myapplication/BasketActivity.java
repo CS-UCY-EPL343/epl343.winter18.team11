@@ -1,15 +1,18 @@
 package com.example.myapplication;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,9 +45,7 @@ public class BasketActivity extends Navigation {
      */
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(BasketActivity.this, AccountActivity.class);
-        startActivity(intent);
-        finish();
+        //Do nothing
     }
 
     @Override
@@ -69,10 +70,24 @@ public class BasketActivity extends Navigation {
 
         items = new ArrayList<String>();
         orderedItems =  db.getOrder();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        ArrayList<Float> prices = new ArrayList<Float>();
         for (Map.Entry<String, String> order_items : orderedItems.entrySet()) {
             String itemName = order_items.getKey();
             String itemValue = order_items.getValue();
-            items.add(itemName + " Quantity: " + itemValue);
+            float price = Float.parseFloat(db.getItemPrice(itemName));
+            prices.add(price);
+            items.add(itemName + " Qty: " + itemValue+ " Price: "+ price+ " €");
         }
             SendOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +103,21 @@ public class BasketActivity extends Navigation {
         });
         this.mAdapter = new ArrayAdapter<String>(BasketActivity.this, android.R.layout.simple_list_item_1, items);
         orderlist.setAdapter(mAdapter);
+        TextView sumText;
+        float sum = 0;
+        sum = calculateSum(prices);
+        sumText = (TextView)findViewById(R.id.sum);
+        sumText.setText(Float.toString(sum)+" €");
     }
+
+    public float calculateSum(ArrayList<Float> prices){
+        float sum=0;
+        for(Float p  : prices){
+            sum += p;
+        }
+        return sum;
+    }
+
     /**
      * Remove the order form the local sqlite database,
      * by collecting each key and value

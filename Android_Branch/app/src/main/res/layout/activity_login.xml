@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@color/white"
-            android:text="Σύνδεση"
+            android:text="Login"
             android:textColor="@color/login_text" />
 
         <!-- Link to Login Screen -->
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
             android:background="@color/white"
-            android:text="Καινουργιος Πελάτης? Κάντε Εγγραφή Εδώ"
+            android:text="New Customer? Sign up !"
             android:textAllCaps="false"
             android:textColor="@color/login_text"
             android:textSize="15dp" />

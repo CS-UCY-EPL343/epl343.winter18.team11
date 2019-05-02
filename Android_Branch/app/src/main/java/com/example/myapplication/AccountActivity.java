@@ -280,4 +280,12 @@ public class AccountActivity extends Navigation {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+    /**
+     * When the user press the back buttton , start the
+     * account activity
+     */
+    @Override
+    public void onBackPressed() {
+       //DO nothing
+    }
 }

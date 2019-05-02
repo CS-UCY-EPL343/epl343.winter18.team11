@@ -1,7 +1,8 @@
 package com.example.myapplication;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class OneItemActivity extends Activity {
+public class OneItemActivity extends Navigation {
 
     /*Each Item must be stored inside an xml file and
     be retrieved each time.
@@ -31,6 +32,7 @@ public class OneItemActivity extends Activity {
     String price;
     String image_product;
     String description;
+    private ProgressDialog pDialog;
 
     /*On back pressed */
     @Override
@@ -49,6 +51,7 @@ public class OneItemActivity extends Activity {
      * description  of the product.
      */
     protected void onCreate(Bundle savedInstanceState) {
+        pDialog = new ProgressDialog(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_item);
@@ -76,24 +79,45 @@ public class OneItemActivity extends Activity {
             setSupportActionBar(toolbar);
             db = new SqlManager(getApplicationContext());
             price = db.getItemPrice(item);
+
             description = db.getItemDesc(item);
             image_product= db.getItemImage(item);
             StringBuilder priceS= new StringBuilder();
             priceS.append(price+ " €");
-            priceText.setText(price);
+            priceText.setText(priceS.toString());
             StringBuilder descS= new StringBuilder();
-            descS.append("Description\n\n"+ description);
+            descS.append("Description\nTO BE ADDED BY PRODUCT MANAGER");
             descriptionText.setText(descS);
             Picasso.with(getApplicationContext()).load(image_product).into(imageProduct);
         }
 
         addToCard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                    db.addOrder(item,quantityText.getText().toString());
+                db.addOrder(item,quantityText.getText().toString());
+
+                pDialog.setMessage("Updating Basket!");
+                showDialog();
+                pDialog.setCancelable(false);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                       hideDialog();
+                    }
+                }, 3000);
+
             }
         });
     }
-    private void setSupportActionBar(Toolbar toolbar) {
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+    /**
+     * Hide the android dialog to the user
+     */
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }
 

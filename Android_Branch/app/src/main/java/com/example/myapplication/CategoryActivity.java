@@ -77,4 +77,9 @@ public class CategoryActivity extends Navigation {
         });
         listView.setAdapter(mAdapter);
     }
+    @Override
+    public void onBackPressed() {
+        //DO nothing
+    }
+
 }

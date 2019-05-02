@@ -49,7 +49,7 @@
             android:inputType="textCapWords"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/white"
+            android:textColor="@color/input_login"
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
@@ -62,7 +62,7 @@
             android:inputType="phone"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/white"
+            android:textColor="@color/input_login"
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
@@ -74,8 +74,8 @@
             android:hint="Home Address"
             android:inputType="textEmailAddress"
             android:padding="10dp"
-            android:singleLine="true"
-            android:textColor="@color/white"
+            android:singleLine="false"
+            android:textColor="@color/input_login"
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
@@ -88,7 +88,7 @@
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/white"
+            android:textColor="@color/input_login"
             android:textColorHint="@color/input_register_hint" />
 
         <!-- Login Button -->
@@ -103,7 +103,7 @@
             android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/white"
+            android:textColor="@color/input_login"
             android:textColorHint="@color/input_register_hint" />
 
         <Button
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:background="@null"
-            android:text="Εχω κάνει ήδη εγγραφή!"
+            android:text="I have already register!"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
