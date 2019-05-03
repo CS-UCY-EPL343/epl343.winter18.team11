@@ -13,7 +13,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- *
+ *  It selects uniquely all the product categories from
+ *       the database.This mAdapter must have a different structure
+ *      On creation of this instance we must update the local database of Android
  */
 public class CategoryActivity extends Navigation {
     private ProgressDialog pDialog;
@@ -24,8 +26,6 @@ public class CategoryActivity extends Navigation {
     private SqlManager db;
     /**
      * On create function for the Category Activity
-     * It selects uniquely all the product categories from
-     * the database.
      * @param savedInstanceState
      */
     @Override
@@ -58,10 +58,6 @@ public class CategoryActivity extends Navigation {
 
         /*Find in the listView and view all the items in the string*/
         listView = (ListView)findViewById(R.id.listViewScroll);
-        /*This mAdapter must have a different structure
-         * 1. On creation of this instance we must update the local database of Android
-         *
-         * */
         ArrayList<String> categories = new ArrayList<String>();
         categories = db.getCategories();
         this.mAdapter = new ArrayAdapter<String>(CategoryActivity.this,android.R.layout.simple_list_item_1,

@@ -29,7 +29,8 @@ import java.util.Map;
 
 
 /**
- * This is for the Account View activity
+ *  Class responsible for Account View activity,where the user can
+ *  see his/her email , name ,mobile phone and address.
  */
 public class AccountActivity extends Navigation {
 
@@ -108,13 +109,11 @@ public class AccountActivity extends Navigation {
                 hideDialog();
             }
         }) {
-
-
-            @Override
-            /**
+         /**
              *  Posting parameters to login url
              *
              */
+            @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
@@ -130,12 +129,10 @@ public class AccountActivity extends Navigation {
         // Adding request to request queue
         StartController.getmInstance().addToRequestQueue(strReq, tag_string_req);
     }
-
-
-    @Override
     /**
      * Create the account activity instance
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);

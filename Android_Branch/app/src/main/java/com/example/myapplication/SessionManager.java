@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
+/** Class responsible for manager session and other information found as properties of this class.
+ *
+ */
 public class SessionManager {
     private static String TAG = SessionManager.class.getSimpleName();
     SharedPreferences pref;

@@ -127,7 +127,7 @@ class database_behaviour {
 
 /*Get the products by searching inside the database*/
   public function getProducts(){
-    $stmt = $this->conn->prepare("SELECT * FROM Product ORDER BY Product_Name ASC");
+    $stmt = $this->conn->prepare("SELECT * FROM Product_web ORDER BY Product_Name ASC");
     $product = array();
 
     if($stmt->execute()){
@@ -137,12 +137,12 @@ class database_behaviour {
 
       $i = 0;
       while ($row = $result->fetch_array()){
-                $response["products".$i]["product_name"] = $row["Product_Name"];
-                $response["products".$i]["product_price"] = $row["Price"];
+                $response["products".$i]["product_name"] = $row["Product_name"];
+                $response["products".$i]["product_price"] = $row["price"];
                 $response["products".$i]["product_category"] = $row["Product_Type"];
-                $response["products".$i]["product_desc"] = $row["Product_Description"];
+                $response["products".$i]["product_desc"] = $row["Description"];
                 $response["products".$i]["product_id"] = $row["Product_ID"];
-                $response["products".$i]["product_image"] = $row["Product_Image"];
+                $response["products".$i]["product_image"] = $row["image"];
 
                 $i++;
       }

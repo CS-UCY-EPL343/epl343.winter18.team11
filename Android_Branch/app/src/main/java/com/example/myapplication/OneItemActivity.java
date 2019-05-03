@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+/**
+ * Specific every item with its details is shown on the screen
+ * for purchasing purposes.
+ */
 public class OneItemActivity extends Navigation {
 
     /*Each Item must be stored inside an xml file and
@@ -44,12 +48,13 @@ public class OneItemActivity extends Navigation {
             super.onBackPressed();
         }
     }
-    @Override
+
     /**
      * On create of the one item activity. The user now can see the picture
      * of the image, set the quantity he wants , add it to the card and read a
      * description  of the product.
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         pDialog = new ProgressDialog(this);
 

@@ -13,6 +13,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
+/**
+ * Class responsible for showing a map to the user.
+ *
+ */
 public class MapActivity extends Navigation implements OnMapReadyCallback {
 
     private GoogleMap mMap;

@@ -26,7 +26,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class UploadActivity extends Navigation implements View.OnClickListener {
+/** Class responsible for uploading a photograph
+*/
+ public class UploadActivity extends Navigation implements View.OnClickListener {
 
     private final int PICK_IMAGE = 12345;
     private final int TAKE_PICTURE = 6352;

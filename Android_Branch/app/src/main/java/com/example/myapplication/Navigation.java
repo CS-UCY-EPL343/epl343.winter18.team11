@@ -11,18 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
+/**
+ *
+ * Throught this class many other classes inherit due to the fact
+ * that the drawer layout is inside this class.
+ */
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private SqlManager db;
     TextView name;
     TextView email;
 
+
+
     @Override
-    /**
-     * On create of the Navigation Class.
-     * Throught this class many other classes inherit due to the fact
-     * that the drawer layout is inside this class.
-     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
@@ -50,11 +51,12 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             super.onBackPressed();
         }
     }
-    @Override
+
     /**
      * Creates the upper menu of the drawer layout.
      * Contains the name and the email of the user.
      */
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }

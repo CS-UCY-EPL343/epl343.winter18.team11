@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Testing the basket activity
+ */
 public class BasketActivityTest {
-
     @Test
     public void testSummationofProducts() {
         BasketActivity ba = new BasketActivity();

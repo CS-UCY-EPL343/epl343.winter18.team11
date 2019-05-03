@@ -6,7 +6,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-/*Extends application -> first class before any activity */
+/**
+ * Extends application -> first class before any activity
+ * */
 public class StartController extends Application {
 
     private static StartController mInstance ;

@@ -21,6 +21,9 @@ import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 
+/**
+ * Class responsible for showing the item in a list adapter
+ */
 public class ItemsActivity extends Navigation {
     private Toolbar toolbar;
     private ListView listView;

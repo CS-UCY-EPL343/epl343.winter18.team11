@@ -17,7 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Class for the register activity
+ * The user must enter full name , password , email ,mobile and address
+ */
 public class RegisterActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnRegister;
@@ -31,11 +34,9 @@ public class RegisterActivity extends Activity {
     private SessionManager session;
     private SqlManager db;
 
+
+
     @Override
-    /**
-     * On create of the register activity
-     * The user must enter full name , password , email ,mobile and address
-     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);

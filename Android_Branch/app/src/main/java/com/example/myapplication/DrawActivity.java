@@ -3,7 +3,9 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 
-
+/**
+ * Opening the drawing activity for the user to draw
+ */
 public class DrawActivity extends Navigation {
 
     @Override

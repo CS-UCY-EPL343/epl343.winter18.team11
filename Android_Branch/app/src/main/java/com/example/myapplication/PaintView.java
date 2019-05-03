@@ -9,6 +9,9 @@ import android.graphics.Path;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * Class responsible for painting
+ */
 public class PaintView extends View {
 
    public ActionBar.LayoutParams params;

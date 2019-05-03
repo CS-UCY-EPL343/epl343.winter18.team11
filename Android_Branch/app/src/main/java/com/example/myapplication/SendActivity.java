@@ -12,15 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.HashMap;
-
+/**
+ * Class for sending email activity. It opens an xml file where the user can send an email.
+ */
 public class SendActivity extends Navigation {
 
-    /*On back pressed */
 
     @Override
-    /**
-     * On create of the send activity. It opens an xml file where the user can send an email.
-     */
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);

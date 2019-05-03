@@ -3,20 +3,19 @@ package com.example.myapplication;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Fetch the products from the local mysqllite the data.
+ *
+ */
 public class GetProducts extends AppCompatActivity {
-
     SqlManager db;
     GetProducts(SqlManager db){
         this.db = db;
@@ -26,7 +25,6 @@ public class GetProducts extends AppCompatActivity {
      * Fetch the products from the local mysqllite the data.
      *
      */
-
     public void getProductsSql() {
 
         Log.wtf("Jason Object","s");
@@ -94,7 +92,4 @@ public class GetProducts extends AppCompatActivity {
         // Adding request to request queue
         StartController.getmInstance().addToRequestQueue(strReq, tag_string_req);
     }
-
-
-
 }

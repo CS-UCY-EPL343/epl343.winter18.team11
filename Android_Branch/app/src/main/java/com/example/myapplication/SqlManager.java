@@ -10,6 +10,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Class for handling data in sql lite embedded on android
+ */
 public class SqlManager extends SQLiteOpenHelper {
 
     private static final String TAG = SQLiteOpenHelper.class.getSimpleName();

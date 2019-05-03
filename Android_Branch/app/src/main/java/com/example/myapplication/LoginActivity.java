@@ -18,6 +18,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+*   Login Activity for the user. User must enter his/her
+ *   credentials and a request generates for the database
+ */
 public class LoginActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnLogin;

@@ -26,7 +26,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+ /**
+  *When the basket is created for the user it will
+  * select all the data from the orders table and represent it on a table.
+  */
 public class BasketActivity extends Navigation {
 
     private ProgressDialog pDialog;
@@ -48,12 +51,13 @@ public class BasketActivity extends Navigation {
         //Do nothing
     }
 
-    @Override
+
     /**
      * On create function of the basket activity
      * When the basket is created for the user it will
      * select all the data from the orders table.
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
@@ -78,9 +82,6 @@ public class BasketActivity extends Navigation {
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
         ArrayList<Float> prices = new ArrayList<Float>();
         for (Map.Entry<String, String> order_items : orderedItems.entrySet()) {
             String itemName = order_items.getKey();

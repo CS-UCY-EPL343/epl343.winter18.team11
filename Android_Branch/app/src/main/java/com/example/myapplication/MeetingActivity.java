@@ -27,11 +27,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  Class repsonsible for the meeting activity ,where the user can
+ *  select a date and time and send them to the database
+ */
 public class MeetingActivity extends Navigation {
 
     private SqlManager db;
     private CalendarView calendar;
-  //  private EditText timeCal;
     private Button MeetingButton ;
     private ProgressDialog pDialog;
     private  String email = null;/*DateFormat pick the dates*/
@@ -41,6 +44,7 @@ public class MeetingActivity extends Navigation {
     private TimePicker timeCal;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting);
@@ -61,45 +65,6 @@ public class MeetingActivity extends Navigation {
         calendar = (CalendarView) findViewById(R.id.calendarView);
         timeCal = (TimePicker) findViewById(R.id.dayTime);
         MeetingButton = (Button) findViewById(R.id.MeetingButton);
-
-        /*
-        timeCal.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode,
-                                          KeyEvent event)
-            {
-                boolean handled = false;
-                Log.wtf("TAG", String.valueOf(keyCode+"Spacebar is "+ KeyEvent.KEYCODE_ENTER));
-                if ( event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
-                {
-                    Log.wtf("TAG","entered");
-                    Log.wtf("timecal",timeCal.getText().toString());
-                    Pattern p = Pattern.compile("(?m)^(\\d\\d:\\d\\d)");
-                    Matcher m = p.matcher(timeCal.getText().toString());
-
-                    if (m.matches()){
-                        pDialog.setMessage("Valid Phone number");
-                        showDialog();
-                        valid = true;
-                    }
-                    else {
-                        pDialog.setMessage("Not a valid phone number");
-                        showDialog();
-                        valid = false;
-                    }
-                    handled = true;
-
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            pDialog.dismiss();
-                        }
-                    }, 2000);
-                }
-                return handled;
-            }
-        });
-        */
         MeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +78,10 @@ public class MeetingActivity extends Navigation {
             }
         });
     }
+
+    /**
+     * Get the dates from the android date holder and time
+     */
         public void getDates() {
 
             SimpleDateFormat sdf = null;
