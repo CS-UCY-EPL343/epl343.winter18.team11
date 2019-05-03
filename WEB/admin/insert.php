@@ -24,7 +24,6 @@
           $result=mysqli_query($connect,$sql);
           $row=mysqli_fetch_array($result);
           $usid=$row['UserID'];
-
            $query = "  INSERT INTO Meeting (Date, Time, UserID)  VALUES('$date', '$time','$usid')  "; 
   
            $message = 'Data Inserted';  

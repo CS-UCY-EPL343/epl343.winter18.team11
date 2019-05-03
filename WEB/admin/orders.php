@@ -15,9 +15,9 @@ if (isset($_GET['logout'])) {
 }
 ?>
                          <?php  
- $connect = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery"); 
- $query="SELECT u.Name, oi.Product_Name, oi.Quantity, oi.Created, oi.Total_Price, oi.Product_ID FROM  Order_Info oi, Users u WHERE   oi.UserID=u.UserID "; 
- $result = mysqli_query($connect, $query);  
+
+ $query="SELECT oi.Order_ID, u.Name, oi.Product_Name, oi.Quantity, oi.Created, oi.Total_Price, oi.Product_ID,p.Product_name ,u.Mobile FROM Product_web p, Order_Info oi, Users u WHERE   oi.UserID=u.UserID and  oi.Product_id=p.Product_id"; 
+ $result = mysqli_query($db, $query);  
  ?> 
 
 <!DOCTYPE html>
@@ -104,7 +104,7 @@ if (isset($_GET['logout'])) {
 </nav>
     <br> 
 
-    <div class="container" style="width:700px;">  
+    <div class="container" style="width:10000px;">  
           
           <div class="table-responsive">  
           
@@ -112,24 +112,31 @@ if (isset($_GET['logout'])) {
                <div id="employee_table">  
                     <table border="1" cellspacing="0" cellpadding="2">  
                          <tr>  
-                              <th>Name</th>  
-                              <th>Product id</th>  
-                              <th>Quantity</th>  
-                              <th>Created</th> 
-                              
+                              <th width="10%" >Order No</th> 
+                              <th  width="10%">Name</th>
+                              <th  width="10%">Phone</th>
+                              <th width="10%">Product ID</th>  
+                              <th width="15%">Product Name</th>  
+                              <th width="10%">Quantity</th>  
+                              <th width="15%">Created</th> 
+                              <th width="10%">Status</th> 
                          </tr>  
  
                          <?php  
                          while($row = mysqli_fetch_array($result))  
                          {  
                          ?>  
-                         
-                         <tr >  
-                              <td><?php echo $row["Name"]; ?></td>  
+                         <tr id="delete<?php echo $row['Order_ID']?>" > 
+                          
+                              <td><?php echo $row["Order_ID"]; ?></td> 
+                              <td ><?php echo $row["Name"]; ?></td> 
+                              <td ><?php echo $row["Mobile"]; ?></td> 
                               <td><?php echo $row["Product_ID"]; ?></td>  
+                              <td ><?php echo $row["Product_name"]; ?></td>  
                               <td><?php echo $row["Quantity"]; ?></td>  
                               <td><?php echo $row["Created"]; ?></td>  
-
+                              
+                              <td><input type="button" name="view" value="Done" id="<?php echo $row["Order_ID"]; ?>" class="btn btn-success btn-xs view_data" /></td>  
                          </tr>  
                          <?php  
                          }  
@@ -139,14 +146,38 @@ if (isset($_GET['logout'])) {
           </div>  
      </div> 
 
-     
-
 
 <br>
 
-<?php
-see();
-?>
+
+
 
 </body>
+
+
+
 </html>
+
+<script>  
+ $(document).ready(function(){  
+    
+      
+      $(document).on('click', '.view_data', function(){  
+           var ord = $(this).attr("id");  
+          
+                $.ajax({  
+                     url:"delete_ord.php",  
+                     method:"POST",  
+                     data:{ord:ord},
+                     success:function(data){  
+                          $('#delete'+ord).hide();
+                     }  
+                });  
+                      
+      });  
+      
+
+
+ });  
+ </script>
+ 

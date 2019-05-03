@@ -122,8 +122,8 @@ if (isset($_GET['logout'])) {
                                     <td><?php echo $row["Username"]; ?></td>  
                                     <td><?php echo $row["Date"]; ?></td>  
                                     <td><?php echo $row["Time"]; ?></td>  
-                                    <td><input type="button" name="view" value="Confirm" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
-                                    <td><input type="button" name="delete_data" value="Delete" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs delete_data" /></td>  
+                                    <td><input type="button" name="view" value="Confirm" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-success btn-xs view_data" /></td>  
+                                    <td><input type="button" name="delete_data" value="Delete" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-danger btn-xs delete_data" /></td>  
 
                                </tr>  
                                <?php  
@@ -197,7 +197,6 @@ if (isset($_GET['logout'])) {
            {  
                 alert("Time is required");  
            }  
-      
            else  
            {  
             var employee_id = $(this).attr("id");  
