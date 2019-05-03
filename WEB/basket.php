@@ -264,12 +264,11 @@ if (!isLoggedIn()) {
   
 ?>
  
- <div class="row" style="padding-left:145px" >
+ <div class="row" style="padding-left:20px" >
               <div class="col"></div>
               <div class="col"></div>
-              <div class="col" style="padding-right:85px">Category</div>
+              <div class="col" >Category</div>
               <div class="col">Price</div>
-              <div class="col"></div>
               <div class="col">Quantity</div>
               <div class="col">Total</div>
               <br>
@@ -291,29 +290,29 @@ if (!isLoggedIn()) {
 
   ?>       
   <div class="row" >
-                <div class="col">
+                <div class="col" style="padding-left:100px">
                       <?php
                       echo "<img src=".$row[5]." />";
                       ?>
                 </div>
-                <div class="col" style="padding-right:150px">
+                <div class="col" ">
                   <?php echo $row[3]; ?>                               
                 </div>
-                <div class="col"  style="padding-right:250px">
+                <div class="col" >
                       <?php
                           printf("$%.2f", $row[2]);
                         ?>
                 </div>
 
-                <form method="post" >
+                <form method="post"  >
                     <input type="hidden" name="id[]" value="<?php echo $id ?>" />
-                    <input type="text" name="qty[]" size="2" value="<?php echo $qua?>" />
+                    <input type="number" name="qty[]" size="2" min="1" value="<?php echo $qua?>" />
                     <button type="submit" name="add" >Add</button>
                     <button type="submit" name="del[]" value="<?php echo $id?>" >Remove</button>
               
                 </form>
 
-                <div class="col" style="padding-right:110px" >
+                <div class="col"  >
                       <?php
                         printf("\n$%.2f", $linetotal);
                         printf("\n");
