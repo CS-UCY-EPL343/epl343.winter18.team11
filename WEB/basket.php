@@ -10,21 +10,14 @@ if (!isLoggedIn()) {
     <?php 
           function sendemail(){
            
-            
-                
-                 
-                 
-                       
-          
-                 
+                  global $db;
                  $sql1= "SELECT Email FROM Users WHERE UserID={$_SESSION['user']['UserID']}";
                  $result=mysqli_query($db,$sql1);
                  $row=mysqli_fetch_array($result);
                  $em=$row['Email'];
                  
-             
            
-                $sql= "SELECT * FROM Order_Info WHERE UserID={$_SESSION['user']['UserID']}";
+                 $sql= "SELECT * FROM Order_Info WHERE UserID={$_SESSION['user']['UserID']}";
                  $result1 = mysqli_query($db, $sql);
                  echo 'Your order has been succesfully submitted';
                 
@@ -34,7 +27,6 @@ if (!isLoggedIn()) {
                  $message = 'Thank you for your order.';
                  $from ='georgia_kap@hotmail.com' ;
 
-                 
                 
            if(mail($to, $subject, $message, $from)){
              echo 'Check your email.';
@@ -44,14 +36,11 @@ if (!isLoggedIn()) {
              echo 'Unable to send email.';
            }
            
-
-
-
-            }  
+          }  
 
           
           function get_quantity($id,$quant){
-            
+            global $db;
             if(isset($_POST['add'])){
              
               if(isset($_POST['qty'])){
@@ -85,9 +74,8 @@ if (!isLoggedIn()) {
       
         }
  
-          
            function del_fun(){
-            
+               global $db;
                if(isset($_POST['del'])){
                  $de=$_POST['del'];
                  foreach($de as $d){
@@ -99,19 +87,28 @@ if (!isLoggedIn()) {
                  }
                }
            }
-          
 
-
-  
             if(isset($_POST['check2'])){
- 
+              $phone=$_POST['telephone'];
+              $query11="UPDATE Users SET Mobile=$phone WHERE UserID={$_SESSION['user']['UserID']}";
+              $result=mysqli_query($db, $query11);
+
+              $date1= date("y-m-d h:i:s");
+              $cr=$date1;
+              $query9="INSERT INTO Orders (User_ID,created) VALUES ('{$_SESSION['user']['UserID']}','$date1')";
+              $result=mysqli_query($db, $query9);
+         
+
+              $query10 = "SELECT Order_ID FROM Orders WHERE User_ID={$_SESSION['user']['UserID']} and created='$date1' ";
+              $result=mysqli_query($db, $query10);
+              $row1=mysqli_fetch_array($result);
+              $orderid = $row1['Order_ID'];
+
               $query6="SELECT * FROM Basket_Info WHERE User_ID={$_SESSION['user']['UserID']}" ;    
               $result=mysqli_query($db, $query6);
               
-              $date1= date("d-m-y h:i:sa");
-              
               while ( $row = mysqli_fetch_array($result)){
-                $sql7="INSERT INTO Order_Info (Product_ID,Quantity,Total_Price,UserID,Created) VALUES ('$row[Product_id]','$row[Quantity]','$row[Total_Price]','$row[User_ID]', '$date1' ) ";
+                $sql7="INSERT INTO Order_Info (Product_ID,Quantity,Total_Price,UserID,Created,Order_ID) VALUES ('$row[Product_id]','$row[Quantity]','$row[Total_Price]','$row[User_ID]', '$date1', '$orderid'  ) ";
                 $result6=mysqli_query($db, $sql7);
                 
                
@@ -121,13 +118,6 @@ if (!isLoggedIn()) {
               $result7=mysqli_query($db, $quer);
                
 
-             
-              
-              echo "Your order has been succesfully submitted";
-                
-    
-        
-             
              }
             
 
@@ -473,18 +463,13 @@ if (!isLoggedIn()) {
       <form method="POST">
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
-          <i class="fa fa-user prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="name" class="form-control validate" required>
-          <label data-error="wrong" data-success="right" for="orangeForm-name">Full Name</label>
-        </div>
-        <div class="md-form mb-5">
           <i class="fa fa-phone prefix grey-text"></i>
-          <input type="text" id="orangeForm-name" name="telephone" class="form-control validate" required>
+          <input type="tel" id="orangeForm-name" name="telephone" class="form-control validate" pattern="[99-96]{2}[0-9]{6}" maxlength="8" required>
           <label data-error="wrong" data-success="right" for="orangeForm-name">Telephone Number</label>
         </div>
       
       <div class="modal-footer d-flex justify-content-center">
-        <button type="submit" class="btn btn-deep-orange" name="check2" id="check2" >Complete Order</button>
+        <button type="submit" class="btn btn-deep-orange"  name="check2" id="check2"  data-target="#thankyouModal" >Complete Order</button>
       </div>
     
       </form>

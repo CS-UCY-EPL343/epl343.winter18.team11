@@ -82,10 +82,7 @@
 
 			function myFunction(){
     
-      
-      
-		
-					
+          global $db;
 					if(isset($_POST['submit'])){
 					$date=$_POST['date'];
 					$time=$_POST['time'];
@@ -234,12 +231,12 @@
                           <h4>Please choose the time and date for your lesson:</h4>
                           <div id="theform">
 
-                          <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+                          <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" required> 
 
-                          Date:(required)<br><input type="date" min="2019-02-20" name="date" /><br/>
+                          Date:<br><input class="min-today" data-date-split-input="true" type="date" min="2019-02-20" name="date" id="min" /><br/>
                           <br/><br/>
                                       
-                          Time:(required)<br><input type="time" name="time"/><br/>
+                          Time:<br><input type="time" name="time"  min="08:00" max="16:30" value = "08:00" required/><br/>
                           <br/><br/>
                           <input type="submit" name="submit" value="Submit"/>  
                             
@@ -432,3 +429,10 @@
 
  	
 </body>
+<script>
+$(function(){
+    $('[type="date"].min-today').prop('min', function(){
+        return new Date().toJSON().split('T')[0];
+    });
+});
+</script>

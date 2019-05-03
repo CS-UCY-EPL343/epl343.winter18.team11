@@ -146,16 +146,16 @@
 
 <div class="form1" >
 <form  method="post" action="contact.php">  
-  Name:(required) 
-  <input type="text" name="name">
+  Name:
+  <input type="text" name="name" required>
  
   <br><br>
-  E-mail:(required) 
-  <input type="text" name="email" >
+  E-mail: 
+  <input type="text" name="email" required>
 
   <br><br>
    Comment: 
-   <textarea name="comment" rows="5" cols="40"></textarea>
+   <textarea name="comment" rows="5" cols="40" required></textarea>
   <br><br>
  
   
@@ -176,13 +176,7 @@ if(isset($_POST['button_pressed'])){
 ?>
 
 
-
-        
-  
       <div class="clearfix"></div>
-
-        
-
       <footer class="footer">
         <div class="container" >
                 <div class="row">
