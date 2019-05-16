@@ -122,7 +122,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             finish();
         }else if (id == R.id.nav_upload) {
-            Intent i = new Intent(getApplicationContext(), UploadActivity.class);
+            Intent i = new Intent(getApplicationContext(), ImageActivity.class);
             startActivity(i);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             finish();

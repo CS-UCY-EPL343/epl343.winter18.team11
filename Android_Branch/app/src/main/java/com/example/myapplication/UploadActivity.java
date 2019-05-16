@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -41,6 +42,8 @@ import java.io.OutputStream;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ProgressDialog pDialog  = new ProgressDialog(this);
+
         setContentView(R.layout.activity_upload);
         imageView = (ImageView) findViewById(R.id.imageView);
         fromCamera = (Button) findViewById(R.id.fromCamera);
@@ -80,16 +83,15 @@ import java.io.OutputStream;
                 getImageFromGallery();
                 break;
             case R.id.upload:
-                if (bitmap != null)
-                    uploadImageToServer();
+                uploadImageToServer();
                 break;
         }
     }
 
     private void uploadImageToServer() {
-        File imageFile = persistImage(bitmap, "profile");
+        File imageFile = persistImage(bitmap, "image");
         Ion.with(this)
-                .load("")  // upload url
+                .load("POST","http://www.cs.ucy.ac.cy/~sioann12/android/image.php")  // upload url
                 .setMultipartFile("profile_pic", "image/jpeg", imageFile)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {

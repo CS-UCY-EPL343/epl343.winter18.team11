@@ -61,7 +61,14 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
-
+                /*if (password.length()>=8) {
+                    pDialog.setMessage("Logging in.Please Wait");
+                    pDialog.show();
+                }
+                else{
+                    pDialog.setMessage("Password must be more than 8 characters");
+                    pDialog.show();
+                    */
                 // Check for empty data in the form
                 if (!email.isEmpty() && !password.isEmpty()) {
                     // login user
