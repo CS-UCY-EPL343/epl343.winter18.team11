@@ -115,6 +115,7 @@ if (isset($_GET['logout'])) {
 // call the login() function if register_btn is clicked
 if (isset($_POST['login_btn'])) {
 	login();
+	
 }
 
 // LOGIN USER
@@ -155,6 +156,9 @@ function login(){
 			}
 		}else {
 			array_push($errors, "Wrong username/password combination");
+			
+			$_SESSION['Error'] = "Your username or password is incorrect";
+	
 		}
 	}
 }

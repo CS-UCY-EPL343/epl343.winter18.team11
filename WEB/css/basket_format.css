@@ -137,7 +137,11 @@
 }
 
 
+input[type=number] {
 
+  width: 10%;
+  background: white;
+}
 
 
 

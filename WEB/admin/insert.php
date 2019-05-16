@@ -24,10 +24,9 @@
           $result=mysqli_query($connect,$sql);
           $row=mysqli_fetch_array($result);
           $usid=$row['UserID'];
-
            $query = "  INSERT INTO Meeting (Date, Time, UserID)  VALUES('$date', '$time','$usid')  "; 
   
-           $message = 'Data Inserted';  
+          // $message = 'Data Inserted';  
        
 
 
@@ -35,12 +34,12 @@
       {  
      
            $output .= '<label class="text-success">' . $message . '</label>';  
-           $select_query="SELECT u.Username,m.Date,m.Time, m.MeetingID, m.UserID FROM Meeting m, Users u WHERE m.UserID=u.UserID";  
+           $select_query="SELECT u.Username,m.Date,m.Time, m.MeetingID, m.UserID, u.Name FROM Meeting m, Users u WHERE m.UserID=u.UserID";  
            $result = mysqli_query($connect, $select_query);  
            $output .= '  
                 <table border="1" cellspacing="0" cellpadding="2">  
                      <tr>  
-                          <th >username</th>  
+                          <th >Name</th>  
                           <th >Date</th>  
                           <th >Time</th> 
                           <th ></th>  
@@ -52,11 +51,11 @@
                 $output .= '  
                 <tr id="delete'.$row['MeetingID'].'" >  
 
-                          <td>' . $row["Username"] . '</td>  
+                          <td>' . $row["Name"] . '</td>  
                           <td>' . $row["Date"] . '</td>  
                           <td>' . $row["Time"] . '</td>  
-                          <td><input type="button" name="view" value="Confirm" id="'.$row["MeetingID"] .'" class="btn btn-info btn-xs view_data" /></td>  
-                          <td><input type="button" name="delete_data" value="Delete" id="' . $row["MeetingID"] . '" class="btn btn-info btn-xs delete_data" /></td>  
+                          <td><input type="button" name="view" value="Confirm" id="'.$row["MeetingID"] .'" class="btn btn-success btn-xs view_data" /></td>  
+                          <td><input type="button" name="delete_data" value="Delete" id="' . $row["MeetingID"] . '" class="btn btn-danger btn-xs delete_data" /></td>  
                      </tr>  
                 ';  
            }  

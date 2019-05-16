@@ -66,9 +66,12 @@
 	<div class="container">
     
   <div class="frame">
- <form class="form-signin" action="/admin/create_user.php" method="post" name="form" enctype="multipart/form-data">
+ <form class="form-signin"  method="post" name="form" enctype="multipart/form-data">
  <?php echo display_error(); ?>
  <div class="contents">
+          <label for="name">Name</label>
+          
+          <input type="text" name="name" placeholder=""/>
           <label for="product_name">Username</label>
           
           <input type="text" name="username" placeholder=""/>
@@ -76,11 +79,7 @@
           <label for="product_type">Email</label>
           <input  type="text" name="email" placeholder=""/>
 
-
-
           <br>
-
-
 
            <label for="product_name">User Type</label>
             <select name="user_type" id="user_type" >

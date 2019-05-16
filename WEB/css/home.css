@@ -37,7 +37,9 @@ h5 {
 
 .footer {
     background-color: beige;
-      
+    position: relative;
+    height: 1000px;
+    width: 100%  
 }
 
 .fakeimg {

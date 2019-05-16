@@ -12,7 +12,7 @@ if (isset($_GET['logout'])) {
 ?>
  <?php  
  $connect = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery"); 
- $query="SELECT u.Username,m.Date,m.Time, m.MeetingID, m.UserID FROM Meeting m, Users u WHERE m.UserID=u.UserID"; 
+ $query="SELECT u.Username,m.Date,m.Time, m.MeetingID, m.UserID, u.Name FROM Meeting m, Users u WHERE m.UserID=u.UserID"; 
  $result = mysqli_query($connect, $query);  
  ?>  
  <!DOCTYPE html>  
@@ -107,7 +107,7 @@ if (isset($_GET['logout'])) {
                      <div id="employee_table">  
                           <table border="1" cellspacing="0" cellpadding="2">  
                                <tr>  
-                                    <th>Username</th>  
+                                    <th>Name</th>  
                                     <th>Date</th>  
                                     <th>Time</th>  
                                     <th></th> 
@@ -119,11 +119,11 @@ if (isset($_GET['logout'])) {
                                ?>  
                                
                                <tr id="delete<?php echo $row['MeetingID']?>" >  
-                                    <td><?php echo $row["Username"]; ?></td>  
+                                    <td><?php echo $row["Name"]; ?></td>  
                                     <td><?php echo $row["Date"]; ?></td>  
                                     <td><?php echo $row["Time"]; ?></td>  
-                                    <td><input type="button" name="view" value="Confirm" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
-                                    <td><input type="button" name="delete_data" value="Delete" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-info btn-xs delete_data" /></td>  
+                                    <td><input type="button" name="view" value="Confirm" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-success btn-xs view_data" /></td>  
+                                    <td><input type="button" name="delete_data" value="Delete" id="<?php echo $row["MeetingID"]; ?>" class="btn btn-danger btn-xs delete_data" /></td>  
 
                                </tr>  
                                <?php  
@@ -159,7 +159,7 @@ if (isset($_GET['logout'])) {
                 </div>  
                 <div class="modal-body">  
                      <form method="post" id="insert_form">
-                     <label id="lname">username</label>  
+                     <label id="lname">Username</label>  
                      <input type="textarea" name="name" id="name" class="form-control">  
                           <br />  
                           <label>Date</label>  
@@ -197,7 +197,6 @@ if (isset($_GET['logout'])) {
            {  
                 alert("Time is required");  
            }  
-      
            else  
            {  
             var employee_id = $(this).attr("id");  

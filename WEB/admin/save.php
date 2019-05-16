@@ -131,18 +131,18 @@ function see(){
 try {
     // Connect and create the PDO object
     $link = mysqli_connect("localhost", "emirapottery","s94mz5SN3Xu5Hafu","emirapottery");
-    $sql="SELECT Username,Date,Time, MeetingID, UserID FROM Meeting m, Users u WHERE m.UserID=u.UserID";
+    $sql="SELECT Username,Date,Time, MeetingID, UserID, u.Name FROM Meeting m, Users u WHERE m.UserID=u.UserID";
     $result = $link->query($sql);
   
     // If the SQL query is succesfully performed ($result not false)
     if($result !== false) {
       // Create the beginning of HTML table, and the first row with colums title
-      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Username</th><th>Date</th><th>Time</th><th></th><th></th></tr>';
+      $html_table = '<table border="1" cellspacing="0" cellpadding="2"><tr><th>Name</th><th>Date</th><th>Time</th><th></th><th></th></tr>';
   
       // Parse the result set, and adds each row and colums in HTML table
       foreach($result as $row) {
         // $html_table .= '<tr><td>' .$row['username']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td><td> <form method="post"   ><button type="submit"  name="conf[]" value="'. $row['MeetingID'].'" >confirm</button></td><td><button type="submit" class="btn btn-default" data-dismiss="modal" name="upt[]" value="'. $row['MeetingID'].'" >update</button></form></td></tr>';
-        $html_table .= '<tr><td>' .$row['Username']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td><td> <form method="post"   ><button type="submit"  name="conf[]" value="'. $row['MeetingID'].'" >confirm</button></td><td><div class="text-center">
+        $html_table .= '<tr><td>' .$row['Name']. '</td><td>' .$row['Date']. '</td><td>' .$row['Time']. '</td><td> <form method="post"   ><button type="submit"  name="conf[]" value="'. $row['MeetingID'].'" >confirm</button></td><td><div class="text-center">
 		<button type="button" id="'. $row['MeetingID'].'" class="button1" data-toggle="modal" data-target="#modalLoginForm">update</button>
 	  </div></form></td></tr>';
         $m=$row['MeetingID'];
